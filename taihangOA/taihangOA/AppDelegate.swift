@@ -15,7 +15,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+       
+        initLocalHtml()
+        
         return true
     }
 
@@ -40,6 +42,57 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
+    
+    
+    
+    func initLocalHtml()
+    {
+        print("-----------")
+        
+        let fm = Foundation.FileManager.default
+        let tmpDirURL = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent("www")
+        
+        if !fm.fileExists(atPath: tmpDirURL.path)
+        {
+            do
+            {
+                let _ = try? fm.createDirectory(at: tmpDirURL, withIntermediateDirectories: true, attributes: nil)
+                
+                let _ = try? SSZipArchive.unzipFileAtPath(path: "oa.zip".path, toDestination: tmpDirURL.path, overwrite: true, password: nil, delegate: nil)
+                
+                print("解压缩成功 !!!!!!!!!")
+            }
+            catch
+            {
+                print("解压失败 !!!!!!!!!")
+                XAlertView.show("存储空间不足,请清理后再次使用")
+    
+            }
+            
+            
+        }
+        else{
+            do
+            {
+                let _ = try? SSZipArchive.unzipFileAtPath(path: "citytest.zip".path, toDestination: tmpDirURL.path, overwrite: true, password: nil, delegate: nil)
+                
+                print("解压缩成功 !!!!!!!!!")
+            }
+            catch
+            {
+                print("解压失败 !!!!!!!!!")
+                XAlertView.show("存储空间不足,请清理后再次使用")
+            }
+            
+        }
+        
+        
+        
+        
+        
+    }
+
+    
 
 
 }
