@@ -58,7 +58,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             {
                 let _ = try? fm.createDirectory(at: tmpDirURL, withIntermediateDirectories: true, attributes: nil)
                 
-                let _ = try? SSZipArchive.unzipFileAtPath(path: "oa.zip".path, toDestination: tmpDirURL.path, overwrite: true, password: nil, delegate: nil)
+                let _ = try? SSZipArchive.unzipFileAtPath(path: "oa.zip".path(), toDestination: tmpDirURL.path, overwrite: true, password: nil, delegate: nil)
                 
                 print("解压缩成功 !!!!!!!!!")
             }
@@ -74,7 +74,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         else{
             do
             {
-                let _ = try? SSZipArchive.unzipFileAtPath(path: "citytest.zip".path, toDestination: tmpDirURL.path, overwrite: true, password: nil, delegate: nil)
+                let _ = try? SSZipArchive.unzipFileAtPath(path: "citytest.zip".path(), toDestination: tmpDirURL.path, overwrite: true, password: nil, delegate: nil)
                 
                 print("解压缩成功 !!!!!!!!!")
             }

@@ -67,7 +67,7 @@ class XWaitingView:UIView
         view?.stopAnimating()
         view?.removeFromSuperview()
         view=nil
-        view = NVActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: SW*0.24, height: SW*0.24), type: .ballClipRotate, color: "21adfd".color, padding: 0.5)
+        view = NVActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: SW*0.24, height: SW*0.24), type: .ballClipRotate, color: "21adfd".color(), padding: 0.5)
         visualEffectView?.backgroundColor=UIColor.white
         visualEffectView?.addSubview(view)
     }
@@ -78,7 +78,7 @@ class XWaitingView:UIView
         view?.removeFromSuperview()
         view=nil
         view = NVActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: SW*0.24, height: SW*0.24), type: .ballClipRotate, color: UIColor.white, padding: 0.5)
-        visualEffectView?.backgroundColor="333749".color
+        visualEffectView?.backgroundColor="333749".color()
         visualEffectView?.addSubview(view)
         
     }

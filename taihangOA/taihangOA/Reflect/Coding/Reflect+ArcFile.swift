@@ -43,8 +43,14 @@ extension Reflect{
     class func read(name: String!) -> AnyObject?{
         
         let path = pathWithName(obj: self.init(), name: name)
+        let obj = NSKeyedUnarchiver.unarchiveObject(withFile: path) as AnyObject
         
-        return NSKeyedUnarchiver.unarchiveObject(withFile: path) as AnyObject
+        if(obj is NSNull)
+        {
+            return nil
+        }
+        
+        return obj
     }
     
     class func delete(name: String!){save(obj: nil, name: name)}

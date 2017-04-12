@@ -7,8 +7,30 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		179A15451E9DBD6A00E60EC2 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 179A15441E9DBD6A00E60EC2 /* UserModel.swift */; };
+		179A15471E9DBEB700E60EC2 /* DataCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 179A15461E9DBEB700E60EC2 /* DataCache.swift */; };
+		179A15491E9DC2DC00E60EC2 /* JSHandle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 179A15481E9DC2DC00E60EC2 /* JSHandle.swift */; };
+		179A154B1E9DCEE300E60EC2 /* MainTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 179A154A1E9DCEE300E60EC2 /* MainTabBar.swift */; };
+		179A154E1E9DD92400E60EC2 /* BootVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 179A154D1E9DD92400E60EC2 /* BootVC.swift */; };
+		179A15501E9DFA5200E60EC2 /* MineVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 179A154F1E9DFA5200E60EC2 /* MineVC.swift */; };
+		179A15521E9DFB1700E60EC2 /* HomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 179A15511E9DFB1700E60EC2 /* HomeVC.swift */; };
+		179A15541E9DFB2B00E60EC2 /* DaibanVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 179A15531E9DFB2B00E60EC2 /* DaibanVC.swift */; };
+		179A15561E9E032300E60EC2 /* XNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 179A15551E9E032300E60EC2 /* XNavigationController.swift */; };
+		179A15581E9E037A00E60EC2 /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 179A15571E9E037A00E60EC2 /* UIColor.swift */; };
+		179A15681E9E0E6100E60EC2 /* app_icon001@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 179A155B1E9E0E6100E60EC2 /* app_icon001@3x.png */; };
+		179A15691E9E0E6100E60EC2 /* app_icon002@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 179A155C1E9E0E6100E60EC2 /* app_icon002@3x.png */; };
+		179A156A1E9E0E6100E60EC2 /* app_icon003@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 179A155D1E9E0E6100E60EC2 /* app_icon003@3x.png */; };
+		179A156B1E9E0E6100E60EC2 /* app_icon01@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 179A155E1E9E0E6100E60EC2 /* app_icon01@3x.png */; };
+		179A156C1E9E0E6100E60EC2 /* app_icon02@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 179A155F1E9E0E6100E60EC2 /* app_icon02@3x.png */; };
+		179A156D1E9E0E6100E60EC2 /* app_icon03@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 179A15601E9E0E6100E60EC2 /* app_icon03@3x.png */; };
+		179A156E1E9E0E6100E60EC2 /* app_icon001@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 179A15621E9E0E6100E60EC2 /* app_icon001@2x.png */; };
+		179A156F1E9E0E6100E60EC2 /* app_icon002@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 179A15631E9E0E6100E60EC2 /* app_icon002@2x.png */; };
+		179A15701E9E0E6100E60EC2 /* app_icon003@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 179A15641E9E0E6100E60EC2 /* app_icon003@2x.png */; };
+		179A15711E9E0E6100E60EC2 /* app_icon01@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 179A15651E9E0E6100E60EC2 /* app_icon01@2x.png */; };
+		179A15721E9E0E6100E60EC2 /* app_icon02@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 179A15661E9E0E6100E60EC2 /* app_icon02@2x.png */; };
+		179A15731E9E0E6100E60EC2 /* app_icon03@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 179A15671E9E0E6100E60EC2 /* app_icon03@2x.png */; };
 		179F14531E9CC08700FD80A0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 179F14521E9CC08700FD80A0 /* AppDelegate.swift */; };
-		179F14551E9CC08700FD80A0 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 179F14541E9CC08700FD80A0 /* ViewController.swift */; };
+		179F14551E9CC08700FD80A0 /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 179F14541E9CC08700FD80A0 /* LoginVC.swift */; };
 		179F14581E9CC08700FD80A0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 179F14561E9CC08700FD80A0 /* Main.storyboard */; };
 		179F145A1E9CC08700FD80A0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 179F14591E9CC08700FD80A0 /* Assets.xcassets */; };
 		179F145D1E9CC08700FD80A0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 179F145B1E9CC08700FD80A0 /* LaunchScreen.storyboard */; };
@@ -82,9 +104,31 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		179A15441E9DBD6A00E60EC2 /* UserModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
+		179A15461E9DBEB700E60EC2 /* DataCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataCache.swift; sourceTree = "<group>"; };
+		179A15481E9DC2DC00E60EC2 /* JSHandle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSHandle.swift; sourceTree = "<group>"; };
+		179A154A1E9DCEE300E60EC2 /* MainTabBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainTabBar.swift; sourceTree = "<group>"; };
+		179A154D1E9DD92400E60EC2 /* BootVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BootVC.swift; sourceTree = "<group>"; };
+		179A154F1E9DFA5200E60EC2 /* MineVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MineVC.swift; sourceTree = "<group>"; };
+		179A15511E9DFB1700E60EC2 /* HomeVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeVC.swift; sourceTree = "<group>"; };
+		179A15531E9DFB2B00E60EC2 /* DaibanVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DaibanVC.swift; sourceTree = "<group>"; };
+		179A15551E9E032300E60EC2 /* XNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XNavigationController.swift; sourceTree = "<group>"; };
+		179A15571E9E037A00E60EC2 /* UIColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
+		179A155B1E9E0E6100E60EC2 /* app_icon001@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "app_icon001@3x.png"; sourceTree = "<group>"; };
+		179A155C1E9E0E6100E60EC2 /* app_icon002@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "app_icon002@3x.png"; sourceTree = "<group>"; };
+		179A155D1E9E0E6100E60EC2 /* app_icon003@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "app_icon003@3x.png"; sourceTree = "<group>"; };
+		179A155E1E9E0E6100E60EC2 /* app_icon01@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "app_icon01@3x.png"; sourceTree = "<group>"; };
+		179A155F1E9E0E6100E60EC2 /* app_icon02@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "app_icon02@3x.png"; sourceTree = "<group>"; };
+		179A15601E9E0E6100E60EC2 /* app_icon03@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "app_icon03@3x.png"; sourceTree = "<group>"; };
+		179A15621E9E0E6100E60EC2 /* app_icon001@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "app_icon001@2x.png"; sourceTree = "<group>"; };
+		179A15631E9E0E6100E60EC2 /* app_icon002@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "app_icon002@2x.png"; sourceTree = "<group>"; };
+		179A15641E9E0E6100E60EC2 /* app_icon003@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "app_icon003@2x.png"; sourceTree = "<group>"; };
+		179A15651E9E0E6100E60EC2 /* app_icon01@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "app_icon01@2x.png"; sourceTree = "<group>"; };
+		179A15661E9E0E6100E60EC2 /* app_icon02@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "app_icon02@2x.png"; sourceTree = "<group>"; };
+		179A15671E9E0E6100E60EC2 /* app_icon03@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "app_icon03@2x.png"; sourceTree = "<group>"; };
 		179F144F1E9CC08700FD80A0 /* taihangOA.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = taihangOA.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		179F14521E9CC08700FD80A0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		179F14541E9CC08700FD80A0 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		179F14541E9CC08700FD80A0 /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
 		179F14571E9CC08700FD80A0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		179F14591E9CC08700FD80A0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		179F145C1E9CC08700FD80A0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -173,6 +217,55 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		179A154C1E9DD78D00E60EC2 /* VC */ = {
+			isa = PBXGroup;
+			children = (
+				179F14DE1E9CE5F700FD80A0 /* HmtlVC.swift */,
+				179A154A1E9DCEE300E60EC2 /* MainTabBar.swift */,
+				179F14541E9CC08700FD80A0 /* LoginVC.swift */,
+				179A154D1E9DD92400E60EC2 /* BootVC.swift */,
+				179A154F1E9DFA5200E60EC2 /* MineVC.swift */,
+				179A15511E9DFB1700E60EC2 /* HomeVC.swift */,
+				179A15531E9DFB2B00E60EC2 /* DaibanVC.swift */,
+			);
+			name = VC;
+			sourceTree = "<group>";
+		};
+		179A15591E9E0E6100E60EC2 /* icon */ = {
+			isa = PBXGroup;
+			children = (
+				179A155A1E9E0E6100E60EC2 /* big */,
+				179A15611E9E0E6100E60EC2 /* small */,
+			);
+			path = icon;
+			sourceTree = "<group>";
+		};
+		179A155A1E9E0E6100E60EC2 /* big */ = {
+			isa = PBXGroup;
+			children = (
+				179A155B1E9E0E6100E60EC2 /* app_icon001@3x.png */,
+				179A155C1E9E0E6100E60EC2 /* app_icon002@3x.png */,
+				179A155D1E9E0E6100E60EC2 /* app_icon003@3x.png */,
+				179A155E1E9E0E6100E60EC2 /* app_icon01@3x.png */,
+				179A155F1E9E0E6100E60EC2 /* app_icon02@3x.png */,
+				179A15601E9E0E6100E60EC2 /* app_icon03@3x.png */,
+			);
+			path = big;
+			sourceTree = "<group>";
+		};
+		179A15611E9E0E6100E60EC2 /* small */ = {
+			isa = PBXGroup;
+			children = (
+				179A15621E9E0E6100E60EC2 /* app_icon001@2x.png */,
+				179A15631E9E0E6100E60EC2 /* app_icon002@2x.png */,
+				179A15641E9E0E6100E60EC2 /* app_icon003@2x.png */,
+				179A15651E9E0E6100E60EC2 /* app_icon01@2x.png */,
+				179A15661E9E0E6100E60EC2 /* app_icon02@2x.png */,
+				179A15671E9E0E6100E60EC2 /* app_icon03@2x.png */,
+			);
+			path = small;
+			sourceTree = "<group>";
+		};
 		179F14461E9CC08700FD80A0 = {
 			isa = PBXGroup;
 			children = (
@@ -193,6 +286,7 @@
 		179F14511E9CC08700FD80A0 /* taihangOA */ = {
 			isa = PBXGroup;
 			children = (
+				179A15591E9E0E6100E60EC2 /* icon */,
 				179F14D21E9CDDC700FD80A0 /* NVActivityIndicatorView.framework */,
 				179F14C61E9CDA6000FD80A0 /* Cartography.framework */,
 				179F14C71E9CDA6000FD80A0 /* Hero.framework */,
@@ -202,14 +296,18 @@
 				179F14A61E9CCD5D00FD80A0 /* Reflect */,
 				179F14641E9CC51F00FD80A0 /* SSZipArchive */,
 				179F14521E9CC08700FD80A0 /* AppDelegate.swift */,
+				179A154C1E9DD78D00E60EC2 /* VC */,
+				179A15441E9DBD6A00E60EC2 /* UserModel.swift */,
+				179A15551E9E032300E60EC2 /* XNavigationController.swift */,
 				179F14E01E9CE77F00FD80A0 /* UIViewController.swift */,
-				179F14DE1E9CE5F700FD80A0 /* HmtlVC.swift */,
+				179A15461E9DBEB700E60EC2 /* DataCache.swift */,
+				179A15481E9DC2DC00E60EC2 /* JSHandle.swift */,
 				179F14E21E9CEC7A00FD80A0 /* HandleJSMsg.swift */,
 				179F14D61E9CDF4500FD80A0 /* UIView.swift */,
 				179F14D81E9CDFFB00FD80A0 /* String.swift */,
+				179A15571E9E037A00E60EC2 /* UIColor.swift */,
 				179F14D01E9CDD8F00FD80A0 /* XAlertView.swift */,
 				179F14CE1E9CDD7800FD80A0 /* XWaitingView.swift */,
-				179F14541E9CC08700FD80A0 /* ViewController.swift */,
 				179F14561E9CC08700FD80A0 /* Main.storyboard */,
 				179F14A21E9CC63D00FD80A0 /* oa-Bridging-Header.h */,
 				179F14591E9CC08700FD80A0 /* Assets.xcassets */,
@@ -395,11 +493,23 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				179A15681E9E0E6100E60EC2 /* app_icon001@3x.png in Resources */,
 				179F14C51E9CD69B00FD80A0 /* oa.zip in Resources */,
 				179F14941E9CC51F00FD80A0 /* Info.plist in Resources */,
 				179F145D1E9CC08700FD80A0 /* LaunchScreen.storyboard in Resources */,
+				179A156A1E9E0E6100E60EC2 /* app_icon003@3x.png in Resources */,
 				179F145A1E9CC08700FD80A0 /* Assets.xcassets in Resources */,
+				179A15711E9E0E6100E60EC2 /* app_icon01@2x.png in Resources */,
+				179A156B1E9E0E6100E60EC2 /* app_icon01@3x.png in Resources */,
+				179A15701E9E0E6100E60EC2 /* app_icon003@2x.png in Resources */,
+				179A15721E9E0E6100E60EC2 /* app_icon02@2x.png in Resources */,
 				179F14581E9CC08700FD80A0 /* Main.storyboard in Resources */,
+				179A156D1E9E0E6100E60EC2 /* app_icon03@3x.png in Resources */,
+				179A156E1E9E0E6100E60EC2 /* app_icon001@2x.png in Resources */,
+				179A156C1E9E0E6100E60EC2 /* app_icon02@3x.png in Resources */,
+				179A156F1E9E0E6100E60EC2 /* app_icon002@2x.png in Resources */,
+				179A15691E9E0E6100E60EC2 /* app_icon002@3x.png in Resources */,
+				179A15731E9E0E6100E60EC2 /* app_icon03@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -411,29 +521,39 @@
 			buildActionMask = 2147483647;
 			files = (
 				179F14D91E9CDFFB00FD80A0 /* String.swift in Sources */,
+				179A15521E9DFB1700E60EC2 /* HomeVC.swift in Sources */,
 				179F14DF1E9CE5F700FD80A0 /* HmtlVC.swift in Sources */,
 				179F14B71E9CCD5D00FD80A0 /* Reflect+Other.swift in Sources */,
 				179F14DD1E9CE35F00FD80A0 /* Public.swift in Sources */,
 				179F14911E9CC51F00FD80A0 /* prng.c in Sources */,
 				179F14901E9CC51F00FD80A0 /* hmac.c in Sources */,
-				179F14551E9CC08700FD80A0 /* ViewController.swift in Sources */,
+				179F14551E9CC08700FD80A0 /* LoginVC.swift in Sources */,
 				179F149A1E9CC51F00FD80A0 /* SSZipArchive.m in Sources */,
+				179A15451E9DBD6A00E60EC2 /* UserModel.swift in Sources */,
 				179F14B61E9CCD5D00FD80A0 /* Reflect+Class.swift in Sources */,
 				179F14981E9CC51F00FD80A0 /* zip.c in Sources */,
 				179F14B41E9CCD5D00FD80A0 /* Reflect+Parse.swift in Sources */,
+				179A154E1E9DD92400E60EC2 /* BootVC.swift in Sources */,
 				179F148D1E9CC51F00FD80A0 /* aestab.c in Sources */,
 				179F148B1E9CC51F00FD80A0 /* aescrypt.c in Sources */,
 				179F14991E9CC51F00FD80A0 /* SSZipArchive+Swift.swift in Sources */,
+				179A15501E9DFA5200E60EC2 /* MineVC.swift in Sources */,
 				179F14E11E9CE77F00FD80A0 /* UIViewController.swift in Sources */,
 				179F14531E9CC08700FD80A0 /* AppDelegate.swift in Sources */,
 				179F14951E9CC51F00FD80A0 /* ioapi.c in Sources */,
 				179F14931E9CC51F00FD80A0 /* sha1.c in Sources */,
+				179A154B1E9DCEE300E60EC2 /* MainTabBar.swift in Sources */,
+				179A15541E9DFB2B00E60EC2 /* DaibanVC.swift in Sources */,
+				179A15581E9E037A00E60EC2 /* UIColor.swift in Sources */,
 				179F14E31E9CEC7A00FD80A0 /* HandleJSMsg.swift in Sources */,
 				179F14971E9CC51F00FD80A0 /* unzip.c in Sources */,
+				179A15471E9DBEB700E60EC2 /* DataCache.swift in Sources */,
 				179F14921E9CC51F00FD80A0 /* pwd2key.c in Sources */,
+				179A15561E9E032300E60EC2 /* XNavigationController.swift in Sources */,
 				179F148C1E9CC51F00FD80A0 /* aeskey.c in Sources */,
 				179F14CF1E9CDD7800FD80A0 /* XWaitingView.swift in Sources */,
 				179F148F1E9CC51F00FD80A0 /* fileenc.c in Sources */,
+				179A15491E9DC2DC00E60EC2 /* JSHandle.swift in Sources */,
 				179F148E1E9CC51F00FD80A0 /* entropy.c in Sources */,
 				179F14B81E9CCD5D00FD80A0 /* Reflect+Property.swift in Sources */,
 				179F14B51E9CCD5D00FD80A0 /* Reflect+Convert.swift in Sources */,

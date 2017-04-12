@@ -1,50 +1,28 @@
 //
-//  HtmlVC.swift
-//  lejia
+//  ViewController.swift
+//  taihangOA
 //
-//  Created by X on 15/11/12.
-//  Copyright © 2015年 XSwiftTemplate. All rights reserved.
+//  Created by 徐鹏飞 on 2017/4/11.
+//  Copyright © 2017年 taihangOA. All rights reserved.
 //
 
 import UIKit
-import WebKit
 import Cartography
 import SwiftyJSON
+import WebKit
 import Hero
 
-
-func CleanWebCache()
-{
-    /* 取得Library文件夹的位置*/
-    let libraryDir=NSSearchPathForDirectoriesInDomains(.libraryDirectory,.userDomainMask, true)[0];
-    /* 取得bundle id，用作文件拼接用*/
-    
-    let bundleId  =  Bundle.main.infoDictionary!["CFBundleIdentifier"]
-    
-    /*
-     * 拼接缓存地址，具体目录为App/Library/Caches/你的APPBundleID/fsCachedData
-     */
-    let webKitFolderInCachesfs = "\(libraryDir)/Caches/\(bundleId!)/fsCachedData"
-    
-    let cache = "\(libraryDir)/Caches/\(bundleId!)/WebKit"
-    
-    do
-    {
-        let _ = try? Foundation.FileManager.default.removeItem(atPath: webKitFolderInCachesfs)
-        let _ = try? Foundation.FileManager.default.removeItem(atPath: cache)
-    }
-    
-    
-}
-
-
-class HtmlVC: UIViewController,WKNavigationDelegate,WKUIDelegate,WKScriptMessageHandler{
+class HomeVC: UIViewController,WKNavigationDelegate,WKUIDelegate,WKScriptMessageHandler {
     
     var webView:WKWebView?
     var url:URL?
     var html:String=""
     var baseUrl:URL?
-
+    var handle:JSHandle? = JSHandle()
+    var isSub = false
+    
+    var inBoot = false
+    
     func msgChanged(_ json:String) {
         
         let data=json.data(using: String.Encoding.utf8)
@@ -58,6 +36,11 @@ class HtmlVC: UIViewController,WKNavigationDelegate,WKUIDelegate,WKScriptMessage
         {
             print("js msg111: \(json)")
         }
+    }
+    
+    func handleMSG(_ dic:Dictionary<String,AnyObject>?)
+    {
+        
     }
     
     func show()
@@ -76,12 +59,17 @@ class HtmlVC: UIViewController,WKNavigationDelegate,WKUIDelegate,WKScriptMessage
         {
             webView?.loadHTMLString(self.html, baseURL: baseUrl)
         }
-
     }
     
     func gotoBack()
     {
         XWaitingView.hide()
+        
+        if isSub
+        {
+            self.dismiss(animated: true, completion: nil)
+            return
+        }
         
         if webView?.canGoBack == true
         {
@@ -99,12 +87,18 @@ class HtmlVC: UIViewController,WKNavigationDelegate,WKUIDelegate,WKScriptMessage
         }
         else
         {
-            //webView?.load(url.urlRequest)
+            if let u = self.url{
+                webView?.load(URLRequest(url: u))
+            }
+            
         }
     }
     
     override func pop() {
-    
+        
+        handle?.msg = nil
+        handle = nil
+        
         webView?.configuration.userContentController.removeScriptMessageHandler(forName: "JSHandle")
         webView?.uiDelegate=nil
         webView?.navigationDelegate=nil
@@ -115,17 +109,23 @@ class HtmlVC: UIViewController,WKNavigationDelegate,WKUIDelegate,WKScriptMessage
     }
     
     let scriptHandle = WKUserContentController()
-    var  panGR: UIPanGestureRecognizer!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        isHeroEnabled = true
-    
-        panGR = UIPanGestureRecognizer(target: self, action: #selector(pan))
-        view.addGestureRecognizer(panGR)
         
         self.view.backgroundColor = UIColor.white
+        
+        initTabBar()
+        
+        
+        
+        
+        handle?.onMsgChange { [weak self](msg) in
+            
+            self?.msgChanged(msg)
+            
+        }
+        
         let config = WKWebViewConfiguration()
         
         scriptHandle.add(self, name: "JSHandle")
@@ -133,6 +133,7 @@ class HtmlVC: UIViewController,WKNavigationDelegate,WKUIDelegate,WKScriptMessage
         let per = WKPreferences()
         per.javaScriptCanOpenWindowsAutomatically = true
         per.javaScriptEnabled = true
+        
         config.preferences = per
         config.userContentController = scriptHandle
         
@@ -147,6 +148,8 @@ class HtmlVC: UIViewController,WKNavigationDelegate,WKUIDelegate,WKScriptMessage
         webView?.isOpaque = false
         webView?.backgroundColor = UIColor.white
         
+        webView?.scrollView.isScrollEnabled = false
+        
         self.view.addSubview(webView!)
         
         let sh = UIApplication.shared.statusBarFrame.height
@@ -159,7 +162,7 @@ class HtmlVC: UIViewController,WKNavigationDelegate,WKUIDelegate,WKScriptMessage
         }
         
         let v = UIView()
-        v.backgroundColor = APPBlueColor
+        v.backgroundColor = "059bf1".color()
         self.view.addSubview(v)
         
         constrain(v) { (view) in
@@ -167,19 +170,41 @@ class HtmlVC: UIViewController,WKNavigationDelegate,WKUIDelegate,WKScriptMessage
             view.height == sh
             view.top == (view.superview?.top)!
             view.left == (view.superview?.left)!
-            
+        
         }
 
-    
+        
+        
+        self.baseUrl = TmpDirURL
+        self.url = TmpDirURL.appendingPathComponent("index.html")
+        
         self.show()
         
     }
+    
+    func initTabBar()
+    {
+        let arr:Array<UITabBarItem> = (self.tabBarController?.tabBar.items)!
+        let scale = Int(UIScreen.main.scale)
+
+        for (i,item) in arr.enumerated()
+        {
+            item.image="app_icon00\(i+1)@\(scale)x.png".image()!.withRenderingMode(UIImageRenderingMode.alwaysOriginal)
+            item.selectedImage="app_icon0\(i+1)@\(scale)x.png".image()!.withRenderingMode(UIImageRenderingMode.alwaysOriginal)
+            
+            item.setTitleTextAttributes([NSForegroundColorAttributeName:APPBlueColor,NSFontAttributeName:UIFont.systemFont(ofSize: 13.0)], for: UIControlState.selected)
+            
+            item.setTitleTextAttributes([NSFontAttributeName:UIFont.systemFont(ofSize: 13.0)], for: UIControlState.normal)
+            
+        }
+    }
+    
     
     func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
         
         if let str = message.body as? String
         {
-            self.msgChanged(str)
+            handle?.msg = str
         }
         
     }
@@ -204,8 +229,8 @@ class HtmlVC: UIViewController,WKNavigationDelegate,WKUIDelegate,WKScriptMessage
             decisionHandler(WKNavigationActionPolicy.allow)
             
         }
-
- 
+        
+        
         
     }
     
@@ -277,9 +302,6 @@ class HtmlVC: UIViewController,WKNavigationDelegate,WKUIDelegate,WKScriptMessage
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        Hero.shared.setDefaultAnimationForNextTransition(.pull(direction: .right))
-        Hero.shared.setContainerColorForNextTransition(.lightGray)
-        
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -289,7 +311,7 @@ class HtmlVC: UIViewController,WKNavigationDelegate,WKUIDelegate,WKScriptMessage
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-    
+        
     }
     
     override func didReceiveMemoryWarning() {
@@ -298,33 +320,5 @@ class HtmlVC: UIViewController,WKNavigationDelegate,WKUIDelegate,WKScriptMessage
     }
     
     
-    
-    enum TransitionState {
-        case normal, slidingLeft, slidingRight
-    }
-    var state: TransitionState = .normal
-    
-    func pan() {
-        let translateX = panGR.translation(in: nil).x
-        let velocityX = panGR.velocity(in: nil).x
-        let progress = translateX / 2 / UIScreen.main.bounds.size.width
-        switch panGR.state {
-        case .began:
-            hero_dismissViewController()
-        case .changed:
-            Hero.shared.update(progress: Double(progress))
-        default:
-            let progress = (translateX + velocityX) / view.bounds.width
-            if (progress < 0) == (state == .slidingLeft) && abs(progress) > 0.3 {
-                Hero.shared.end()
-            } else {
-                Hero.shared.cancel()
-            }
-
-        }
-    }
-
-    
-    
-    
 }
+

@@ -10,6 +10,20 @@ import UIKit
 
     extension String {
         
+        //分割字符
+        func split(_ s:String)->[String]{
+            if s.isEmpty{
+                var x=[String]()
+                for y in self.characters{
+                    x.append(String(y))
+                }
+                return x
+            }
+            return self.components(separatedBy: s)
+        }
+
+        
+        
         /// String使用下标截取字符串
         /// 例: "示例字符串"[0..<2] 结果是 "示例"
         subscript (r: Range<Int>) -> String {
@@ -22,7 +36,7 @@ import UIKit
         }
         
     
-        var color:UIColor{
+        func color() -> UIColor{
             
             // 存储转换后的数值
             var red:UInt32 = 0, green:UInt32 = 0, blue:UInt32 = 0
@@ -39,7 +53,7 @@ import UIKit
         }
         
         
-        var path:String
+        func path()->String
         {
             var str:String?
             str=Bundle.main.path(forResource: self, ofType: nil)
@@ -47,17 +61,22 @@ import UIKit
             return str!
         }
 
-        var url:URL?
+        func url()->URL?
         {
+            if(FileManager.default.fileExists(atPath: self))
+            {
+                return URL(fileURLWithPath: self)
+            }
+            
             return URL(string: self)
             
         }
         
-        var urlRequest:URLRequest?
+        func urlRequest() -> URLRequest?
         {
             let str = self.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)
             
-            if let u = str?.url
+            if let u = str?.url()
             {
                 return URLRequest(url: u)
             }
@@ -90,6 +109,35 @@ import UIKit
                 return false
             }
         }
+        
+        
+        func VC(name:String)->UIViewController
+        {
+            let board:UIStoryboard=UIStoryboard(name: name, bundle: nil)
+            return board.instantiateViewController(withIdentifier: self)
+        }
+
+        
+        func image()->UIImage?
+        {
+            var image:UIImage?
+            image = UIImage(contentsOfFile: self.path())
+            
+            if(image != nil)
+            {
+                return image
+            }
+            
+            image = UIImage(contentsOfFile: self)
+            
+            if(image != nil)
+            {
+                return image
+            }
+
+            return image
+        }
+
 
         
     }
