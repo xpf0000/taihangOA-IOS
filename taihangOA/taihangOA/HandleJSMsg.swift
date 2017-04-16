@@ -71,9 +71,11 @@ class HandleJSMsg: NSObject {
             DataCache.Share.User = user
             DataCache.Share.User.save()
             DataCache.Share.User.registNotice()
-            let tvc = "MainTabBar".VC(name: "Main")
-            vc.show(tvc, sender: nil)
+            let tvc = "MainTabBar".VC(name: "Main") as! MainTabBar
+            tvc.selectedIndex = 0
             
+            vc.hero_replaceViewController(with: tvc)
+
         }
         
         if(msg ==  "退出登录")
@@ -164,12 +166,14 @@ class HandleJSMsg: NSObject {
             vc.hero_dismissViewController()
         }
         NotificationCenter.default.post(Notification.init(name: Notification.Name(rawValue: "AddOverseerTaskSuccess")))
-        //EventBus.getDefault().post(new MyEventBus("AddOverseerTaskSuccess"));
     }
     
     else if(type == 11)  //用户头像上传
     {
-        //EventBus.getDefault().post(new MyEventBus("UserHeadImageEdit"));
+        if let v = vc as? MineVC
+        {
+            v.onUploadHeadPic()
+        }
     }
     
     else if(type == 12)  //待办事项总数
@@ -177,13 +181,16 @@ class HandleJSMsg: NSObject {
         DataCache.Share.daibanCount = obj["info"].intValue
         NotificationCenter.default.post(Notification.init(name: Notification.Name(rawValue: "DaibanCount")))
         
-//        int count = obj.getInteger("info");
-//        XNotificationCenter.getInstance().postNotice("DaibanCount",count);
     }
     
     else if(type == 13)  //用户手机号更新成功
     {
-        //EventBus.getDefault().post(new MyEventBus("UserUpdateMobile"));
+        
+        let user = UserModel.parse(json: obj["info"], replace: nil)
+        DataCache.Share.User = user
+        DataCache.Share.User.save()
+        
+        NotificationCenter.default.post(Notification.init(name: Notification.Name(rawValue: "UserUpdateMobile")))
     }
     
     else if(type == 14)  //版本升级

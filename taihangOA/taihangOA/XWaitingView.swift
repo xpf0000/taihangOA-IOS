@@ -67,7 +67,7 @@ class XWaitingView:UIView
         view?.stopAnimating()
         view?.removeFromSuperview()
         view=nil
-        view = NVActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: SW*0.24, height: SW*0.24), type: .ballClipRotate, color: "21adfd".color(), padding: 0.5)
+        view = NVActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: SW*0.24, height: SW*0.24), type: .ballClipRotate, color: "21adfd".color(), padding: 12)
         visualEffectView?.backgroundColor=UIColor.white
         visualEffectView?.addSubview(view)
     }
@@ -119,7 +119,7 @@ class XWaitingView:UIView
         if(self.superview != nil)
         {
             UIApplication.shared.keyWindow?.addSubview(self.visualEffectView!)
-            self.view.stopAnimating()
+            self.view.startAnimating()
         }
         
     }

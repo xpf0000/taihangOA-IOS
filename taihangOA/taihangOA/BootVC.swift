@@ -32,12 +32,19 @@ class BootVC: UIViewController {
         if(DataCache.Share.User.id == "")
         {
             let vc  = "LoginVC".VC(name: "Main")
-            self.present(vc, animated: true, completion: nil)
+            
+            self.hero_replaceViewController(with: vc)
+            
+            //self.present(vc, animated: true, completion: nil)
         }
         else
         {
-            let vc  = "MainTabBar".VC(name: "Main")
-            self.present(vc, animated: true, completion: nil)
+            let vc  = "MainTabBar".VC(name: "Main") as! MainTabBar
+            vc.selectedIndex = 0
+            
+            self.hero_replaceViewController(with: vc)
+            
+            //self.present(vc, animated: true, completion: nil)
         }
     }
     

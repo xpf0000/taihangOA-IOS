@@ -38,6 +38,64 @@ class Api: NSObject {
         }
     }
     
+    class func UserHeadEdit(data:[String:Any],block:@escaping ApiBlock<String>)
+    {
+     
+        let url = BaseUrl+"User.headEdit"
+        
+        Alamofire.upload(multipartFormData: { (body) in
+            
+            for (key,value) in data
+            {
+                if let str = value as? String
+                {
+                    body.append(str.data(using: String.Encoding.utf8)!, withName: key)
+                }
+                
+                if let d = value as? Data
+                {
+                    body.append(d, withName: "file", fileName: key, mimeType: "image/jpeg")
+                }
+
+            }
+
+        }, to: url) { (res) in
+            
+            switch res {
+            case .success(let upload, _, _):
+                upload.responseJSON { response in
+                    
+                    switch response.result {
+                    case .success(let value):
+                        
+                        let json = JSON(value)
+                        
+                        block(json["data"]["msg"].stringValue)
+                        
+                    case .failure(let error):
+                       
+                        debugPrint(error)
+                        
+                        block("")
+                        
+                    }
+                    
+                    debugPrint(response)
+                    
+                    
+                }
+            case .failure(let encodingError):
+                print(encodingError)
+                block("")
+            }
+            
+        }
+        
+        
+        print(url)
+        
+    }
+    
     
 
 }

@@ -232,13 +232,24 @@ class HtmlVC: UIViewController,WKNavigationDelegate,WKUIDelegate,WKScriptMessage
             
         }
         
+        
+        if("\(String(describing: url))".has("edit_phone") || "\(String(describing: url))".has("re_phone"))
+        {
+            NotificationCenter.default.addObserver(self, selector:#selector(UserUpdateMobile), name: NSNotification.Name(rawValue: "UserUpdateMobile"), object: nil)
+        }
+        
+    }
+    
+    func UserUpdateMobile()
+    {
+        hero_unwindToRootViewController()
     }
     
     func DaibanChoose()
     {
         self.webView?.evaluateJavaScript("javascript:OnDoUserChoose('"+DataCache.Share.DaibanUser.toDict().toJson()+"')", completionHandler: { (res, err) in
-            print(res)
-            print(err)
+            print(res ?? "")
+            print(err ?? "")
         })
     }
     
@@ -371,7 +382,8 @@ class HtmlVC: UIViewController,WKNavigationDelegate,WKUIDelegate,WKScriptMessage
     
     func onLogout()
     {
-        dismiss(animated: true, completion: nil)
+        self.hero_unwindToRootViewController()
+        //dismiss(animated: true, completion: nil)
     }
     
     deinit
@@ -410,7 +422,6 @@ class HtmlVC: UIViewController,WKNavigationDelegate,WKUIDelegate,WKScriptMessage
         super.didReceiveMemoryWarning()
         
     }
-    
     
     
     enum TransitionState {

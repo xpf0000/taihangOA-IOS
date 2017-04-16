@@ -137,7 +137,7 @@ class HomeVC: UIViewController,WKNavigationDelegate,WKUIDelegate,WKScriptMessage
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.white
         
-        NotificationCenter.default.addObserver(self, selector:#selector(onLogout), name: NSNotification.Name(rawValue: "logout"), object: nil)
+        //NotificationCenter.default.addObserver(self, selector:#selector(onLogout), name: NSNotification.Name(rawValue: "logout"), object: nil)
         
         NotificationCenter.default.addObserver(self, selector:#selector(reload), name: NSNotification.Name(rawValue: "NewDaiban"), object: nil)
         
@@ -268,8 +268,8 @@ class HomeVC: UIViewController,WKNavigationDelegate,WKUIDelegate,WKScriptMessage
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         XWaitingView.hide()
         self.webView?.evaluateJavaScript("javascript:InitIndexView('"+DataCache.Share.User.toDict().toJson()+"')", completionHandler: { (res, err) in
-            print(res)
-            print(err)
+            print(res ?? "")
+            print(err ?? "")
         })
     }
     
@@ -317,8 +317,12 @@ class HomeVC: UIViewController,WKNavigationDelegate,WKUIDelegate,WKScriptMessage
     
     func onLogout()
     {
-        dismiss(animated: true, completion: nil)
-        dismiss(animated: true, completion: nil)
+        
+        let vc  = "LoginVC".VC(name: "Main")
+        self.hero_replaceViewController(with: vc)
+        
+//        dismiss(animated: true, completion: nil)
+//        dismiss(animated: true, completion: nil)
     }
     
     deinit

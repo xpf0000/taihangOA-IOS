@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		170DB0241EA26BE20094EC2F /* oa.zip in Resources */ = {isa = PBXBuildFile; fileRef = 170DB0231EA26BE20094EC2F /* oa.zip */; };
 		17200F221EA0CC3A003B90B7 /* ResModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17200F211EA0CC3A003B90B7 /* ResModel.swift */; };
+		173F318A1EA3BC7C00B493E8 /* oa.zip in Resources */ = {isa = PBXBuildFile; fileRef = 173F31891EA3BC7C00B493E8 /* oa.zip */; };
 		176A708E1EA080520016D8E3 /* AlicloudMobileAnalitics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 176A70871EA080520016D8E3 /* AlicloudMobileAnalitics.framework */; };
 		176A708F1EA080520016D8E3 /* AlicloudUtils.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 176A70881EA080520016D8E3 /* AlicloudUtils.framework */; };
 		176A70901EA080520016D8E3 /* AliyunOSSiOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 176A70891EA080520016D8E3 /* AliyunOSSiOS.framework */; };
@@ -143,8 +143,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		170DB0231EA26BE20094EC2F /* oa.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = oa.zip; sourceTree = "<group>"; };
 		17200F211EA0CC3A003B90B7 /* ResModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResModel.swift; sourceTree = "<group>"; };
+		173F31891EA3BC7C00B493E8 /* oa.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = oa.zip; sourceTree = "<group>"; };
 		176A70871EA080520016D8E3 /* AlicloudMobileAnalitics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AlicloudMobileAnalitics.framework; sourceTree = "<group>"; };
 		176A70881EA080520016D8E3 /* AlicloudUtils.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AlicloudUtils.framework; sourceTree = "<group>"; };
 		176A70891EA080520016D8E3 /* AliyunOSSiOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AliyunOSSiOS.framework; sourceTree = "<group>"; };
@@ -425,7 +425,7 @@
 		179F14511E9CC08700FD80A0 /* taihangOA */ = {
 			isa = PBXGroup;
 			children = (
-				170DB0231EA26BE20094EC2F /* oa.zip */,
+				173F31891EA3BC7C00B493E8 /* oa.zip */,
 				17B6CD271EA0709B004758B7 /* taihangOA.entitlements */,
 				17B6CD161EA061A8004758B7 /* OneSDK */,
 				179A15591E9E0E6100E60EC2 /* icon */,
@@ -688,7 +688,7 @@
 				178445D31E9F701800723640 /* back_white.png in Resources */,
 				179A156E1E9E0E6100E60EC2 /* app_icon001@2x.png in Resources */,
 				179A156C1E9E0E6100E60EC2 /* app_icon02@3x.png in Resources */,
-				170DB0241EA26BE20094EC2F /* oa.zip in Resources */,
+				173F318A1EA3BC7C00B493E8 /* oa.zip in Resources */,
 				179A156F1E9E0E6100E60EC2 /* app_icon002@2x.png in Resources */,
 				179A15691E9E0E6100E60EC2 /* app_icon002@3x.png in Resources */,
 				179A15731E9E0E6100E60EC2 /* app_icon03@2x.png in Resources */,

@@ -12,7 +12,7 @@ import SwiftyJSON
 import WebKit
 import Hero
 
-class MineVC: UIViewController,WKNavigationDelegate,WKUIDelegate,WKScriptMessageHandler {
+class MineVC: UIViewController,WKNavigationDelegate,WKUIDelegate,WKScriptMessageHandler,UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate {
     
     var webView:WKWebView?
     var url:URL?
@@ -22,6 +22,8 @@ class MineVC: UIViewController,WKNavigationDelegate,WKUIDelegate,WKScriptMessage
     var isSub = false
     
     var inBoot = false
+    
+    lazy var imagePicker:UIImagePickerController = UIImagePickerController()
     
     func msgChanged(_ json:String) {
         
@@ -95,11 +97,28 @@ class MineVC: UIViewController,WKNavigationDelegate,WKUIDelegate,WKScriptMessage
         }
         else
         {
-            if let u = self.url{
-                webView?.load(URLRequest(url: u))
+            if(self.url != nil)
+            {
+                let request = URLRequest(url: url!)
+                webView?.load(request)
+            }
+            else if(self.html != "")
+            {
+                webView?.loadHTMLString(self.html, baseURL: baseUrl)
             }
             
         }
+    }
+    
+    func UserUpdateMobile()
+    {
+        self.webView?.evaluateJavaScript("javascript:usergetinfo('"+DataCache.Share.User.toDict().toJson()+"')", completionHandler: { (res, err) in
+            
+            print(res ?? "")
+            print(err ?? "")
+            
+        })
+
     }
     
     override func pop() {
@@ -120,6 +139,8 @@ class MineVC: UIViewController,WKNavigationDelegate,WKUIDelegate,WKScriptMessage
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        NotificationCenter.default.addObserver(self, selector:#selector(UserUpdateMobile), name: NSNotification.Name(rawValue: "UserUpdateMobile"), object: nil)
         
         self.view.backgroundColor = UIColor.white
         
@@ -180,7 +201,9 @@ class MineVC: UIViewController,WKNavigationDelegate,WKUIDelegate,WKScriptMessage
         
         self.show()
         
-        
+        imagePicker.delegate=self
+        imagePicker.allowsEditing=true
+        imagePicker.modalTransitionStyle=UIModalTransitionStyle.coverVertical
         
     }
     
@@ -220,12 +243,12 @@ class MineVC: UIViewController,WKNavigationDelegate,WKUIDelegate,WKScriptMessage
     
     @available(iOS 8.0, *)
     func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
-        XWaitingView.hide()
+
     }
     
     @available(iOS 8.0, *)
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
-        XWaitingView.hide()
+
         
     }
     
@@ -303,6 +326,94 @@ class MineVC: UIViewController,WKNavigationDelegate,WKUIDelegate,WKScriptMessage
         
     }
     
+    
+    
+    func onUploadHeadPic(){
+        
+        let cameraSheet:UIActionSheet=UIActionSheet(title: nil, delegate: self, cancelButtonTitle: "取消", destructiveButtonTitle: nil)
+        cameraSheet.addButton(withTitle: "从相册选择")
+        cameraSheet.addButton(withTitle: "拍照")
+        
+        cameraSheet.actionSheetStyle = UIActionSheetStyle.blackTranslucent;
+        cameraSheet.show(in: UIApplication.shared.keyWindow!)
+        
+    }
+    
+    func actionSheet(_ actionSheet: UIActionSheet, clickedButtonAt buttonIndex: Int) {
+        
+        print(buttonIndex)
+        
+        if(buttonIndex == 1)
+        {
+            imagePicker.sourceType=UIImagePickerControllerSourceType.photoLibrary
+        }
+        else if(buttonIndex == 2)
+        {
+            imagePicker.sourceType=UIImagePickerControllerSourceType.camera
+        }
+        
+        self.present(imagePicker, animated: true, completion: nil)
+        
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        
+        print(info)
+        
+        let type:String = (info[UIImagePickerControllerMediaType]as!String)
+        //当选择的类型是图片
+        if type=="public.image"
+        {
+            if let img = info[UIImagePickerControllerEditedImage]as?UIImage
+            {
+                let imgData = UIImageJPEGRepresentation(img,0.5)
+                
+                doUpload(img: imgData!)
+                
+                picker.dismiss(animated:true, completion:nil)
+            }
+        
+        }
+        
+    }
+    
+    func doUpload(img:Data)
+    {
+        XWaitingView.show()
+        var map : [String:Any] = [:]
+        map["headimg.jpg"]=img
+        map["id"] = DataCache.Share.User.id
+        map["mobile"] = DataCache.Share.User.account
+        
+        Api.UserHeadEdit(data: map) { (res) in
+            
+            if(res != "")
+            {
+                DataCache.Share.User.avatar = res
+                DataCache.Share.User.save()
+                
+            self.webView?.evaluateJavaScript("javascript:usergetinfo('"+DataCache.Share.User.toDict().toJson()+"')", completionHandler: { (res, err) in
+                    print(res ?? "")
+                    print(err ?? "")
+                
+                XWaitingView.hide()
+                
+                })
+
+                
+            }
+            else
+            {
+                XWaitingView.hide()
+            }
+            
+        }
+        
+        
+    }
+    
+    
+
     
 }
 
