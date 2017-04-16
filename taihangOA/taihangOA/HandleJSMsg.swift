@@ -11,6 +11,8 @@ import UIKit
 import SwiftyJSON
 import Hero
 
+
+
 class HandleJSMsg: NSObject {
 
     
@@ -48,7 +50,7 @@ class HandleJSMsg: NSObject {
         let back = obj["back"].stringValue
         if(back != "")
         {
-            //EventBus.getDefault().post(new MyEventBus("logout"));
+            NotificationCenter.default.post(Notification.init(name: Notification.Name(rawValue: "logout")))
         }
         else
         {
@@ -56,91 +58,112 @@ class HandleJSMsg: NSObject {
             Hero.shared.setContainerColorForNextTransition(.lightGray)
             
             vc.hero_dismissViewController()
-            
-            //vc.hero_unwindToRootViewController()
-            //vc.pop()
+
         }
         
     }
     else if(type == 2)  //登录成功
     {
-    if(msg == "登录成功")
-    {
-    
-        let user = UserModel.parse(json: obj["info"], replace: nil)
-        DataCache.Share.User = user
-        DataCache.Share.User.save()
+        if(msg == "登录成功")
+        {
+            
+            let user = UserModel.parse(json: obj["info"], replace: nil)
+            DataCache.Share.User = user
+            DataCache.Share.User.save()
+            DataCache.Share.User.registNotice()
+            let tvc = "MainTabBar".VC(name: "Main")
+            vc.show(tvc, sender: nil)
+            
+        }
         
-        let tvc = "MainTabBar".VC(name: "Main")
-        vc.show(tvc, sender: nil)
-
-        
-        //APPDataCache.User.registNotice();
-    
-//    Intent Intent = new Intent();
-//    Intent.setClass(vc, MainActivity.class);
-//    vc.startActivity(Intent);
-//    vc.pop()
-    
-    }
-    if(msg ==  "退出登录")
-    {
-        NotificationCenter.default.post(Notification.init(name: Notification.Name(rawValue: "logout")))
-    }
+        if(msg ==  "退出登录")
+        {
+            DataCache.Share.User.unRegistNotice()
+            DataCache.Share.User.reset();
+            NotificationCenter.default.post(Notification.init(name: Notification.Name(rawValue: "logout")))
+        }
     
     }
     else if(type == 3)  //时间日期选择
     {
-        //EventBus.getDefault().post(new MyEventBus("showTimePicker"));
+
+        datepicker.removeFromSuperview()
+        UIApplication.shared.keyWindow?.addSubview(datepicker)
+        datepicker.show()
+        
     }
     else if(type == 4)  //地图选择
     {
-//    Intent Intent = new Intent();
-//    Intent.setClass(vc, MapVC.class);
-//    vc.startActivity(Intent);
-//    
-//    ((XHtmlVC)vc).setMapFlag(obj.getString("flag"));
-    
+        
+        DataCache.Share.mapFlag = obj["flag"].stringValue
+        
+        let tvc = "MapVC".VC(name: "Main")
+        
+        Hero.shared.setDefaultAnimationForNextTransition(.push(direction: .left))
+        Hero.shared.setContainerColorForNextTransition(.lightGray)
+        
+        vc.present(tvc, animated: true, completion: nil)
     }
-    else if(type == 5)  //地图选择
+    else if(type == 5)  //车辆申请添加成功
     {
-    if(msg ==  "车辆申请添加成功")
-    {
-        vc.pop()
-    }
+        if(msg ==  "车辆申请添加成功")
+        {
+            Hero.shared.setDefaultAnimationForNextTransition(.pull(direction: .right))
+            Hero.shared.setContainerColorForNextTransition(.lightGray)
+            
+            vc.hero_dismissViewController()
+        }
     
-        //EventBus.getDefault().post(new MyEventBus("AddCarTaskSuccess"));
+        NotificationCenter.default.post(Notification.init(name: Notification.Name(rawValue: "AddCarTaskSuccess")))
+        
     }
     else if(type == 6)  //物品选择完成
     {
-//    JSONArray arr = obj.getJSONArray("info");
-//    XNotificationCenter.getInstance().postNotice("ResChoose",arr);
-//    vc.pop()
+        
+        DataCache.Share.Res = ResModel.parse(json: obj, replace: nil)
+        NotificationCenter.default.post(Notification.init(name: Notification.Name(rawValue: "ResChoose")))
+        
+        Hero.shared.setDefaultAnimationForNextTransition(.pull(direction: .right))
+        Hero.shared.setContainerColorForNextTransition(.lightGray)
+        vc.hero_dismissViewController()
+        
     }
     else if(type == 7)  //物品申请添加成功
     {
         if(msg ==  "物品申请添加成功")
         {
-            vc.pop()
+            Hero.shared.setDefaultAnimationForNextTransition(.pull(direction: .right))
+            Hero.shared.setContainerColorForNextTransition(.lightGray)
+            vc.hero_dismissViewController()
         }
-        //EventBus.getDefault().post(new MyEventBus("AddResTaskSuccess"));
+        
+        NotificationCenter.default.post(Notification.init(name: Notification.Name(rawValue: "AddResTaskSuccess")))
+        
     }
     else if(type == 8)  //待办事项操作成功
     {
-        //EventBus.getDefault().post(new MyEventBus("DaibanActionSuccess"));
+        NotificationCenter.default.post(Notification.init(name: Notification.Name(rawValue: "NewDaiban")))
     }
     else if(type == 9)  //待办人选择完成
     {
-//    JSONObject arr = obj.getJSONObject("info");
-//    XNotificationCenter.getInstance().postNotice("DaibanChoose",arr);
-//    vc.pop()
+        
+        DataCache.Share.DaibanUser = UserModel.parse(json: obj["info"], replace: nil)
+        NotificationCenter.default.post(Notification.init(name: Notification.Name(rawValue: "DaibanChoose")))
+        
+        Hero.shared.setDefaultAnimationForNextTransition(.pull(direction: .right))
+        Hero.shared.setContainerColorForNextTransition(.lightGray)
+        vc.hero_dismissViewController()
+        
     }
-    else if(type == 10)  //物品申请添加成功
+    else if(type == 10)  //督查督办添加成功
     {
         if(msg ==  "督查督办添加成功")
         {
-            vc.pop()
+            Hero.shared.setDefaultAnimationForNextTransition(.pull(direction: .right))
+            Hero.shared.setContainerColorForNextTransition(.lightGray)
+            vc.hero_dismissViewController()
         }
+        NotificationCenter.default.post(Notification.init(name: Notification.Name(rawValue: "AddOverseerTaskSuccess")))
         //EventBus.getDefault().post(new MyEventBus("AddOverseerTaskSuccess"));
     }
     
@@ -151,6 +174,9 @@ class HandleJSMsg: NSObject {
     
     else if(type == 12)  //待办事项总数
     {
+        DataCache.Share.daibanCount = obj["info"].intValue
+        NotificationCenter.default.post(Notification.init(name: Notification.Name(rawValue: "DaibanCount")))
+        
 //        int count = obj.getInteger("info");
 //        XNotificationCenter.getInstance().postNotice("DaibanCount",count);
     }

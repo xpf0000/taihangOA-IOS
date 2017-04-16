@@ -151,6 +151,8 @@ class LoginVC: UIViewController,WKNavigationDelegate,WKUIDelegate,WKScriptMessag
         webView?.isOpaque = false
         webView?.backgroundColor = UIColor.white
         
+        webView?.scrollView.isScrollEnabled = false
+        
         self.view.addSubview(webView!)
         
         constrain(webView!) { (view) in

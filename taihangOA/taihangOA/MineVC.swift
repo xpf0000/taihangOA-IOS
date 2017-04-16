@@ -180,6 +180,8 @@ class MineVC: UIViewController,WKNavigationDelegate,WKUIDelegate,WKScriptMessage
         
         self.show()
         
+        
+        
     }
     
     func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {

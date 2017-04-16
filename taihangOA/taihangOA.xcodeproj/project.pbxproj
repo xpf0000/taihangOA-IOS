@@ -7,6 +7,43 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		170DB0241EA26BE20094EC2F /* oa.zip in Resources */ = {isa = PBXBuildFile; fileRef = 170DB0231EA26BE20094EC2F /* oa.zip */; };
+		17200F221EA0CC3A003B90B7 /* ResModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17200F211EA0CC3A003B90B7 /* ResModel.swift */; };
+		176A708E1EA080520016D8E3 /* AlicloudMobileAnalitics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 176A70871EA080520016D8E3 /* AlicloudMobileAnalitics.framework */; };
+		176A708F1EA080520016D8E3 /* AlicloudUtils.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 176A70881EA080520016D8E3 /* AlicloudUtils.framework */; };
+		176A70901EA080520016D8E3 /* AliyunOSSiOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 176A70891EA080520016D8E3 /* AliyunOSSiOS.framework */; };
+		176A70911EA080520016D8E3 /* CloudApiSdk.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 176A708A1EA080520016D8E3 /* CloudApiSdk.framework */; };
+		176A70921EA080520016D8E3 /* CloudPushSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 176A708B1EA080520016D8E3 /* CloudPushSDK.framework */; };
+		176A70931EA080520016D8E3 /* UT.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 176A708C1EA080520016D8E3 /* UT.framework */; };
+		176A70941EA080520016D8E3 /* UTDID.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 176A708D1EA080520016D8E3 /* UTDID.framework */; };
+		1784459E1E9F1FE700723640 /* Api.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1784459D1E9F1FE700723640 /* Api.swift */; };
+		178445A11E9F229000723640 /* LanchModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 178445A01E9F229000723640 /* LanchModel.swift */; };
+		178445A31E9F296400723640 /* Kingfisher.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 178445A21E9F296400723640 /* Kingfisher.framework */; };
+		178445A41E9F297800723640 /* Kingfisher.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 178445A21E9F296400723640 /* Kingfisher.framework */; };
+		178445A51E9F297800723640 /* Kingfisher.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 178445A21E9F296400723640 /* Kingfisher.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		178445A91E9F625700723640 /* DatePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 178445A81E9F625700723640 /* DatePicker.swift */; };
+		178445B41E9F6B8800723640 /* BaiduMapAPI_Base.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 178445AC1E9F6B8800723640 /* BaiduMapAPI_Base.framework */; };
+		178445B51E9F6B8800723640 /* BaiduMapAPI_Location.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 178445AD1E9F6B8800723640 /* BaiduMapAPI_Location.framework */; };
+		178445B61E9F6B8800723640 /* BaiduMapAPI_Map.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 178445AE1E9F6B8800723640 /* BaiduMapAPI_Map.framework */; };
+		178445B71E9F6B8800723640 /* BaiduMapAPI_Search.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 178445AF1E9F6B8800723640 /* BaiduMapAPI_Search.framework */; };
+		178445B81E9F6B8800723640 /* BaiduMapAPI_Utils.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 178445B01E9F6B8800723640 /* BaiduMapAPI_Utils.framework */; };
+		178445B91E9F6B8800723640 /* libcrypto.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 178445B21E9F6B8800723640 /* libcrypto.a */; };
+		178445BA1E9F6B8800723640 /* libssl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 178445B31E9F6B8800723640 /* libssl.a */; };
+		178445BD1E9F6BBE00723640 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 178445BC1E9F6BBE00723640 /* CoreLocation.framework */; };
+		178445BF1E9F6BC900723640 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 178445BE1E9F6BC900723640 /* QuartzCore.framework */; };
+		178445C11E9F6BD200723640 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 178445C01E9F6BD200723640 /* OpenGLES.framework */; };
+		178445C31E9F6BDC00723640 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 178445C21E9F6BDC00723640 /* SystemConfiguration.framework */; };
+		178445C51E9F6BE500723640 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 178445C41E9F6BE500723640 /* CoreGraphics.framework */; };
+		178445C71E9F6BED00723640 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 178445C61E9F6BED00723640 /* Security.framework */; };
+		178445C91E9F6BF800723640 /* libsqlite3.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 178445C81E9F6BF800723640 /* libsqlite3.0.tbd */; };
+		178445CB1E9F6C0100723640 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 178445CA1E9F6C0100723640 /* CoreTelephony.framework */; };
+		178445CD1E9F6C0C00723640 /* libstdc++.6.0.9.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 178445CC1E9F6C0C00723640 /* libstdc++.6.0.9.tbd */; };
+		178445CF1E9F6C7E00723640 /* mapapi.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 178445CE1E9F6C7E00723640 /* mapapi.bundle */; };
+		178445D11E9F6DFB00723640 /* MapVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 178445D01E9F6DFB00723640 /* MapVC.swift */; };
+		178445D31E9F701800723640 /* back_white.png in Resources */ = {isa = PBXBuildFile; fileRef = 178445D21E9F701800723640 /* back_white.png */; };
+		178445D51E9F858F00723640 /* CMapModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 178445D41E9F858F00723640 /* CMapModel.swift */; };
+		178445D71E9F863400723640 /* XMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 178445D61E9F863400723640 /* XMessage.swift */; };
+		178445D91E9F8DFF00723640 /* Dictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 178445D81E9F8DFF00723640 /* Dictionary.swift */; };
 		179A15451E9DBD6A00E60EC2 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 179A15441E9DBD6A00E60EC2 /* UserModel.swift */; };
 		179A15471E9DBEB700E60EC2 /* DataCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 179A15461E9DBEB700E60EC2 /* DataCache.swift */; };
 		179A15491E9DC2DC00E60EC2 /* JSHandle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 179A15481E9DC2DC00E60EC2 /* JSHandle.swift */; };
@@ -65,7 +102,6 @@
 		179F14C01E9CCF0E00FD80A0 /* Alamofire.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 179F14BB1E9CCEEC00FD80A0 /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		179F14C11E9CCF0E00FD80A0 /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 179F14BC1E9CCEEC00FD80A0 /* SwiftyJSON.framework */; };
 		179F14C21E9CCF0E00FD80A0 /* SwiftyJSON.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 179F14BC1E9CCEEC00FD80A0 /* SwiftyJSON.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		179F14C51E9CD69B00FD80A0 /* oa.zip in Resources */ = {isa = PBXBuildFile; fileRef = 179F14C41E9CD69B00FD80A0 /* oa.zip */; };
 		179F14C81E9CDA6000FD80A0 /* Cartography.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 179F14C61E9CDA6000FD80A0 /* Cartography.framework */; };
 		179F14C91E9CDA6000FD80A0 /* Hero.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 179F14C71E9CDA6000FD80A0 /* Hero.framework */; };
 		179F14CA1E9CDA6B00FD80A0 /* Cartography.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 179F14C61E9CDA6000FD80A0 /* Cartography.framework */; };
@@ -83,6 +119,8 @@
 		179F14DF1E9CE5F700FD80A0 /* HmtlVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 179F14DE1E9CE5F700FD80A0 /* HmtlVC.swift */; };
 		179F14E11E9CE77F00FD80A0 /* UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 179F14E01E9CE77F00FD80A0 /* UIViewController.swift */; };
 		179F14E31E9CEC7A00FD80A0 /* HandleJSMsg.swift in Sources */ = {isa = PBXBuildFile; fileRef = 179F14E21E9CEC7A00FD80A0 /* HandleJSMsg.swift */; };
+		17B6CD131EA05E10004758B7 /* libresolv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 17B6CD121EA05E10004758B7 /* libresolv.tbd */; };
+		17B6CD151EA05ED1004758B7 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 17B6CD141EA05ED1004758B7 /* libsqlite3.tbd */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -96,6 +134,7 @@
 				179F14C21E9CCF0E00FD80A0 /* SwiftyJSON.framework in Embed Frameworks */,
 				179F14C01E9CCF0E00FD80A0 /* Alamofire.framework in Embed Frameworks */,
 				179F14CB1E9CDA6B00FD80A0 /* Cartography.framework in Embed Frameworks */,
+				178445A51E9F297800723640 /* Kingfisher.framework in Embed Frameworks */,
 				179F14D51E9CDDD600FD80A0 /* NVActivityIndicatorView.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -104,6 +143,41 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		170DB0231EA26BE20094EC2F /* oa.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = oa.zip; sourceTree = "<group>"; };
+		17200F211EA0CC3A003B90B7 /* ResModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResModel.swift; sourceTree = "<group>"; };
+		176A70871EA080520016D8E3 /* AlicloudMobileAnalitics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AlicloudMobileAnalitics.framework; sourceTree = "<group>"; };
+		176A70881EA080520016D8E3 /* AlicloudUtils.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AlicloudUtils.framework; sourceTree = "<group>"; };
+		176A70891EA080520016D8E3 /* AliyunOSSiOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AliyunOSSiOS.framework; sourceTree = "<group>"; };
+		176A708A1EA080520016D8E3 /* CloudApiSdk.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = CloudApiSdk.framework; sourceTree = "<group>"; };
+		176A708B1EA080520016D8E3 /* CloudPushSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = CloudPushSDK.framework; sourceTree = "<group>"; };
+		176A708C1EA080520016D8E3 /* UT.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = UT.framework; sourceTree = "<group>"; };
+		176A708D1EA080520016D8E3 /* UTDID.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = UTDID.framework; sourceTree = "<group>"; };
+		1784459D1E9F1FE700723640 /* Api.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Api.swift; sourceTree = "<group>"; };
+		178445A01E9F229000723640 /* LanchModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LanchModel.swift; sourceTree = "<group>"; };
+		178445A21E9F296400723640 /* Kingfisher.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Kingfisher.framework; sourceTree = "<group>"; };
+		178445A81E9F625700723640 /* DatePicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatePicker.swift; sourceTree = "<group>"; };
+		178445AC1E9F6B8800723640 /* BaiduMapAPI_Base.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = BaiduMapAPI_Base.framework; sourceTree = "<group>"; };
+		178445AD1E9F6B8800723640 /* BaiduMapAPI_Location.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = BaiduMapAPI_Location.framework; sourceTree = "<group>"; };
+		178445AE1E9F6B8800723640 /* BaiduMapAPI_Map.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = BaiduMapAPI_Map.framework; sourceTree = "<group>"; };
+		178445AF1E9F6B8800723640 /* BaiduMapAPI_Search.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = BaiduMapAPI_Search.framework; sourceTree = "<group>"; };
+		178445B01E9F6B8800723640 /* BaiduMapAPI_Utils.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = BaiduMapAPI_Utils.framework; sourceTree = "<group>"; };
+		178445B21E9F6B8800723640 /* libcrypto.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libcrypto.a; sourceTree = "<group>"; };
+		178445B31E9F6B8800723640 /* libssl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libssl.a; sourceTree = "<group>"; };
+		178445BC1E9F6BBE00723640 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		178445BE1E9F6BC900723640 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		178445C01E9F6BD200723640 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
+		178445C21E9F6BDC00723640 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		178445C41E9F6BE500723640 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		178445C61E9F6BED00723640 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		178445C81E9F6BF800723640 /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
+		178445CA1E9F6C0100723640 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
+		178445CC1E9F6C0C00723640 /* libstdc++.6.0.9.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.6.0.9.tbd"; path = "usr/lib/libstdc++.6.0.9.tbd"; sourceTree = SDKROOT; };
+		178445CE1E9F6C7E00723640 /* mapapi.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = mapapi.bundle; sourceTree = "<group>"; };
+		178445D01E9F6DFB00723640 /* MapVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapVC.swift; sourceTree = "<group>"; };
+		178445D21E9F701800723640 /* back_white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = back_white.png; sourceTree = "<group>"; };
+		178445D41E9F858F00723640 /* CMapModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CMapModel.swift; sourceTree = "<group>"; };
+		178445D61E9F863400723640 /* XMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XMessage.swift; sourceTree = "<group>"; };
+		178445D81E9F8DFF00723640 /* Dictionary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Dictionary.swift; sourceTree = "<group>"; };
 		179A15441E9DBD6A00E60EC2 /* UserModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 		179A15461E9DBEB700E60EC2 /* DataCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataCache.swift; sourceTree = "<group>"; };
 		179A15481E9DC2DC00E60EC2 /* JSHandle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSHandle.swift; sourceTree = "<group>"; };
@@ -181,7 +255,6 @@
 		179F14B21E9CCD5D00FD80A0 /* Reflect.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reflect.swift; sourceTree = "<group>"; };
 		179F14BB1E9CCEEC00FD80A0 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Alamofire.framework; sourceTree = "<group>"; };
 		179F14BC1E9CCEEC00FD80A0 /* SwiftyJSON.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SwiftyJSON.framework; sourceTree = "<group>"; };
-		179F14C41E9CD69B00FD80A0 /* oa.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = oa.zip; sourceTree = "<group>"; };
 		179F14C61E9CDA6000FD80A0 /* Cartography.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Cartography.framework; sourceTree = "<group>"; };
 		179F14C71E9CDA6000FD80A0 /* Hero.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Hero.framework; sourceTree = "<group>"; };
 		179F14CE1E9CDD7800FD80A0 /* XWaitingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XWaitingView.swift; sourceTree = "<group>"; };
@@ -193,6 +266,9 @@
 		179F14DE1E9CE5F700FD80A0 /* HmtlVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HmtlVC.swift; sourceTree = "<group>"; };
 		179F14E01E9CE77F00FD80A0 /* UIViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewController.swift; sourceTree = "<group>"; };
 		179F14E21E9CEC7A00FD80A0 /* HandleJSMsg.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HandleJSMsg.swift; sourceTree = "<group>"; };
+		17B6CD121EA05E10004758B7 /* libresolv.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libresolv.tbd; path = usr/lib/libresolv.tbd; sourceTree = SDKROOT; };
+		17B6CD141EA05ED1004758B7 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
+		17B6CD271EA0709B004758B7 /* taihangOA.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = taihangOA.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -200,23 +276,84 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				17B6CD151EA05ED1004758B7 /* libsqlite3.tbd in Frameworks */,
+				178445C31E9F6BDC00723640 /* SystemConfiguration.framework in Frameworks */,
+				178445CB1E9F6C0100723640 /* CoreTelephony.framework in Frameworks */,
+				17B6CD131EA05E10004758B7 /* libresolv.tbd in Frameworks */,
+				176A70901EA080520016D8E3 /* AliyunOSSiOS.framework in Frameworks */,
 				179F14A51E9CC6D500FD80A0 /* libz.tbd in Frameworks */,
+				178445CD1E9F6C0C00723640 /* libstdc++.6.0.9.tbd in Frameworks */,
+				178445C91E9F6BF800723640 /* libsqlite3.0.tbd in Frameworks */,
+				178445C71E9F6BED00723640 /* Security.framework in Frameworks */,
+				176A708F1EA080520016D8E3 /* AlicloudUtils.framework in Frameworks */,
+				178445C51E9F6BE500723640 /* CoreGraphics.framework in Frameworks */,
+				178445C11E9F6BD200723640 /* OpenGLES.framework in Frameworks */,
+				178445BF1E9F6BC900723640 /* QuartzCore.framework in Frameworks */,
+				176A70911EA080520016D8E3 /* CloudApiSdk.framework in Frameworks */,
+				178445BD1E9F6BBE00723640 /* CoreLocation.framework in Frameworks */,
+				178445BA1E9F6B8800723640 /* libssl.a in Frameworks */,
 				179F14BD1E9CCEEC00FD80A0 /* Alamofire.framework in Frameworks */,
+				176A70941EA080520016D8E3 /* UTDID.framework in Frameworks */,
+				176A708E1EA080520016D8E3 /* AlicloudMobileAnalitics.framework in Frameworks */,
+				178445B81E9F6B8800723640 /* BaiduMapAPI_Utils.framework in Frameworks */,
+				176A70921EA080520016D8E3 /* CloudPushSDK.framework in Frameworks */,
 				179F14BE1E9CCEEC00FD80A0 /* SwiftyJSON.framework in Frameworks */,
 				179F14BF1E9CCF0E00FD80A0 /* Alamofire.framework in Frameworks */,
+				178445A41E9F297800723640 /* Kingfisher.framework in Frameworks */,
 				179F14D31E9CDDC700FD80A0 /* NVActivityIndicatorView.framework in Frameworks */,
 				179F14C11E9CCF0E00FD80A0 /* SwiftyJSON.framework in Frameworks */,
+				178445B71E9F6B8800723640 /* BaiduMapAPI_Search.framework in Frameworks */,
 				179F14D41E9CDDD600FD80A0 /* NVActivityIndicatorView.framework in Frameworks */,
 				179F14CA1E9CDA6B00FD80A0 /* Cartography.framework in Frameworks */,
+				178445B91E9F6B8800723640 /* libcrypto.a in Frameworks */,
 				179F14C81E9CDA6000FD80A0 /* Cartography.framework in Frameworks */,
 				179F14C91E9CDA6000FD80A0 /* Hero.framework in Frameworks */,
+				178445B41E9F6B8800723640 /* BaiduMapAPI_Base.framework in Frameworks */,
+				178445A31E9F296400723640 /* Kingfisher.framework in Frameworks */,
+				178445B51E9F6B8800723640 /* BaiduMapAPI_Location.framework in Frameworks */,
 				179F14CC1E9CDA6B00FD80A0 /* Hero.framework in Frameworks */,
+				176A70931EA080520016D8E3 /* UT.framework in Frameworks */,
+				178445B61E9F6B8800723640 /* BaiduMapAPI_Map.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1784459F1E9F227A00723640 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				179A15441E9DBD6A00E60EC2 /* UserModel.swift */,
+				178445A01E9F229000723640 /* LanchModel.swift */,
+				178445D41E9F858F00723640 /* CMapModel.swift */,
+				17200F211EA0CC3A003B90B7 /* ResModel.swift */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		178445B11E9F6B8800723640 /* thirdlibs */ = {
+			isa = PBXGroup;
+			children = (
+				178445B21E9F6B8800723640 /* libcrypto.a */,
+				178445B31E9F6B8800723640 /* libssl.a */,
+			);
+			path = thirdlibs;
+			sourceTree = "<group>";
+		};
+		178445BB1E9F6B9200723640 /* baidumap */ = {
+			isa = PBXGroup;
+			children = (
+				178445CE1E9F6C7E00723640 /* mapapi.bundle */,
+				178445AC1E9F6B8800723640 /* BaiduMapAPI_Base.framework */,
+				178445AD1E9F6B8800723640 /* BaiduMapAPI_Location.framework */,
+				178445AE1E9F6B8800723640 /* BaiduMapAPI_Map.framework */,
+				178445AF1E9F6B8800723640 /* BaiduMapAPI_Search.framework */,
+				178445B01E9F6B8800723640 /* BaiduMapAPI_Utils.framework */,
+				178445B11E9F6B8800723640 /* thirdlibs */,
+			);
+			name = baidumap;
+			sourceTree = "<group>";
+		};
 		179A154C1E9DD78D00E60EC2 /* VC */ = {
 			isa = PBXGroup;
 			children = (
@@ -227,6 +364,7 @@
 				179A154F1E9DFA5200E60EC2 /* MineVC.swift */,
 				179A15511E9DFB1700E60EC2 /* HomeVC.swift */,
 				179A15531E9DFB2B00E60EC2 /* DaibanVC.swift */,
+				178445D01E9F6DFB00723640 /* MapVC.swift */,
 			);
 			name = VC;
 			sourceTree = "<group>";
@@ -234,6 +372,7 @@
 		179A15591E9E0E6100E60EC2 /* icon */ = {
 			isa = PBXGroup;
 			children = (
+				178445D21E9F701800723640 /* back_white.png */,
 				179A155A1E9E0E6100E60EC2 /* big */,
 				179A15611E9E0E6100E60EC2 /* small */,
 			);
@@ -286,28 +425,36 @@
 		179F14511E9CC08700FD80A0 /* taihangOA */ = {
 			isa = PBXGroup;
 			children = (
+				170DB0231EA26BE20094EC2F /* oa.zip */,
+				17B6CD271EA0709B004758B7 /* taihangOA.entitlements */,
+				17B6CD161EA061A8004758B7 /* OneSDK */,
 				179A15591E9E0E6100E60EC2 /* icon */,
 				179F14D21E9CDDC700FD80A0 /* NVActivityIndicatorView.framework */,
 				179F14C61E9CDA6000FD80A0 /* Cartography.framework */,
 				179F14C71E9CDA6000FD80A0 /* Hero.framework */,
-				179F14C41E9CD69B00FD80A0 /* oa.zip */,
 				179F14BB1E9CCEEC00FD80A0 /* Alamofire.framework */,
 				179F14BC1E9CCEEC00FD80A0 /* SwiftyJSON.framework */,
+				178445A21E9F296400723640 /* Kingfisher.framework */,
+				178445BB1E9F6B9200723640 /* baidumap */,
 				179F14A61E9CCD5D00FD80A0 /* Reflect */,
 				179F14641E9CC51F00FD80A0 /* SSZipArchive */,
 				179F14521E9CC08700FD80A0 /* AppDelegate.swift */,
 				179A154C1E9DD78D00E60EC2 /* VC */,
-				179A15441E9DBD6A00E60EC2 /* UserModel.swift */,
+				1784459F1E9F227A00723640 /* Model */,
 				179A15551E9E032300E60EC2 /* XNavigationController.swift */,
 				179F14E01E9CE77F00FD80A0 /* UIViewController.swift */,
 				179A15461E9DBEB700E60EC2 /* DataCache.swift */,
 				179A15481E9DC2DC00E60EC2 /* JSHandle.swift */,
 				179F14E21E9CEC7A00FD80A0 /* HandleJSMsg.swift */,
+				1784459D1E9F1FE700723640 /* Api.swift */,
 				179F14D61E9CDF4500FD80A0 /* UIView.swift */,
 				179F14D81E9CDFFB00FD80A0 /* String.swift */,
+				178445D81E9F8DFF00723640 /* Dictionary.swift */,
 				179A15571E9E037A00E60EC2 /* UIColor.swift */,
+				178445A81E9F625700723640 /* DatePicker.swift */,
 				179F14D01E9CDD8F00FD80A0 /* XAlertView.swift */,
 				179F14CE1E9CDD7800FD80A0 /* XWaitingView.swift */,
+				178445D61E9F863400723640 /* XMessage.swift */,
 				179F14561E9CC08700FD80A0 /* Main.storyboard */,
 				179F14A21E9CC63D00FD80A0 /* oa-Bridging-Header.h */,
 				179F14591E9CC08700FD80A0 /* Assets.xcassets */,
@@ -380,6 +527,17 @@
 		179F14A31E9CC6D500FD80A0 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				17B6CD141EA05ED1004758B7 /* libsqlite3.tbd */,
+				17B6CD121EA05E10004758B7 /* libresolv.tbd */,
+				178445CC1E9F6C0C00723640 /* libstdc++.6.0.9.tbd */,
+				178445CA1E9F6C0100723640 /* CoreTelephony.framework */,
+				178445C81E9F6BF800723640 /* libsqlite3.0.tbd */,
+				178445C61E9F6BED00723640 /* Security.framework */,
+				178445C41E9F6BE500723640 /* CoreGraphics.framework */,
+				178445C21E9F6BDC00723640 /* SystemConfiguration.framework */,
+				178445C01E9F6BD200723640 /* OpenGLES.framework */,
+				178445BE1E9F6BC900723640 /* QuartzCore.framework */,
+				178445BC1E9F6BBE00723640 /* CoreLocation.framework */,
 				179F14A41E9CC6D500FD80A0 /* libz.tbd */,
 			);
 			name = Frameworks;
@@ -432,6 +590,20 @@
 			path = Reflect;
 			sourceTree = "<group>";
 		};
+		17B6CD161EA061A8004758B7 /* OneSDK */ = {
+			isa = PBXGroup;
+			children = (
+				176A70871EA080520016D8E3 /* AlicloudMobileAnalitics.framework */,
+				176A70881EA080520016D8E3 /* AlicloudUtils.framework */,
+				176A70891EA080520016D8E3 /* AliyunOSSiOS.framework */,
+				176A708A1EA080520016D8E3 /* CloudApiSdk.framework */,
+				176A708B1EA080520016D8E3 /* CloudPushSDK.framework */,
+				176A708C1EA080520016D8E3 /* UT.framework */,
+				176A708D1EA080520016D8E3 /* UTDID.framework */,
+			);
+			path = OneSDK;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -465,8 +637,16 @@
 				TargetAttributes = {
 					179F144E1E9CC08700FD80A0 = {
 						CreatedOnToolsVersion = 8.3;
-						DevelopmentTeam = 24AVM954YM;
+						DevelopmentTeam = QPBSPA49NG;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.Push = {
+								enabled = 1;
+							};
+							com.apple.VPNLite = {
+								enabled = 0;
+							};
+						};
 					};
 				};
 			};
@@ -494,9 +674,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				179A15681E9E0E6100E60EC2 /* app_icon001@3x.png in Resources */,
-				179F14C51E9CD69B00FD80A0 /* oa.zip in Resources */,
 				179F14941E9CC51F00FD80A0 /* Info.plist in Resources */,
 				179F145D1E9CC08700FD80A0 /* LaunchScreen.storyboard in Resources */,
+				178445CF1E9F6C7E00723640 /* mapapi.bundle in Resources */,
 				179A156A1E9E0E6100E60EC2 /* app_icon003@3x.png in Resources */,
 				179F145A1E9CC08700FD80A0 /* Assets.xcassets in Resources */,
 				179A15711E9E0E6100E60EC2 /* app_icon01@2x.png in Resources */,
@@ -505,8 +685,10 @@
 				179A15721E9E0E6100E60EC2 /* app_icon02@2x.png in Resources */,
 				179F14581E9CC08700FD80A0 /* Main.storyboard in Resources */,
 				179A156D1E9E0E6100E60EC2 /* app_icon03@3x.png in Resources */,
+				178445D31E9F701800723640 /* back_white.png in Resources */,
 				179A156E1E9E0E6100E60EC2 /* app_icon001@2x.png in Resources */,
 				179A156C1E9E0E6100E60EC2 /* app_icon02@3x.png in Resources */,
+				170DB0241EA26BE20094EC2F /* oa.zip in Resources */,
 				179A156F1E9E0E6100E60EC2 /* app_icon002@2x.png in Resources */,
 				179A15691E9E0E6100E60EC2 /* app_icon002@3x.png in Resources */,
 				179A15731E9E0E6100E60EC2 /* app_icon03@2x.png in Resources */,
@@ -529,16 +711,20 @@
 				179F14901E9CC51F00FD80A0 /* hmac.c in Sources */,
 				179F14551E9CC08700FD80A0 /* LoginVC.swift in Sources */,
 				179F149A1E9CC51F00FD80A0 /* SSZipArchive.m in Sources */,
+				178445D71E9F863400723640 /* XMessage.swift in Sources */,
 				179A15451E9DBD6A00E60EC2 /* UserModel.swift in Sources */,
 				179F14B61E9CCD5D00FD80A0 /* Reflect+Class.swift in Sources */,
+				17200F221EA0CC3A003B90B7 /* ResModel.swift in Sources */,
 				179F14981E9CC51F00FD80A0 /* zip.c in Sources */,
 				179F14B41E9CCD5D00FD80A0 /* Reflect+Parse.swift in Sources */,
 				179A154E1E9DD92400E60EC2 /* BootVC.swift in Sources */,
 				179F148D1E9CC51F00FD80A0 /* aestab.c in Sources */,
+				178445A91E9F625700723640 /* DatePicker.swift in Sources */,
 				179F148B1E9CC51F00FD80A0 /* aescrypt.c in Sources */,
 				179F14991E9CC51F00FD80A0 /* SSZipArchive+Swift.swift in Sources */,
 				179A15501E9DFA5200E60EC2 /* MineVC.swift in Sources */,
 				179F14E11E9CE77F00FD80A0 /* UIViewController.swift in Sources */,
+				178445D91E9F8DFF00723640 /* Dictionary.swift in Sources */,
 				179F14531E9CC08700FD80A0 /* AppDelegate.swift in Sources */,
 				179F14951E9CC51F00FD80A0 /* ioapi.c in Sources */,
 				179F14931E9CC51F00FD80A0 /* sha1.c in Sources */,
@@ -547,19 +733,23 @@
 				179A15581E9E037A00E60EC2 /* UIColor.swift in Sources */,
 				179F14E31E9CEC7A00FD80A0 /* HandleJSMsg.swift in Sources */,
 				179F14971E9CC51F00FD80A0 /* unzip.c in Sources */,
+				178445A11E9F229000723640 /* LanchModel.swift in Sources */,
 				179A15471E9DBEB700E60EC2 /* DataCache.swift in Sources */,
 				179F14921E9CC51F00FD80A0 /* pwd2key.c in Sources */,
 				179A15561E9E032300E60EC2 /* XNavigationController.swift in Sources */,
 				179F148C1E9CC51F00FD80A0 /* aeskey.c in Sources */,
 				179F14CF1E9CDD7800FD80A0 /* XWaitingView.swift in Sources */,
+				178445D11E9F6DFB00723640 /* MapVC.swift in Sources */,
 				179F148F1E9CC51F00FD80A0 /* fileenc.c in Sources */,
 				179A15491E9DC2DC00E60EC2 /* JSHandle.swift in Sources */,
 				179F148E1E9CC51F00FD80A0 /* entropy.c in Sources */,
 				179F14B81E9CCD5D00FD80A0 /* Reflect+Property.swift in Sources */,
 				179F14B51E9CCD5D00FD80A0 /* Reflect+Convert.swift in Sources */,
 				179F14D11E9CDD8F00FD80A0 /* XAlertView.swift in Sources */,
+				1784459E1E9F1FE700723640 /* Api.swift in Sources */,
 				179F14BA1E9CCD5D00FD80A0 /* Reflect.swift in Sources */,
 				179F14D71E9CDF4500FD80A0 /* UIView.swift in Sources */,
+				178445D51E9F858F00723640 /* CMapModel.swift in Sources */,
 				179F14B31E9CCD5D00FD80A0 /* Reflect+ArcFile.swift in Sources */,
 				179F14961E9CC51F00FD80A0 /* mztools.c in Sources */,
 				179F14B91E9CCD5D00FD80A0 /* Reflect+Type.swift in Sources */,
@@ -686,16 +876,27 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				DEVELOPMENT_TEAM = 24AVM954YM;
+				CODE_SIGN_ENTITLEMENTS = taihangOA/taihangOA.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = QPBSPA49NG;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/taihangOA",
+					"$(PROJECT_DIR)/taihangOA/OneSDK",
 				);
 				INFOPLIST_FILE = taihangOA/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/taihangOA/thirdlibs",
+				);
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.X.taihangOA;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "taihangOA/oa-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 			};
@@ -706,16 +907,27 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				DEVELOPMENT_TEAM = 24AVM954YM;
+				CODE_SIGN_ENTITLEMENTS = taihangOA/taihangOA.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = QPBSPA49NG;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/taihangOA",
+					"$(PROJECT_DIR)/taihangOA/OneSDK",
 				);
 				INFOPLIST_FILE = taihangOA/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/taihangOA/thirdlibs",
+				);
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.X.taihangOA;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "taihangOA/oa-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 			};

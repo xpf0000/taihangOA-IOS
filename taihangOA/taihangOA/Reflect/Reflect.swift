@@ -8,16 +8,9 @@
 
 import Foundation
 
-typealias ReflectValueChangeBlock = (String,AnyObject)->Void
+typealias ReflectValueChangeBlock = (String,Any)->Void
 
 class Reflect: NSObject, NSCoding{
-    
-    var valueChangeBlock:ReflectValueChangeBlock?
-    
-    func OnValueChange(_ b:@escaping ReflectValueChangeBlock)
-    {
-        self.valueChangeBlock = b
-    }
     
     lazy var mirror: Mirror = {Mirror(reflecting: self)}()
     
@@ -54,42 +47,36 @@ class Reflect: NSObject, NSCoding{
                     switch type.realType
                     {
                     case .String:
-                        ""
                         if let v = saveValue as? String
                         {
                             self.setValue(v, forKeyPath: name)
                         }
                         
                     case .Int:
-                        ""
                         if let v = saveValue as? Int
                         {
                             self.setValue(v, forKeyPath: name)
                         }
                         
                     case .Float:
-                        ""
                         if let v = saveValue as? Float
                         {
                             self.setValue(v, forKeyPath: name)
                         }
                         
                     case .Double:
-                        ""
                         if let v = saveValue as? Double
                         {
                             self.setValue(v, forKeyPath: name)
                         }
                         
                     case .Bool:
-                        ""
                         if let v = saveValue as? Bool
                         {
                             self.setValue(v, forKeyPath: name)
                         }
                         
                     default:
-                        ""
                         self.setValue(saveValue, forKeyPath: name)
                     }
                     
@@ -161,6 +148,17 @@ class Reflect: NSObject, NSCoding{
     }
     
     
+    override func setValue(_ value: Any?, forKeyPath keyPath: String) {
+        
+        if(value == nil)
+        {
+            return
+        }
+        
+        super.setValue(value, forKeyPath: keyPath)
+        //valueChangeBlock?(keyPath,value!)
+        
+    }
     
     override func setValue(_ value: Any?, forKey key: String) {
         
@@ -170,6 +168,8 @@ class Reflect: NSObject, NSCoding{
         }
         
         super.setValue(value, forKey: key)
+        //valueChangeBlock?(key,value!)
+        
     }
     
     override func setValue(_ value: Any?, forUndefinedKey key: String) {

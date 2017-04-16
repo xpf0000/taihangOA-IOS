@@ -56,12 +56,6 @@ class DaibanVC: UIViewController,WKNavigationDelegate,WKUIDelegate,WKScriptMessa
             let request = URLRequest(url: url!)
             webView?.load(request)
             
-            //            if let u = url.urlRequest
-            //            {
-            //                print("u: \(u)")
-            //                webView?.load(u)
-            //            }
-            
         }
         else if(self.html != "")
         {
@@ -88,16 +82,22 @@ class DaibanVC: UIViewController,WKNavigationDelegate,WKUIDelegate,WKScriptMessa
     func reload()
     {
         //CleanWebCache()
-        
         if let currentURL = self.webView?.url {
             let request = URLRequest(url: currentURL)
             self.webView?.load(request)
         }
         else
         {
-            if let u = self.url{
-                webView?.load(URLRequest(url: u))
+            if(self.url != nil)
+            {
+                let request = URLRequest(url: url!)
+                webView?.load(request)
             }
+            else if(self.html != "")
+            {
+                webView?.loadHTMLString(self.html, baseURL: baseUrl)
+            }
+
             
         }
     }
@@ -116,12 +116,22 @@ class DaibanVC: UIViewController,WKNavigationDelegate,WKUIDelegate,WKScriptMessa
         super.pop()
     }
     
+//    func countChange()
+//    {
+//        self.tabBarItem.badgeValue = "\(DataCache.Share.daibanCount)"
+//    }
+    
     let scriptHandle = WKUserContentController()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.view.backgroundColor = UIColor.white
+        
+        NotificationCenter.default.addObserver(self, selector:#selector(reload), name: NSNotification.Name(rawValue: "NewDaiban"), object: nil)
+        
+//        NotificationCenter.default.addObserver(self, selector:#selector(countChange), name: NSNotification.Name(rawValue: "DaibanCount"), object: nil)
+
         
         handle?.onMsgChange { [weak self](msg) in
             
@@ -272,6 +282,8 @@ class DaibanVC: UIViewController,WKNavigationDelegate,WKUIDelegate,WKScriptMessa
     
     deinit
     {
+        NotificationCenter.default.removeObserver(self)
+        
         webView?.configuration.userContentController.removeScriptMessageHandler(forName: "JSHandle")
         webView?.uiDelegate=nil
         webView?.navigationDelegate=nil

@@ -10,4 +10,6 @@ import Foundation
 
 let TmpDirURL = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent("www").appendingPathComponent("html")
 
-let APPBlueColor = "059bf1".color()	
+let APPBlueColor = "059bf1".color()
+
+let datepicker = DatePicker.init(.dateAndTime)

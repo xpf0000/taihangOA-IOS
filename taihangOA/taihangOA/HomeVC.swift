@@ -10,7 +10,6 @@ import UIKit
 import Cartography
 import SwiftyJSON
 import WebKit
-import Hero
 
 class HomeVC: UIViewController,WKNavigationDelegate,WKUIDelegate,WKScriptMessageHandler {
     
@@ -87,9 +86,16 @@ class HomeVC: UIViewController,WKNavigationDelegate,WKUIDelegate,WKScriptMessage
         }
         else
         {
-            if let u = self.url{
-                webView?.load(URLRequest(url: u))
+            if(self.url != nil)
+            {
+                let request = URLRequest(url: url!)
+                webView?.load(request)
             }
+            else if(self.html != "")
+            {
+                webView?.loadHTMLString(self.html, baseURL: baseUrl)
+            }
+
             
         }
     }
@@ -108,18 +114,37 @@ class HomeVC: UIViewController,WKNavigationDelegate,WKUIDelegate,WKScriptMessage
         super.pop()
     }
     
+    func countChange()
+    {
+        if let item = self.tabBarController?.tabBar.items?[1]
+        {
+            if(DataCache.Share.daibanCount > 0)
+            {
+                item.badgeValue = "\(DataCache.Share.daibanCount)"
+            }
+            else
+            {
+                item.badgeValue = nil
+            }
+            
+        }
+        
+    }
+    
     let scriptHandle = WKUserContentController()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         self.view.backgroundColor = UIColor.white
         
+        NotificationCenter.default.addObserver(self, selector:#selector(onLogout), name: NSNotification.Name(rawValue: "logout"), object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector:#selector(reload), name: NSNotification.Name(rawValue: "NewDaiban"), object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector:#selector(countChange), name: NSNotification.Name(rawValue: "DaibanCount"), object: nil)
+        
         initTabBar()
-        
-        
-        
-        
+         
         handle?.onMsgChange { [weak self](msg) in
             
             self?.msgChanged(msg)
@@ -242,7 +267,10 @@ class HomeVC: UIViewController,WKNavigationDelegate,WKUIDelegate,WKScriptMessage
     @available(iOS 8.0, *)
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         XWaitingView.hide()
-        
+        self.webView?.evaluateJavaScript("javascript:InitIndexView('"+DataCache.Share.User.toDict().toJson()+"')", completionHandler: { (res, err) in
+            print(res)
+            print(err)
+        })
     }
     
     
@@ -287,9 +315,17 @@ class HomeVC: UIViewController,WKNavigationDelegate,WKUIDelegate,WKScriptMessage
     }
     
     
+    func onLogout()
+    {
+        dismiss(animated: true, completion: nil)
+        dismiss(animated: true, completion: nil)
+    }
     
     deinit
     {
+        
+        NotificationCenter.default.removeObserver(self)
+        
         webView?.configuration.userContentController.removeScriptMessageHandler(forName: "JSHandle")
         webView?.uiDelegate=nil
         webView?.navigationDelegate=nil

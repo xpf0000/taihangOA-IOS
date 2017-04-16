@@ -9,16 +9,155 @@
 import UIKit
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate,UIAlertViewDelegate {
 
     var window: UIWindow?
+    var mapManager:BMKMapManager?
+    
+    
+    func onMessageReceived(_ notification:Notification)
+    {
+        if let message = notification.object as? CCPSysMessage
+        {
+            let title = String.init(data: message.title, encoding: String.Encoding.utf8)
+            
+            let body = String.init(data: message.body, encoding: String.Encoding.utf8)
+            
+            print("Receive message title: \(title) | content: \(body)")
+            
+            if let str = title,let content = body
+            {
+                if str == "账号在其它设备已登录"
+                {
+                    if(DataCache.Share.User.token != "" && DataCache.Share.User.token != content)
+                    {
+                        let alert = UIAlertView(title: "提醒", message: "您的账户已在其他设备登录", delegate: self, cancelButtonTitle: "确定")
+                        alert.show()
+                    }
+  
+                }
+                else
+                {
+                    NotificationCenter.default.post(Notification.init(name: Notification.Name(rawValue: "NewDaiban")))
+                    let alert = UIAlertView(title: "提醒", message: title, delegate: nil, cancelButtonTitle: "确定")
+                    alert.show()
+                }
+            }
+            
+            
+        }
+        
+        
+    }
+    
+    func alertView(_ alertView: UIAlertView, clickedButtonAt buttonIndex: Int) {
+        
+        DataCache.Share.User.unRegistNotice()
+        DataCache.Share.User.reset();
+        NotificationCenter.default.post(Notification.init(name: Notification.Name(rawValue: "logout")))
+        
+    }
+    
+    
+    func initCloudPush()
+    {
+        
+        CloudPushSDK.asyncInit("23744972", appSecret: "6295ae0f5198f3795b85d23d531e7ad4") { (res) in
+            
+            if let r = res
+            {
+                if(r.success)
+                {
+                    print("CloudPushSDK.asyncInit success !!!!!!!!!!!!")
+                }
+                else
+                {
+                    print(r.error ?? "阿里云注册失败")
+                }
+            }
+            else
+            {
+                print("阿里云注册失败")
+            }
+            
+        }
+        
+        CloudPushSDK.turnOnDebug()
+    }
 
+    
+    func RegistPushNotice()
+    {
+        let settings:UIUserNotificationSettings=UIUserNotificationSettings(types: [.alert,.sound], categories: nil)
+        UIApplication.shared.registerUserNotificationSettings(settings)
+        UIApplication.shared.registerForRemoteNotifications()
+    }
+
+    
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-       
         initLocalHtml()
         
+        RegistPushNotice()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(onMessageReceived(_:)), name: NSNotification.Name(rawValue: "CCPDidReceiveMessageNotification"), object: nil)
+        
+        initCloudPush()
+        
+        mapManager = BMKMapManager()
+        if let res = mapManager?.start("uzMVl09tmkeDQfLzI6d2Y1XlaVX0CmVu", generalDelegate: nil)
+        {
+            if(!res)
+            {
+                print("百度地图加载失败")
+            }
+
+        }
+        
+        //CloudPushSDK.handleLaunching(launchOptions)
+        CloudPushSDK.sendNotificationAck(launchOptions)
         return true
+    }
+    
+    
+    func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+        
+        CloudPushSDK.registerDevice(deviceToken) { (res) in
+            
+            if let r = res
+            {
+                if(r.success)
+                {
+                    print("阿里云注册成功 Token: \(deviceToken.description)")
+                }
+                else
+                {
+                    print(r.error ?? "阿里云注册失败")
+                }
+            }
+            else
+            {
+                print("阿里云注册失败")
+            }
+            
+        }
+
+        
+    }
+    
+    func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
+        
+        print("阿里云注册失败 error: \(error)")
+        
+    }
+
+    
+    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any]) {
+        
+        print("收到推送: \(userInfo)")
+        
+        CloudPushSDK.sendNotificationAck(userInfo)
+        
     }
 
     func applicationWillResignActive(_ application: UIApplication) {

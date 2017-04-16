@@ -91,15 +91,22 @@ class HtmlVC: UIViewController,WKNavigationDelegate,WKUIDelegate,WKScriptMessage
     
     func reload()
     {
-        //CleanWebCache()
-        
         if let currentURL = self.webView?.url {
             let request = URLRequest(url: currentURL)
             self.webView?.load(request)
         }
         else
         {
-            //webView?.load(url.urlRequest)
+            if(self.url != nil)
+            {
+                let request = URLRequest(url: url!)
+                webView?.load(request)
+            }
+            else if(self.html != "")
+            {
+                webView?.loadHTMLString(self.html, baseURL: baseUrl)
+            }
+
         }
     }
     
@@ -119,6 +126,9 @@ class HtmlVC: UIViewController,WKNavigationDelegate,WKUIDelegate,WKScriptMessage
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        NotificationCenter.default.addObserver(self, selector:#selector(onLogout), name: NSNotification.Name(rawValue: "logout"), object: nil)
+
 
         isHeroEnabled = true
     
@@ -173,6 +183,93 @@ class HtmlVC: UIViewController,WKNavigationDelegate,WKUIDelegate,WKScriptMessage
     
         self.show()
         
+        if("\(url)".has("car_apply.html"))
+        {
+            DataCache.Share.SMap.flag = "saddress"
+            DataCache.Share.EMap.flag = "eaddress"
+            
+            NotificationCenter.default.addObserver(self, selector:#selector(onMapSelected), name: NSNotification.Name(rawValue: "MapSelected"), object: nil)
+            
+            datepicker.block {[weak self] (date) in
+                self?.webView?.evaluateJavaScript("javascript:OnTimeSelect('"+date!+"')", completionHandler: { (res, err) in
+                    print(res)
+                    print(err)
+                })
+            }
+        }
+        
+        if("\(String(describing: url))".has("car_list.html"))
+        {
+            NotificationCenter.default.addObserver(self, selector:#selector(reload), name: NSNotification.Name(rawValue: "AddCarTaskSuccess"), object: nil)
+        }
+        
+        if("\(String(describing: url))".has("office_list.html"))
+        {
+            NotificationCenter.default.addObserver(self, selector:#selector(reload), name: NSNotification.Name(rawValue: "AddResTaskSuccess"), object: nil)
+        }
+        
+        if("\(String(describing: url))".has("duban_list.html"))
+        {
+            NotificationCenter.default.addObserver(self, selector:#selector(reload), name: NSNotification.Name(rawValue: "AddOverseerTaskSuccess"), object: nil)
+        }
+
+        
+        if("\(String(describing: url))".has("Office_apply.html"))
+        {
+            NotificationCenter.default.addObserver(self, selector:#selector(onResChoose), name: NSNotification.Name(rawValue: "ResChoose"), object: nil)
+        }
+        
+        if("\(String(describing: url))".has("duban_apply.html"))
+        {
+            NotificationCenter.default.addObserver(self, selector:#selector(DaibanChoose), name: NSNotification.Name(rawValue: "DaibanChoose"), object: nil)
+            
+            datepicker.block {[weak self] (date) in
+                self?.webView?.evaluateJavaScript("javascript:OnTimeSelect('"+date!+"')", completionHandler: { (res, err) in
+                    print(res ?? "")
+                    print(err ?? "")
+                })
+            }
+            
+        }
+        
+    }
+    
+    func DaibanChoose()
+    {
+        self.webView?.evaluateJavaScript("javascript:OnDoUserChoose('"+DataCache.Share.DaibanUser.toDict().toJson()+"')", completionHandler: { (res, err) in
+            print(res)
+            print(err)
+        })
+    }
+    
+    func onResChoose()
+    {
+        self.webView?.evaluateJavaScript("javascript:OnResChoose('"+DataCache.Share.Res.toDict().toJson()+"')", completionHandler: { (res, err) in
+            print(res)
+            print(err)
+        })
+
+    }
+    
+    func onMapSelected()
+    {
+        var str = ""
+        if(DataCache.Share.mapFlag == "saddress")
+        {
+            str = DataCache.Share.SMap.toDict().toJson()
+        }
+        else
+        {
+            str = DataCache.Share.EMap.toDict().toJson()
+        }
+        
+        print(str)
+        
+        self.webView?.evaluateJavaScript("javascript:OnMapSelect('"+str+"')", completionHandler: { (res, err) in
+            print(res)
+            print(err)
+        })
+
     }
     
     func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
@@ -218,6 +315,17 @@ class HtmlVC: UIViewController,WKNavigationDelegate,WKUIDelegate,WKScriptMessage
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         XWaitingView.hide()
         
+        
+        if("\(String(describing: url))".has("about.html"))
+        {
+            let currentVersion = Bundle.main.infoDictionary!["CFBundleShortVersionString"] as! String
+            webView.evaluateJavaScript("javascript:OnGetVersionName('"+currentVersion+"')", completionHandler: { (res, err) in
+
+            })
+            
+        }
+        
+        
     }
     
     
@@ -261,10 +369,16 @@ class HtmlVC: UIViewController,WKNavigationDelegate,WKUIDelegate,WKScriptMessage
         
     }
     
-    
+    func onLogout()
+    {
+        dismiss(animated: true, completion: nil)
+    }
     
     deinit
     {
+        
+        NotificationCenter.default.removeObserver(self)
+        
         webView?.configuration.userContentController.removeScriptMessageHandler(forName: "JSHandle")
         webView?.uiDelegate=nil
         webView?.navigationDelegate=nil

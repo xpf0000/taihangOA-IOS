@@ -21,9 +21,40 @@ class UserModel: Reflect {
     var token=""
     var dname=""
     
+    func reset()
+    {
+        id=""
+        account=""
+        sex=""
+        mobile=""
+        departmentid=""
+        name=""
+        avatar=""
+        user_status=""
+        token=""
+        dname=""
+        save()
+    }
+    
     func save()
     {
         _ = UserModel.save(obj: self, name: "User")
+    }
+    
+    func registNotice()
+    {
+        if id != ""
+        {
+            CloudPushSDK.addAlias(id, withCallback: { (res) in
+                
+            })
+            
+        }
+    }
+    
+    func unRegistNotice()
+    {
+        CloudPushSDK.removeAlias(id) { (res) in}
     }
     
     

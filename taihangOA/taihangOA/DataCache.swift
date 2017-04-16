@@ -14,7 +14,14 @@ class DataCache: NSObject {
     static let Share = DataCache()
     
     var User = UserModel()
-    
+    var Lanch = LanchModel()
+    var SMap = CMapModel()
+    var EMap = CMapModel()
+    var mapFlag = ""
+    var daibanCount = 0
+    var Res = ResModel()
+    var DaibanUser = UserModel()
+
     fileprivate override init() {
         super.init()
         
@@ -23,6 +30,7 @@ class DataCache: NSObject {
            User = model as! UserModel
         }
         
+                
 }
     
     
