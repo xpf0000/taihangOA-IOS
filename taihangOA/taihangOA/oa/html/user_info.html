@@ -1,0 +1,202 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <meta name="full-screen" content="yes" />
+    <meta name="x5-fullscreen" content="true" />
+    <link rel="stylesheet" type="text/css" href="../css/aui.css" />
+
+    <script src="../js/require.js?v=1.0.1"></script>
+
+    <style type="text/css">
+        .user-info {
+            background-color: #35b3fa;
+            padding: 2.5rem 0;
+            color:#fff;
+        }
+        img.avatar {
+            display: block;
+            margin: 0 auto;
+            width: 20%;
+            height: 20vw;
+        }
+        .aui-list .aui-list-header {
+            background-color: #ffffff;
+            line-height: 1.2rem;
+        }
+    </style>
+</head>
+
+<body>
+
+<div id="userinfo">
+
+    <section class="aui-content user-info aui-text-center">
+        <img :src="info.avatar?info.avatar:'../images/home_head.png'" class="avatar aui-img-round" @click="openActionsheet">
+        <h2 class="aui-margin-t-15">
+            <span v-text="info.name"></span>
+            <small v-cloak v-if="info.user_status == 1">
+                <i class="aui-iconfont aui-icon-cert aui-text-danger"></i>
+            </small>
+        </h2>
+
+    </section>
+    <div class="aui-content">
+        <ul class="aui-list aui-list-in aui-list-noborder">
+            <li class="aui-list-item" >
+                <div class="aui-list-item-inner aui-list-item-arrow">
+                    姓名
+                    <div class="aui-list-item-right">
+                        <div class="user_info" style="position:relative;top:0; right:0" v-text="info.name"></div>
+                    </div>
+                </div>
+            </li>
+            <li class="aui-list-item" >
+                <div class="aui-list-item-inner aui-list-item-arrow">
+                    性别
+                    <div class="aui-list-item-right">
+                        <div class="user_info" style="position:relative;top:0; right:0">
+                            <span v-cloak v-if="info.sex=='1'">
+                                男
+                            </span>
+                            <span v-cloak v-else>
+                                女
+                            </span>
+
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li class="aui-list-item" >
+                <div class="aui-list-item-inner aui-list-item-arrow">
+                    部门
+                    <div class="aui-list-item-right">
+                        <div class="user_info" style="position:relative;top:0; right:0" v-text="info.dname"></div>
+                    </div>
+                </div>
+            </li>
+            <li class="aui-list-item" >
+                <div class="aui-list-item-inner aui-list-item-arrow">
+                    手机
+                    <div class="aui-list-item-right">
+                        <div class="user_info" style="position:relative;top:0; right:0" v-text="info.mobile"></div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+    <div class="aui-content" style="margin-top: 0.5rem;">
+        <ul class="aui-list aui-list-in aui-list-noborder">
+            <a class="aui-list-item" href="setup.html">
+                <div class="aui-list-item-inner aui-list-item-arrow">
+                    设置
+                    <div class="aui-list-item-right">
+                        <div class="user_info" style="position:relative;top:0; right:0"></div>
+                    </div>
+                </div>
+            </a>
+        </ul>
+    </div>
+
+
+</div>
+<script type="text/javascript">
+
+    var user = null;
+    var Store = null;
+    var baseimg = "";
+    requirejs(['../js/main'], function () {
+
+        require(['vue', 'Service', 'store','app', 'api'], function (Vue, Service,store) {
+
+            apiready = function(){
+                api.parseTapmode();
+            }
+
+            Store = store;
+
+            user = new Vue({
+                el: '#userinfo',
+                data: {
+                    info:{}
+                },
+
+                methods:{
+
+                    logout:function()
+                    {
+                        store.remove('User');
+                        sendMsgToAPP({type:2,msg:'退出登录'});
+                    },
+
+                    openActionsheet: function (){
+
+                        sendMsgToAPP({'type':11,msg:'用户更新头像'});
+
+                    },
+
+
+                },
+
+            });
+
+            $('img').error(function(){
+                user.info.avatar = "../images/home_head.png";
+            });
+
+
+            user.info = store.get("User");
+            baseimg = user.info.avatar;
+
+            console.log(user.info);
+
+
+        });
+
+    });
+    
+    function reshowHeader() {
+
+        if(baseimg != "" && baseimg != null && baseimg != "null")
+        {
+            user.info.avatar = baseimg;
+        }
+        else
+        {
+            user.info.avatar = "../images/icon_0.png";
+        }
+        
+    }
+
+    function usergetinfo(u)
+    {
+
+        if(typeof u == "string" && u.constructor == String)
+        {
+            u = JSON.parse(u);
+        }
+
+        Store.set("User",u);
+        baseimg = u.avatar;
+
+        Service.UsergetUserInfo(u.id, u.account,function(data){
+
+            if(data.data.code == 0 && data.data.info)
+            {
+                user.info = data.data.info;
+                Store.set("User",data.data.info);
+                baseimg = user.info.avatar;
+            }
+
+        });
+
+    }
+
+
+
+</script>
+</body>
+</html>

@@ -1,0 +1,102 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <meta name="full-screen" content="yes" />
+  <meta name="x5-fullscreen" content="true" />
+    <link rel="stylesheet" type="text/css" href="../css/aui.css" />
+
+    <script src="../js/require.js?v=1.0.1"></script>
+
+</head>
+
+<body>
+    <header class="aui-bar aui-bar-nav aui-bar-light" id="aui-header">
+        <a class="aui-pull-left aui-btn back" href="aaa">
+            <span class="aui-iconfont aui-icon-left"></span>
+        </a>
+        <div class="aui-title">更换手机号</div>
+    </header>
+
+    <div id="edit_phone">
+
+     <div class="aui-content aui-margin-b-15" style="margin-top:2.8rem;">
+        <ul class="aui-list aui-form-list">
+         <li class="aui-list-item">
+                <div class="aui-list-item-inner">
+                    <div class="aui-list-item-label">
+                        手机
+                    </div>
+                    <div class="aui-list-item-input">
+                        <input v-model="mobile" type="tel" placeholder="请输入手机号">
+                    </div>
+                </div>
+            </li>
+        </ul>
+        </div>
+        <div class="aui-margin-15"><a href="#" @click="dosubmit" class="aui-btn aui-btn-info aui-btn-block">确认修改</a></div>
+</div>
+    <script>
+
+        requirejs(['../js/main'], function () {
+
+            require(['vue','Service','store', 'app', 'api'], function (Vue,Service,store) {
+
+                var user=store.get("User");
+                var vm = new Vue({
+                    el: '#edit_phone',
+                    data: {
+                        mobile:'',
+                    },
+
+                    methods:{
+
+                        dosubmit:function(){
+
+                            if(!validatemobile(vm.mobile))
+                            {
+                                return;
+                            }
+
+                            user.mobile = vm.mobile;
+
+                            Service.UserupdateMobile(user,function(b){
+
+                                if(b)
+                                {
+                                    store.set("User",user);
+                                    toast.success({title:'手机号更新成功'},function(){
+                                        sendMsgToAPP({'type':13,msg:'手机号更新成功',info:user});
+                                    });
+                                }
+
+                            });
+
+
+                        }
+                    }
+
+                });
+
+
+                Service.UsergetUserInfo(user.id, user.account,function(data){
+
+                    if(data.data.code == 0 && data.data.info)
+                    {
+                        user = data.data.info;
+                        store.set("User",user);
+                    }
+
+                });
+
+
+            });
+
+        });
+
+    </script>
+
+</body>
+</html>

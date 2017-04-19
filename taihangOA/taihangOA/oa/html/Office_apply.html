@@ -1,0 +1,331 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <meta name="full-screen" content="yes" />
+  <meta name="x5-fullscreen" content="true" />
+    <link rel="stylesheet" type="text/css" href="../css/aui.css" />
+    <style>
+#sp_num{ color:red; font-weight:bold;font-size:0.7rem; padding:0 5px;}
+
+.b_btn { padding: 0.2rem;position:fixed; top: auto; bottom: 0px;width:100%;}
+
+::-moz-placeholder { color: #424242;}
+::-webkit-input-placeholder { color:#424242;}
+:-ms-input-placeholder { color:#424242; }
+
+select{ text-align: right;color:#424242;}
+
+input{
+    color:#424242;
+}
+
+input[disabled]{
+    color:#424242;
+}
+
+
+</style>
+
+    <script src="../js/require.js?v=1.0.1"></script>
+
+</head>
+
+<body>
+    <header class="aui-bar aui-bar-nav aui-bar-light" id="aui-header">
+        <a class="aui-pull-left aui-btn back" href="office_list.html">
+            <span class="aui-iconfont aui-icon-left"></span>
+        </a>
+        <div class="aui-title">物品申请</div>
+    </header>
+
+    <div id="office_apply">
+
+      <div class="aui-content" style="margin-top:2.6rem; padding-bottom: 2.3rem;" >
+        <ul class="aui-list aui-form-list">
+        <li class="aui-list-item">
+                <div class="aui-list-item-inner">
+                    <div class="aui-list-item-label">
+                        标题
+                    </div>
+                    <div class="aui-list-item-input">
+                        <input v-model="title" type="text" placeholder="请输入物品用途">
+                    </div>
+                </div>
+            </li>
+        </ul>
+        <div class="aui-list">
+        <div class="aui-collapse-item">
+                <li class="aui-list-item aui-collapse-header" tapmode>
+                    <div class="aui-list-item-inner">
+                        <div class="aui-list-item-title">物品明细：共计<span id="sp_num">0</span>件物品</div>
+                        <div class="aui-list-item-right">
+                            <i class="aui-iconfont aui-icon-down aui-collapse-arrow"></i>
+                        </div>
+                    </div>
+                </li>
+                <div class="aui-collapse-content">
+                    <li class="aui-list-item" v-cloak v-for="item in res">
+                        <div class="aui-list-item-inner">
+                            <div class="aui-list-item-title" v-text="item.name"></div>
+                            <div class="aui-list-item-right">
+                            <ul class="office_count_box">
+                            <li class="reduce_icon" @click="clipnum(item.id)"></li>
+
+                            <li class="count_input">
+                                <input type="number" :data-id="item.id" :data-resname="item.name" v-model="item.num" class="lskdo" style="height: 1.2rem;width:3rem;border:1px solid #dfdfdf; text-align: center;margin-left: 0.5rem;margin-right: 0.5rem;">
+                            </li>
+
+                            <li class="add_icon" @click="addnum(item.id)"></li>
+                            <div class="aui-clearfix"></div>
+                            </ul>
+                        </div>
+                        </div>
+                    </li>
+                </div>
+            </div>
+        </div>
+        <a class="add_office_line" :href="'Office_choose.html?id='+resid"><div class="add_office">添加物品</div></a>
+            <div class="aui-content aui-margin-b-15" style="margin-top:.1rem;">
+        <ul class="aui-list aui-form-list">
+        <li class="aui-list-item">
+                <div class="aui-list-item-inner">
+                    <div class="aui-list-item-input">
+                        <textarea v-model="mark" placeholder="请输入备注" style="text-align: left;"></textarea>
+                    </div>
+                </div>
+            </li>
+        <li class="aui-list-item">
+                <div class="aui-list-item-inner">
+                    <div class="aui-list-item-label" >
+                        审批人
+                    </div>
+                    <div class="aui-list-item-input">
+                        <input type="text" placeholder="" v-model="auditor" disabled="true" readonly="true">
+                    </div>
+                </div>
+            </li>
+        </ul>
+        </div> 
+
+        </div>
+
+        <div class="b_btn"><a href="#" class="aui-btn aui-btn-info aui-btn-block" @click="dosubmit">提交申请</a></div>
+
+    </div>
+
+
+    <script type="text/javascript">
+
+        var vm = null;
+        requirejs(['../js/main'], function (main) {
+            require(['vue','Service','api','app','auicollapse'], function(Vue,Service) {
+
+                apiready = function () {
+                    api.parseTapmode();
+                }
+
+                vm = new Vue({
+                    el: '#office_apply',
+                    data: {
+                        res:[],
+                        title:'',
+                        mark:'',
+                        auditor:'',
+                        resid:'',
+                    },
+
+                    methods:{
+
+                        clipnum:function(id)
+                        {
+                            $.each(vm.res,function(i,item)
+                            {
+                                if(item.id == id)
+                                {
+                                    if(item.num > 1)
+                                    {
+                                        item.num --;
+                                        return false;
+                                    }
+                                }
+                            });
+
+                            sum();
+
+                        },
+
+                        addnum:function(id)
+                        {
+                            $.each(vm.res,function(i,item)
+                            {
+                                if(item.id == id)
+                                {
+                                    item.num ++;
+                                    return false;
+                                }
+                            });
+                            sum();
+                        },
+
+                        dosubmit:function()
+                        {
+                            var cansubmit = true;
+                            $.each(vm.$data,function(key,value){
+
+                                console.info(key);
+                                console.info(value);
+
+                                if(value.length == 0 && key != 'mark')
+                                {
+                                    cansubmit = false;
+                                    return false;
+                                }
+                            });
+
+                            if(!cansubmit)
+                            {
+                                toast.fail({
+                                    title:'请完善申请信息',
+                                    duration:2000
+                                });
+
+                                return;
+                            }
+
+
+                            var resinput = $(".lskdo");
+                            var arr = [];
+                            $.each(resinput,function(i,item){
+
+                                var name = $(item).data("resname");
+                                var num = $(item).val();
+
+                                arr.push({name:name,num:num});
+
+                            })
+
+
+                            var data = vm.$data;
+                            data.res = arr;
+
+                            Service.TaskAddTaskRes(data,function(b){
+
+                                if(b)
+                                {
+                                    sendMsgToAPP({'type':7,msg:'物品申请添加成功'});
+                                }
+
+                            });
+
+
+                        },
+
+                    },
+
+                });
+
+
+                var collapse = new auiCollapse({
+                    autoHide:false //是否自动隐藏已经展开的容器
+                });
+
+
+                Service.TaskGetNowAuditor(null,function(data){
+
+                    if(data.data.info)
+                    {
+                        vm.auditor = data.data.info.name;
+                    }
+
+                });
+
+                sum();
+
+            });
+
+        });
+
+        function sum()
+        {
+            var sum = 0;
+            $.each(vm.res,function(i,item)
+            {
+                sum += item.num;
+            });
+
+            $("#sp_num").text(sum);
+
+        }
+
+        function OnResChoose(arr)
+        {
+            if(typeof arr == "string" && arr.constructor == String)
+            {
+                arr = JSON.parse(arr);
+                arr = arr.info;
+            }
+
+            var resid = "";
+
+            $.each(arr,function(index,item){
+
+                item.num = 1;
+                resid += item.id+",";
+
+            });
+
+            vm.res = arr;
+
+            vm.resid = resid;
+
+            vm.$nextTick(function(){
+
+                var collapse = new auiCollapse({
+                    autoHide:false //是否自动隐藏已经展开的容器
+                });
+                collapse.show();
+
+                $(".lskdo").on('input change propertychange',function(){
+
+                    console.log("value is change !!!!!!!!!!")
+
+                    var deox=$(this).val();
+                    deox = parseInt(deox);
+
+                    if(isNaN(deox)){
+                        deox = 1;
+                    }
+
+                    deox = deox == 0 ? 1 : deox;
+
+                    var id = $(this).data("id");
+
+                    $.each(vm.res,function(i,item)
+                    {
+                        if(item.id == id)
+                        {
+                            item.num = deox;
+                            return false;
+                        }
+
+                    });
+
+                    sum();
+                });
+
+
+
+            });
+
+            sum();
+        }
+
+
+    </script>
+
+
+</body>
+</html>

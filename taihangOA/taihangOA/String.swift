@@ -35,6 +35,12 @@ import UIKit
             }
         }
         
+        //去掉左右空格
+        func trim()->String{
+            return self.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+        }
+
+        
     
         func color() -> UIColor{
             

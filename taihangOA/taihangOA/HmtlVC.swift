@@ -382,8 +382,15 @@ class HtmlVC: UIViewController,WKNavigationDelegate,WKUIDelegate,WKScriptMessage
     
     func onLogout()
     {
-        self.hero_unwindToRootViewController()
-        //dismiss(animated: true, completion: nil)
+        //self.hero_unwindToRootViewController()
+        dismiss(animated: true, completion: nil)
+        dismiss(animated: true, completion: nil)
+        dismiss(animated: true, completion: nil)
+        dismiss(animated: true, completion: nil)
+        dismiss(animated: true, completion: nil)
+        dismiss(animated: true, completion: nil)
+        dismiss(animated: true, completion: nil)
+        
     }
     
     deinit

@@ -1,0 +1,188 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <meta name="full-screen" content="yes" />
+  <meta name="x5-fullscreen" content="true" />
+    <link rel="stylesheet" type="text/css" href="../css/aui.css" />
+    <link rel="stylesheet" href="../css/dropload.css">
+
+    <script src="../js/require.js?v=1.0.1"></script>
+
+    <style type="text/css">
+        .userinfo-header {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            overflow: hidden;
+            padding-right: 0.75rem;
+            z-index: 1;
+        }
+        .userinfo-header .aui-info {
+            padding: 0;
+        }
+        .userinfo-header + .aui-card-list-content-padded {
+            padding: 0.2rem;
+            padding-top: 2.3rem;
+			padding-left:3.1rem;
+			font-size:0.7rem;
+			color: #b8b8b8;
+        }
+		.aui-card-list-state{
+			padding-left:3rem;
+			font-size:0.7rem;
+			color: #b8b8b8;
+			padding-bottom: 0.5rem;
+        }
+    </style>
+</head>
+
+
+<body>
+    <header class="aui-bar aui-bar-nav aui-bar-light" id="aui-header">
+        <a class="aui-pull-left aui-btn back" href="aaa">
+            <span class="aui-iconfont aui-icon-left"></span>
+        </a>
+        <div class="aui-title">通知公告</div>
+    </header>
+
+
+<div id="gg_list">
+    <section class="aui-content-padded">
+
+        <div class="aui-card-list" v-cloak v-for="item in info">
+            <a :href="'news_info.html?id='+item.id">
+            <div class="userinfo-header">
+                <div class="aui-info">
+                    <div class="aui-info-item">
+                        <img src="../images/icon04.png" style="width:1.8rem"/>
+                        <span class="aui-margin-l-10 aui-margin-r-10" v-text="item.post_title"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="aui-card-list-content-padded">
+                发布人：<span v-text="item.post_name"></span>
+            </div>
+            <div class="aui-card-list-state">
+                发布时间：<span v-text="item.post_date"></span>
+            </div>
+            </a>
+        </div>
+
+    </section>
+</div>
+
+<script type="text/javascript">
+
+    requirejs(['../js/main'], function (main) {
+        require(['vue','Service','app','api','dropload'], function(Vue,Service) {
+
+            apiready = function(){
+                api.parseTapmode();
+            }
+
+            var vm = new Vue({
+                el: '#gg_list',
+                data: {
+                    info:[],
+                },
+
+            });
+
+            var page = 1;
+
+            $('#gg_list').dropload({
+                scrollArea : window,
+                domUp : {
+                    domClass   : 'dropload-up',
+                    domRefresh : '<div class="dropload-refresh" >↓下拉刷新</div>',
+                    domUpdate  : '<div class="dropload-update" >↑释放更新</div>',
+                    domLoad    : '<div class="dropload-load" ><span class="loading"></span>加载中...</div>'
+                },
+                domDown : {
+                    domClass   : 'dropload-down',
+                    domRefresh : '<div class="dropload-refresh">↑上拉加载更多</div>',
+                    domLoad    : '<div class="dropload-load"><span class="loading"></span>加载中...</div>',
+                    domNoData  : '<div class="dropload-noData">暂无更多数据</div>'
+                },
+                loadUpFn : function(me){
+
+                    page = 1;
+                    Service.NoticeGetNoticeList(page,function(data){
+
+                        if(data.data.code == 0)
+                        {
+
+                            vm.info = data.data.info;
+                            vm.$nextTick(function(){
+                                me.resetload();
+                                me.unlock();
+                                me.noData(false);
+                            });
+                            page++;
+                        }
+                        else
+                        {
+                            // 锁定
+                            me.lock();
+                            // 无数据
+                            me.noData();
+
+                            me.resetload();
+                        }
+
+
+
+                    });
+
+                },
+                loadDownFn : function(me){
+
+                    Service.NoticeGetNoticeList(page,function(data){
+
+                        if(data.data.code == 0)
+                        {
+
+                            vm.info.push.apply(vm.info,data.data.info);
+                            vm.$nextTick(function(){
+                                me.resetload();
+                            })
+                            page++;
+
+                        }
+                        else
+                        {
+                            // 锁定
+                            me.lock();
+                            // 无数据
+                            me.noData();
+
+                            me.resetload();
+                        }
+
+//                        vm.nextTick(function(){
+//                            alert('数据已经更新')
+//                        });
+
+
+                    });
+
+                },
+                threshold : 0
+            });
+
+
+
+
+
+        });
+
+    });
+
+
+</script>
+</body>
+</html>

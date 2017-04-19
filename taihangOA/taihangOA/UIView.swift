@@ -20,6 +20,37 @@ extension UIView
     }
     
     
+    func addEndButton()
+    {
+        
+        let swidth = UIScreen.main.bounds.size.width
+        
+        // 键盘添加一下Done按钮
+        let topView : UIToolbar = UIToolbar(frame: CGRect(x: 0, y: 0, width: swidth, height: 38))
+        
+        topView.layer.shadowColor = UIColor.clear.cgColor
+        topView.layer.masksToBounds = true
+        topView.isTranslucent = true
+        
+        let btn = UIButton(type: .custom)
+        
+        btn.setTitleColor("007AFF".color(), for: UIControlState())
+        btn.setTitle("完成", for: UIControlState())
+        btn.titleLabel?.font = UIFont.systemFont(ofSize: 16.0)
+        
+        btn.frame = CGRect(x: swidth-60, y: 0, width: 48, height: 38)
+        topView.addSubview(btn)
+        
+        btn.click {[weak self] (b) in
+            
+            self?.endEdit()
+        }
+        
+        self.setValue(topView, forKey: "inputAccessoryView")
+    }
+
+    
+    
     var rootView:UIView{
         
         var rootview=self

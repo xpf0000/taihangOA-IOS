@@ -1,0 +1,161 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <meta name="full-screen" content="yes" />
+  <meta name="x5-fullscreen" content="true" />
+    <link rel="stylesheet" type="text/css" href="../css/aui.css" />
+	<style>
+.aui-list-item-right a {display: block; position: absolute; right: .5rem;width:5rem; text-align: right; top: -0.4rem; color: #027dc4; font-size:.7rem;}
+.reg_about { font-size:.6rem; text-align: center; height: 2.2rem; line-height: 2.2rem; color: #7d7d7d;}
+		select{color:#bdbdbd;}
+	</style>
+
+    <script src="../js/require.js?v=1.0.1"></script>
+</head>
+
+<body style="background: #fff;">
+ <header class="aui-bar aui-bar-nav aui-bar-light" id="aui-header">
+        <a class="aui-pull-left aui-btn back" href="reg.html">
+            <span class="aui-iconfont aui-icon-left"></span>
+        </a>
+        <div class="aui-title">注册</div>
+    </header>
+<div class="aui-content" style="padding-top: 2rem;">
+<div class="login_logo_box">
+	<span></span>	
+</div>
+<div class="aui-content login_box aui-margin-15" id="reg2">
+	 <ul class="aui-list aui-form-list">
+	  <li class="aui-list-item">
+                <div class="aui-list-item-inner">
+                    <div class="aui-list-item-label" style="width: 25%">
+                        设置密码
+                    </div>
+                    <div class="aui-list-item-input" style="width: 75%">
+                        <input type="password" v-model="password" placeholder="请设置密码" style="text-align: left;">
+                    </div>
+                </div>
+            </li>
+            <li class="aui-list-item">
+                <div class="aui-list-item-inner">
+                    <div class="aui-list-item-label" style="width: 25%">
+                        姓名
+                    </div>
+                    <div class="aui-list-item-input" style="width: 75%">
+                        <input type="text" v-model="name" placeholder="请输入姓名" style="text-align: left;">
+                    </div>
+                </div>
+            </li>
+             <li class="aui-list-item">
+                <div class="aui-list-item-inner aui-list-item-arrow">
+                    <div class="aui-list-item-label" style="width: 25%">
+                        部门
+                    </div>
+                    <div class="aui-list-item-input" style="width: 75%">
+                        <select style="direction: ltr;" v-model="did">
+                           <option value="0">请选择部门</option>
+                            <option v-for="item in department" :value="item.id">{{item.name}}</option>
+                        </select>
+                    </div>
+                </div>
+            </li>
+
+         <li class="aui-list-item">
+             <div class="aui-list-item-inner aui-list-item-arrow">
+                 <div class="aui-list-item-label" style="width: 25%">
+                     性别
+                 </div>
+                 <div class="aui-list-item-input" style="width: 75%">
+                     <select style="direction: ltr;" v-model="sex">
+                         <option value="0">请选择性别</option>
+                         <option value="1">男</option>
+                         <option value="2">女</option>
+                     </select>
+                 </div>
+             </div>
+         </li>
+
+	 </ul>
+	<a href="#" class="aui-btn aui-btn-info aui-btn-block" style="margin-top: 1rem;" @click="dosubmit">提交注册</a>
+	<div class="reg_about">注册即表示您同意相关<a href="">注册协议</a></div>
+</div>
+</div>
+
+<script>
+
+
+    requirejs(['../js/main'], function () {
+
+        require(['vue','Service','store','app','toast','api'], function(Vue,Service,store) {
+
+            apiready = function(){
+                api.parseTapmode();
+            }
+
+            var vm = new Vue({
+                el: '#reg2',
+                data: {
+                    mobile:'',
+                    password:'',
+                    name:'',
+                    did:'0',
+                    sex:'0',
+                    department : [],
+                },
+
+                methods:{
+
+                    dosubmit:function()
+                    {
+                        if(vm.mobile.trim() == "" || vm.password.trim() == ""
+                                || vm.name.trim() == "" || vm.did.trim() == "0" || vm.sex.trim() == "0")
+                        {
+                            toast.fail({
+                                title:"请完善注册信息",
+                                duration:2000
+                            });
+
+                            return;
+                        }
+
+                        Service.UserRegister(vm.$data,function(b){
+
+                            if(b)
+                            {
+                                sendMsgToAPP({'type':0,msg:'url跳转',url:'reg3.html'});
+                            }
+
+                        });
+
+                    },
+
+
+                }
+
+            });
+
+
+            vm.mobile = getUrlParam("mobile");
+
+            Service.SystemGetDepartmentList(function(data){
+
+               if(data.data.info)
+               {
+                   vm.department = data.data.info;
+               }
+
+            });
+
+
+
+
+        });
+
+    });
+
+</script>
+</body>
+</html>

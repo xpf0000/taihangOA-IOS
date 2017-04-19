@@ -1,0 +1,90 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <meta name="full-screen" content="yes" />
+  <meta name="x5-fullscreen" content="true" />
+    <link rel="stylesheet" type="text/css" href="../css/aui.css" />
+
+    <script src="../js/require.js?v=1.0.1"></script>
+
+</head>
+
+<body>
+    <header class="aui-bar aui-bar-nav aui-bar-light" id="aui-header">
+        <a class="aui-pull-left aui-btn back" href="setup.html">
+            <span class="aui-iconfont aui-icon-left"></span>
+        </a>
+        <div class="aui-title">意见反馈</div>
+    </header>
+
+     <div id="feedback" class="aui-content aui-margin-b-15" style="margin-top:2.8rem;">
+        <ul class="aui-list aui-form-list">
+        <li class="aui-list-item">
+                <div class="aui-list-item-inner">
+                    <div class="aui-list-item-input">
+                        <textarea v-model="content" placeholder="请输入详细内容" style="text-align: left; height: 6rem;"></textarea>
+                    </div>
+                </div>
+            </li>
+        </ul>
+        <div class="aui-margin-15"><a @click="dosubmit" href="#" class="aui-btn aui-btn-info aui-btn-block">确认提交</a></div>
+        </div>
+
+
+    <script type="text/javascript">
+
+        requirejs(['../js/main'], function (main) {
+
+            require(['vue','Service','app'], function(Vue,Service) {
+
+
+                var vm = new Vue({
+                    el: '#feedback',
+                    data: {
+                        content:'',
+                    },
+
+                    methods:{
+
+                        dosubmit:function(){
+
+                            if(vm.content.trim().length == 0)
+                            {
+                                toast.fail({title:'反馈内容不能为空'})
+
+                                return;
+                            }
+
+                            Service.SystemAddFeedback(vm.content,function(b){
+
+                                if(b)
+                                {
+                                    toast.success({title:'反馈意见提交成功'},function(){
+                                        sendMsgToAPP({'type':1,msg:'页面返回'});
+                                    })
+                                }
+
+
+                            });
+
+
+
+                        }
+
+                    }
+                });
+
+
+
+            });
+
+        });
+
+
+    </script>
+      
+</body>
+</html>

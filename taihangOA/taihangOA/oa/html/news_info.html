@@ -1,0 +1,71 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <meta name="full-screen" content="yes" />
+  <meta name="x5-fullscreen" content="true" />
+    <link rel="stylesheet" type="text/css" href="../css/aui.css" />
+    <style>
+		.page_info {margin-top:2.25rem; padding: .8rem;}
+		.page_tit {font-size:1rem; line-height: 1.6rem;}
+		.page_other_info { color:#949494; font-size: .6rem;line-height: 1.4rem;}
+		.page_content { font-size:.7rem; line-height: 1.4rem; padding-top: .5rem; border-top: 1px solid #ebebeb;}
+	</style>
+
+    <script src="../js/require.js?v=1.0.1"></script>
+
+</head>
+<body style="background: #fff;">
+    <header class="aui-bar aui-bar-nav aui-bar-light" id="aui-header">
+        <a class="aui-pull-left aui-btn back" href="gg_list.html">
+            <span class="aui-iconfont aui-icon-left"></span>
+        </a>
+        <div class="aui-title">通知公告</div>
+    </header>
+    <div class="page_info" id="news_info">
+    <div class="page_tit" v-text="info.post_title"></div>
+    <div class="page_other_info">发布人：
+        <span v-text="info.post_name"></span>
+        <span v-text="info.post_date"></span>
+    </div>
+
+    <div class="page_content" v-html="info.post_content">
+    </div>
+
+    </div>
+
+    <script>
+
+        requirejs(['../js/main'], function () {
+            require(['vue','Service','app'], function(Vue,Service) {
+
+                var id = getUrlParam("id");
+
+                var vm = new Vue({
+                    el: '#news_info',
+                    data: {
+                        info:{}
+                    },
+
+                });
+
+                Service.NoticeGetNoticeArticle(id,function(data){
+
+                    if(data.data.info)
+                    {
+                        vm.info = data.data.info;
+                    }
+
+                });
+
+
+            });
+
+        });
+
+    </script>
+
+</body>
+</html>

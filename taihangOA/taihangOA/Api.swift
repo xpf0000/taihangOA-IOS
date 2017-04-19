@@ -97,5 +97,39 @@ class Api: NSObject {
     }
     
     
+    
+    class func UserChecktoken(block:@escaping ApiBlock<Bool>)
+    {
+        
+        if(DataCache.Share.User.token == "" || DataCache.Share.User.id == "")
+        {
+            return
+        }
+        
+        let url = BaseUrl+"User.Checktoken&uid=\(DataCache.Share.User.id)&mobile=\(DataCache.Share.User.account)&token=\(DataCache.Share.User.token)"
+
+        Alamofire.request(url, method: .get).validate().responseJSON { response in
+            switch response.result {
+            case .success(let value):
+                let json = JSON(value)
+                
+                if let code = json["data"]["code"].int
+                {
+                    if code == 1
+                    {
+                        block(false)
+                    }
+                }
+                
+                block(true)
+                
+            case .failure(let error):
+                print(error)
+                
+            }
+        }
+    }
+    
+    
 
 }

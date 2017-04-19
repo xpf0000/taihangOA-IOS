@@ -1,0 +1,144 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <meta name="full-screen" content="yes" />
+  <meta name="x5-fullscreen" content="true" />
+    <link rel="stylesheet" type="text/css" href="../css/aui.css" />
+
+    <script src="../js/require.js?v=1.0.1"></script>
+
+</head>
+
+<body>
+<header class="aui-bar aui-bar-nav aui-bar-light" id="aui-header">
+        <a class="aui-pull-left aui-btn back" href="user_info.html">
+            <span class="aui-iconfont aui-icon-left"></span>
+        </a>
+        <div class="aui-title">设置</div>
+</header>
+<div class="aui-content" style="margin-top:2.6rem;" id="setup">
+        <ul class="aui-list aui-list-in aui-list-noborder">
+         <a class="aui-list-item" href="re_phone.html">
+                <div class="aui-list-item-inner aui-list-item-arrow">
+                    手机号
+                    <div class="aui-list-item-right">
+                        <div class="user_info" style="position:relative;top:0; right:0" v-text="mobile"></div>
+                    </div>
+                </div>
+            </a>
+            <a class="aui-list-item" @click="cleanCache">
+                <div class="aui-list-item-inner aui-list-item-arrow">
+                    缓存清理
+                </div>
+            </a>
+             <a class="aui-list-item" @click="checkVersion">
+                <div class="aui-list-item-inner aui-list-item-arrow">
+                    版本更新
+                </div>
+            </a>
+             <a class="aui-list-item" href="feedback.html">
+                <div class="aui-list-item-inner aui-list-item-arrow">
+                    意见反馈
+                </div>
+            </a>
+        </ul>
+        <div class="aui-content" style="margin-top: 0.5rem;">
+        <ul class="aui-list aui-list-in aui-list-noborder">
+         <a class="aui-list-item" href="about.html">
+                <div class="aui-list-item-inner aui-list-item-arrow">
+                    关于我们
+                    <div class="aui-list-item-right">
+                        <div class="user_info" style="position:relative;top:0; right:0"></div>
+                    </div>
+                </div>
+            </a>
+        </ul>
+        </div>
+        <div class="aui-margin-15">
+            <a class="aui-btn aui-btn-danger aui-btn-block" tapmode @click="openDialog('callback')">
+                退出登录
+            </a>
+        </div>
+        </div>
+
+
+<script>
+
+    requirejs(['../js/main'], function () {
+
+        require(['vue','store', 'auidialog', 'app', 'api'], function (Vue,store) {
+
+            var dialog = new auiDialog({});
+            var user=store.get("User");
+            var vue = new Vue({
+                el: '#setup',
+                data: {
+                    mobile:user.mobile,
+                },
+
+                methods:{
+
+                    cleanCache:function()
+                    {
+                        toast.loading({});
+
+                        setTimeout(function(){
+                            toast.hide();
+
+                            toast.success({
+                                title:'缓存清理完毕',
+                                duration:1500
+                            });
+
+
+                        }, 2000)
+
+                    },
+
+                    checkVersion:function()
+                    {
+                        sendMsgToAPP({'type':14,msg:'版本升级'});
+                    },
+
+                    openDialog:function(type)
+                    {
+                        switch (type) {
+                            case "callback":
+                                dialog.alert({
+                                    title:"提醒",
+                                    msg:'确定退出当前账号？',
+                                    buttons:['取消','确定']
+                                },function(ret){
+                                    if(ret){
+
+                                        if(ret.buttonIndex == 2)
+                                        {
+                                            store.remove('User');
+                                            sendMsgToAPP({type:2,msg:'退出登录'});
+                                        }
+
+                                    }
+                                })
+                                break;
+                            default:
+                                break;
+
+                        }
+                    },
+
+                },
+
+            });
+
+
+        });
+
+    });
+
+</script>
+
+</body>
+</html>

@@ -122,7 +122,7 @@ class LoginVC: UIViewController,WKNavigationDelegate,WKUIDelegate,WKScriptMessag
         super.viewDidLoad()
         
         self.view.backgroundColor = UIColor.white
-        
+    
         handle?.onMsgChange { [weak self](msg) in
             
             self?.msgChanged(msg)
@@ -159,7 +159,7 @@ class LoginVC: UIViewController,WKNavigationDelegate,WKUIDelegate,WKScriptMessag
             view.width == (view.superview?.width)!
             view.height == (view.superview?.height)!-20
             view.centerX == (view.superview?.centerX)!
-            view.centerY == (view.superview?.centerY)!+20
+            view.centerY == (view.superview?.centerY)!+10
         }
         
         self.baseUrl = TmpDirURL

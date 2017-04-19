@@ -1,0 +1,245 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <meta name="full-screen" content="yes" />
+  <meta name="x5-fullscreen" content="true" />
+    <link rel="stylesheet" type="text/css" href="../css/aui.css" />
+        <style>
+#sp_num{ color:red; font-weight:bold;font-size:0.7rem; padding:0 5px;}
+</style>
+
+    <script src="../js/require.js?v=1.0.1"></script>
+
+</head>
+
+<body>
+   <header class="aui-bar aui-bar-nav aui-bar-light" id="aui-header">
+        <a class="aui-pull-left aui-btn back" href="office_list.html">
+            <span class="aui-iconfont aui-icon-left"></span>
+        </a>
+        <div class="aui-title">物品详情</div>
+    </header>
+
+
+
+    <section class="aui-content" style="margin-top:2.25rem; padding-bottom: 2.3rem;" id="office_info">
+    <div class="aui-timeline">
+    <div class="aui-card-list-content">
+                <ul class="aui-list aui-media-list">
+                    <li class="aui-list-item aui-list-item-middle" style="border-bottom: 0;">
+                        <div class="aui-media-list-item-inner">
+                            <div class="aui-list-item-media" style="width: 3rem;">
+                                <img :src="info.task.cheadpic ? info.task.cheadpic : '../images/home_head.png'" class="aui-img-round" >
+                            </div>
+                            <div class="aui-list-item-inner">
+                                <div class="aui-list-item-text">
+                                    <div class="aui-list-item-title aui-font-size-14 aui-text-info" v-text="info.task.creater"></div>
+                                </div>
+                                <div class="p_info_tit" v-text="info.task.title">
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="aui-list">
+        <div class="aui-collapse-item">
+                <li class="aui-list-item aui-collapse-header" tapmode>
+                    <div class="aui-list-item-inner">
+                        <div class="aui-list-item-title">物品明细：共计<span id="sp_num" v-text="count"></span>件物品</div>
+                        <div class="aui-list-item-right">
+                            <i class="aui-iconfont aui-icon-down aui-collapse-arrow"></i>
+                        </div>
+                    </div>
+                </li>
+                <div class="aui-collapse-content">
+
+                    <li class="aui-list-item" v-for="item in info.taskres" v-cloak>
+                        <div class="aui-list-item-inner">
+                            <div class="aui-list-item-title" v-text="item.name">U盘</div>
+                            <div class="aui-list-item-right" style="font-size: 0.7rem">
+<span>数量：</span><span v-text="item.num"></span>
+                        </div>
+                        </div>
+                    </li>
+
+                </div>
+            </div>
+        </div>
+            <div class="p_info_memo">备注：<span v-text="info.task.mark"></span></div>
+
+        <div class="aui-timeline-item" style="min-height: 5rem;" v-for="(item,index) in info.taskstep" v-cloak>
+
+            <div class="aui-timeline-item-label sc-info-icon"></div>
+
+            <div class="aui-chat">
+                <div class="aui-timeline-item-inner">
+                    <div class="aui-chat-item aui-chat-left">
+                        <div class="aui-chat-inner">
+                            <div class="aui-chat-content">
+                                <div class="aui-chat-arrow"></div>
+                                <div class="aui-card-list-content">
+                                    <ul class="aui-list aui-media-list aui-list-noborder">
+                                        <li class="aui-list-item aui-list-item-middle" style="padding-left: 0.2rem;">
+                                            <div class="aui-media-list-item-inner">
+                                                <div class="aui-list-item-media" style="width: 2.6rem;">
+                                                    <img :src="item.avatar ? item.avatar : '../images/home_head.png'" class="aui-img-round" >
+                                                </div>
+                                                <div class="aui-list-item-inner">
+                                                    <div class="aui-list-item-text">
+                                                        <div class="aui-list-item-title aui-font-size-14" v-text="item.doername"></div>
+                                                        <div class="aui-list-item-right" v-text="item.action_time"></div>
+                                                    </div>
+                                                    <div class="aui-list-item-text" >
+                                                        {{action[item.doaction]}}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div></div>
+            </div>
+        </div>
+
+        <div v-cloak class="aui-timeline-item" style="min-height: 5rem;" v-if="info.task.state == '0'">
+            <div class="aui-timeline-item-label wait-info-icon"></div>
+            <div class="aui-chat">
+                <div class="aui-timeline-item-inner">
+                    <div class="aui-chat-item aui-chat-left">
+                        <div class="aui-chat-inner">
+                            <div class="aui-chat-content">
+                                <div class="aui-chat-arrow"></div>
+                                <div class="aui-card-list-content">
+                                    <ul class="aui-list aui-media-list aui-list-noborder">
+                                        <li class="aui-list-item aui-list-item-middle" style="padding-left: 0.2rem;">
+                                            <div class="aui-media-list-item-inner">
+                                                <div class="aui-list-item-media" style="width: 2.6rem;">
+                                                    <img :src="info.task.aheadpic ? info.task.aheadpic : '../images/home_head.png'" class="aui-img-round" >
+                                                </div>
+                                                <div class="aui-list-item-inner">
+                                                    <div class="aui-list-item-text">
+                                                        <div class="aui-list-item-title aui-font-size-14" v-text="info.task.auditor"></div>
+
+                                                    </div>
+                                                    <div class="aui-list-item-text">
+                                                        等待审核
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div></div>
+            </div>
+        </div>
+
+
+    </div>
+
+
+        <div class="b_btn" v-cloak>
+            <div class="page_b_btn02" v-if="info.task.state == '0' && uid == info.task.duid">
+                <a class="page_b_btn1" @click="doAction(1)"><span>同意</span></a>
+            </div>
+            <div class="page_b_btn02" v-if="info.task.state == '0' && uid == info.task.duid">
+                <a class="page_b_btn2" @click="doAction(2)"><span>不同意</span></a>
+            </div>
+        </div>
+
+        </div>
+
+        </section>
+
+   <script>
+
+       requirejs(['../js/main'], function () {
+           require(['vue','Service','store','api','app','auicollapse'], function(Vue,Service,store) {
+
+               apiready = function () {
+                   api.parseTapmode();
+               }
+
+               var id = getUrlParam("id");
+               var user = store.get("User");
+
+               var vm = new Vue({
+                   el: '#office_info',
+                   data: {
+                       info:{},
+                       uid:user.id,
+                       count: 0,
+                       action:TaskAction,
+                   },
+
+                   methods:{
+
+                       doAction:function(action)
+                       {
+                           Service.TaskDoAction(vm.info.task.id,action,function(b){
+
+                               if(b)
+                               {
+                                   getInfo();
+                                   sendMsgToAPP({'type':8,msg:'物品任务操作成功'});
+                               }
+
+                           });
+                       }
+
+                   }
+
+               });
+
+
+               function getInfo()
+               {
+                   Service.TaskGetTaskResInfo(id,function(data){
+
+                       if(data.data.info)
+                       {
+                           vm.info = data.data.info;
+
+                           var res = vm.info.taskres;
+
+                           var count = 0;
+                           $.each(res,function(i,item){
+
+                               count += parseInt(item.num);
+
+                           });
+
+                           vm.count = count;
+
+
+                           vm.$nextTick(function(){
+
+                               var collapse = new auiCollapse({
+                                   autoHide:false //是否自动隐藏已经展开的容器
+                               });
+                           })
+
+
+
+                       }
+
+                   });
+               }
+
+               getInfo();
+
+
+           });
+
+       });
+
+   </script>
+</body>
+</html>

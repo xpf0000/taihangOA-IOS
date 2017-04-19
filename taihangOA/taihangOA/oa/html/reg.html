@@ -1,0 +1,173 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <meta name="full-screen" content="yes" />
+  <meta name="x5-fullscreen" content="true" />
+    <link rel="stylesheet" type="text/css" href="../css/aui.css" />
+	<style>
+		.aui-list-item-right a {display: block; position: absolute; right: .5rem;width:5rem; text-align: right; top: -0.4rem; color: #027dc4; font-size:.7rem;}
+		.reg_about { font-size:.6rem; text-align: center; height: 2.2rem; line-height: 2.2rem; color: #7d7d7d;}
+	</style>
+
+    <script src="../js/require.js?v=1.0.1"></script>
+
+</head>
+
+<body style="background: #fff;">
+ <header class="aui-bar aui-bar-nav aui-bar-light" id="aui-header">
+        <a class="aui-pull-left aui-btn back" href="login.html">
+            <span class="aui-iconfont aui-icon-left"></span>
+        </a>
+        <div class="aui-title">注册</div>
+    </header>
+<div class="aui-content" style="padding-top: 2.6rem;">
+<div class="login_logo_box">
+	<span></span>
+	
+</div>
+<div class="login_box aui-margin-15" id="reg">
+	 <ul class="aui-list aui-form-list">
+	  <li class="aui-list-item">
+                <div class="aui-list-item-inner">
+                    <div class="aui-list-item-label" style="width: 25%">
+                        手机号
+                    </div>
+                    <div class="aui-list-item-input" style="width: 75%">
+                        <input type="tel" placeholder="请输入手机号" v-model="mobile" style="text-align: left;">
+                    </div>
+                </div>
+            </li>
+            <li class="aui-list-item">
+                <div class="aui-list-item-inner">
+                    <div class="aui-list-item-label" style="width: 25%">
+                        验证码
+                    </div>
+                    <div class="aui-list-item-input" style="width: 75%">
+                        <input type="number" v-model="code" placeholder="请输入验证码" style="text-align: left;">
+                    </div>
+                    <div class="aui-list-item-right"><a href="#" @click="sendMsg" v-text="codebtn">获取验证码</a></div>
+                </div>
+            </li>
+	 </ul>
+	<a :href="href" @click="dosubmit" class="aui-btn aui-btn-info aui-btn-block" style="margin-top: 1rem;">下一步</a>
+	<!--<div class="reg_about">注册即表示您同意相关<a href="news_info.html">注册协议</a></div>-->
+</div>
+</div>
+
+<script>
+
+    requirejs(['../js/main'], function () {
+
+        require(['vue','Service','store','app','toast','api'], function(Vue,Service,store) {
+
+            apiready = function(){
+                api.parseTapmode();
+            }
+
+            var vm = new Vue({
+                el: '#reg',
+                data: {
+                    mobile : '',
+                    code : '',
+                    codebtn:'获取验证码',
+                    running: false,
+                    href:'#',
+                },
+
+                methods:{
+
+                    sendMsg:function()
+                    {
+                        if(vm.codebtn != '获取验证码')
+                        {
+                            return;
+                        }
+
+                        if(!validatemobile(vm.mobile))
+                        {
+                            return;
+                        }
+
+                        Service.SmsSmsSend(vm.mobile,"1",function(b){
+
+                            store.set("SMSSendTime",new Date().getTime());
+
+                            if(b)
+                            {
+                                settime();
+                            }
+
+                        });
+
+                    },
+
+                    dosubmit:function()
+                    {
+
+                        if(vm.mobile.trim() == "" || vm.code.trim() == "")
+                        {
+                            toast.fail({
+                                title:"请输入手机号和验证码",
+                                duration:2000
+                            });
+
+                            return;
+                        }
+
+                        Service.SmsSmsVerify(vm.mobile,vm.code,function(b){
+
+                            if(b)
+                            {
+                                vm.href = 'reg2.html?mobile='+vm.mobile;
+                                sendMsgToAPP({'type':0,msg:'url跳转',url:vm.href});
+                            }
+
+                        });
+
+                    }
+
+                }
+
+            });
+
+
+
+            function settime()
+            {
+                var old = store.get("SMSSendTime");
+                if(old == null || old == undefined){return;}
+
+                var t = (new Date().getTime() - old)/1000;
+                t = parseInt(t);
+                if(t < 60)
+                {
+                    vm.codebtn = (60-t)+"秒";
+
+                    setTimeout(function() {
+                        settime()
+                    },1000);
+
+                }
+                else
+                {
+                    vm.codebtn = "获取验证码";
+                }
+
+
+            }
+
+            settime();
+
+
+
+        });
+
+    });
+
+</script>
+
+</body>
+</html>

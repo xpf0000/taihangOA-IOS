@@ -8,13 +8,14 @@
 
 import UIKit
 
+var mapManager:BMKMapManager?
+var mapStarted = false
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate,UIAlertViewDelegate {
 
     var window: UIWindow?
-    var mapManager:BMKMapManager?
-    
-    
+
     func onMessageReceived(_ notification:Notification)
     {
         if let message = notification.object as? CCPSysMessage
@@ -110,6 +111,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UIAlertViewDelegate {
             if(!res)
             {
                 print("百度地图加载失败")
+                mapStarted = false
+            }
+            else
+            {
+                mapStarted = true
             }
 
         }
@@ -171,11 +177,33 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UIAlertViewDelegate {
     }
 
     func applicationWillEnterForeground(_ application: UIApplication) {
-        // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
+        // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.\
+        
+        print("applicationWillEnterForeground !!!!!!!!!")
+        
     }
 
     func applicationDidBecomeActive(_ application: UIApplication) {
-        // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+    
+        print("applicationDidBecomeActive !!!!!!!!!")
+        
+        Api.UserChecktoken { (res) in
+            
+            if(!res)
+            {
+                DataCache.Share.User.unRegistNotice()
+                DataCache.Share.User.reset();
+                
+                let alert = UIAlertView(title: "提醒", message: "您的账户已在其他设备登录", delegate: nil, cancelButtonTitle: "确定")
+                alert.show()
+                
+                NotificationCenter.default.post(Notification.init(name: Notification.Name(rawValue: "logout")))
+                
+            }
+            
+        }
+    
+    
     }
 
     func applicationWillTerminate(_ application: UIApplication) {

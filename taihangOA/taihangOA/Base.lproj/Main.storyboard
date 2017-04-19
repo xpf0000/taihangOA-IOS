@@ -54,6 +54,19 @@
                                     <action selector="back:" destination="MJd-hS-PeY" eventType="touchUpInside" id="9Q0-vw-MBr"/>
                                 </connections>
                             </button>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="请输入地址搜索" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="BEx-jA-Gsd">
+                                <rect key="frame" x="62" y="31.5" width="246" height="42"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="42" id="2Cn-hF-1qz"/>
+                                </constraints>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" returnKeyType="search" enablesReturnKeyAutomatically="YES"/>
+                                <connections>
+                                    <outlet property="delegate" destination="MJd-hS-PeY" id="Qrw-Qs-NP9"/>
+                                </connections>
+                            </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vgS-It-c85">
                                 <rect key="frame" x="0.0" y="524" width="320" height="44"/>
                                 <color key="backgroundColor" red="0.019607843137254902" green="0.60784313725490191" blue="0.94509803921568625" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -88,7 +101,9 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="vgS-It-c85" firstAttribute="leading" secondItem="kl9-Ve-6Oz" secondAttribute="leading" id="32a-1J-eoc"/>
+                            <constraint firstItem="BEx-jA-Gsd" firstAttribute="leading" secondItem="eM8-qj-p84" secondAttribute="trailing" constant="12" id="5b2-lW-21O"/>
                             <constraint firstItem="z7Y-u1-PjF" firstAttribute="top" secondItem="kl9-Ve-6Oz" secondAttribute="top" id="Di9-NJ-CZo"/>
+                            <constraint firstAttribute="trailing" secondItem="BEx-jA-Gsd" secondAttribute="trailing" constant="12" id="Dk4-fv-0HH"/>
                             <constraint firstAttribute="trailing" secondItem="z7Y-u1-PjF" secondAttribute="trailing" id="GwJ-Wd-Zwg"/>
                             <constraint firstItem="eM8-qj-p84" firstAttribute="leading" secondItem="kl9-Ve-6Oz" secondAttribute="leading" constant="15" id="Il9-fu-uSp"/>
                             <constraint firstItem="TcJ-wQ-bdk" firstAttribute="leading" secondItem="kl9-Ve-6Oz" secondAttribute="leading" id="O2D-0i-zcT"/>
@@ -99,11 +114,13 @@
                             <constraint firstAttribute="trailing" secondItem="vgS-It-c85" secondAttribute="trailing" id="sUb-Kb-lYq"/>
                             <constraint firstAttribute="bottom" secondItem="z7Y-u1-PjF" secondAttribute="bottom" id="vLP-s1-hVe"/>
                             <constraint firstAttribute="bottom" secondItem="vgS-It-c85" secondAttribute="bottom" id="yBu-Pe-vTG"/>
+                            <constraint firstItem="BEx-jA-Gsd" firstAttribute="centerY" secondItem="eM8-qj-p84" secondAttribute="centerY" id="ytt-hN-jOv"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="clabel" destination="IZR-l7-45l" id="0bz-fB-f3c"/>
                         <outlet property="map" destination="z7Y-u1-PjF" id="3Ry-QC-M6r"/>
+                        <outlet property="searchTF" destination="BEx-jA-Gsd" id="E8H-ao-Ceb"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="m8F-uC-fmx" userLabel="First Responder" sceneMemberID="firstResponder"/>

@@ -15,10 +15,7 @@ class MainTabBar: UITabBarController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
         NotificationCenter.default.addObserver(self, selector:#selector(onLogout), name: NSNotification.Name(rawValue: "logout"), object: nil)
-    
-        
     }
     
     func onLogout()

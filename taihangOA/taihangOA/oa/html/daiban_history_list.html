@@ -1,0 +1,192 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <meta name="full-screen" content="yes" />
+  <meta name="x5-fullscreen" content="true" />
+    <link rel="stylesheet" type="text/css" href="../css/aui.css" />
+    <link rel="stylesheet" href="../css/dropload.css">
+    <style type="text/css">
+        .userinfo-header {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            overflow: hidden;
+            padding-right: 0.75rem;
+            z-index: 1;
+        }
+        .userinfo-header .aui-info {
+            padding: 0;
+        }
+        .userinfo-header + .aui-card-list-content-padded {
+            padding: 0.2rem;
+            padding-top: 2.3rem;
+			padding-left:2.8rem;
+			font-size:0.7rem;
+			color: #b8b8b8;
+        }
+		.aui-card-list-state{
+			padding-left:2.8rem;
+			font-size:0.7rem;
+			color: #b8b8b8;
+			padding-bottom: 0.5rem;
+        }
+		.aui-content-padded { margin-left:0;margin-right:0;}
+		.aui-card-list { margin-bottom:0; border-bottom: 1px solid #f0f0f0;}
+		.aui-card-list:active {background-color: #f5f5f5;}
+    </style>
+
+    <script src="../js/require.js?v=1.0.1"></script>
+
+</head>
+
+
+<body>
+    <header class="aui-bar aui-bar-nav aui-bar-light" id="aui-header">
+
+        <a class="aui-pull-left aui-btn back" href="aaa">
+            <span class="aui-iconfont aui-icon-left"></span>
+        </a>
+        <div class="aui-title">已完成事项</div>
+
+    </header>
+    <div id="daiban_list">
+    <section class="aui-content-padded">
+
+        <div class="aui-card-list" v-for="item in info" v-cloak>
+           <a :href="url[item.type]+item.id">
+            <div class="userinfo-header">
+                <div class="aui-info">
+                    <div class="aui-info-item">
+                        <img :src="'../images/icon_'+item.type+'.png'" style="width:1.8rem"/>
+                        <span class="aui-margin-l-10 aui-margin-r-10" v-text="item.title"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="aui-card-list-content-padded">
+               发起人：<span v-text="item.creater"></span>
+            </div>
+            <div class="aui-card-list-state">
+              时间：<span v-text="item.create_time"></span>
+            </div>
+            </a>
+        </div>
+
+    </section>
+    </div>
+    <script type="text/javascript">
+
+        var dropload = null;
+
+        requirejs(['../js/main'], function (main) {
+            require(['vue','Service','app','api','dropload'], function(Vue,Service) {
+
+                apiready = function(){
+                    api.parseTapmode();
+                }
+
+                var vm = new Vue({
+                    el: '#daiban_list',
+                    data: {
+                        info:[],
+                        url:{0:'daiban_car_info.html?id=',1:'daiban_office_info.html?id=',2:'daiban_duban_info.html?id='},
+                        state:TaskState,
+                    },
+
+                });
+
+                var page = 1;
+
+                dropload = $('#daiban_list').dropload({
+                    scrollArea : window,
+                    domUp : {
+                        domClass   : 'dropload-up',
+                        domRefresh : '<div class="dropload-refresh" >↓下拉刷新</div>',
+                        domUpdate  : '<div class="dropload-update" >↑释放更新</div>',
+                        domLoad    : '<div class="dropload-load" ><span class="loading"></span>加载中...</div>'
+                    },
+                    domDown : {
+                        domClass   : 'dropload-down',
+                        domRefresh : '<div class="dropload-refresh">↑上拉加载更多</div>',
+                        domLoad    : '<div class="dropload-load"><span class="loading"></span>加载中...</div>',
+                        domNoData  : '<div class="dropload-noData">暂无更多数据</div>'
+                    },
+                    loadUpFn : function(me){
+
+                        page = 1;
+                        Service.TaskGetTaskHistoryList(page,function(data){
+
+                            if(data.data.code == 0)
+                            {
+
+                                vm.info = data.data.info;
+                                vm.$nextTick(function(){
+                                    me.resetload();
+                                    me.unlock();
+                                    me.noData(false);
+                                });
+
+                                page++;
+                            }
+                            else
+                            {
+                                me.noData();
+                                me.resetload();
+                            }
+
+
+
+                        });
+
+                    },
+                    loadDownFn : function(me){
+
+                        Service.TaskGetTaskHistoryList(page,function(data){
+
+                            if(data.data.code == 0)
+                            {
+
+                                vm.info.push.apply(vm.info,data.data.info);
+                                vm.$nextTick(function(){
+                                    me.resetload();
+                                })
+                                page++;
+
+                            }
+                            else
+                            {
+                                // 锁定
+                                me.lock();
+                                // 无数据
+                                me.noData();
+
+                                me.resetload();
+                            }
+
+//                        vm.nextTick(function(){
+//                            alert('数据已经更新')
+//                        });
+
+
+                        });
+
+                    },
+                    threshold : 0
+                });
+
+
+
+
+
+            });
+
+        });
+
+
+    </script>
+
+</body>
+</html>

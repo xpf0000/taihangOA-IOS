@@ -68,7 +68,7 @@ class BootVC: UIViewController {
         
         
         // 定义需要计时的时间
-        var timeCount = 3
+        var timeCount = 4
         
         // 设定这个时间源是每秒循环一次，立即开始
         codeTimer.scheduleRepeating(deadline: .now(), interval: .seconds(1))

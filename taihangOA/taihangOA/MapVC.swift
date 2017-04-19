@@ -8,7 +8,10 @@
 
 import UIKit
 
-class MapVC: UIViewController,BMKMapViewDelegate,BMKLocationServiceDelegate,BMKGeoCodeSearchDelegate {
+class MapVC: UIViewController,BMKMapViewDelegate,BMKLocationServiceDelegate,BMKGeoCodeSearchDelegate,UITextFieldDelegate {
+    
+    
+    @IBOutlet weak var searchTF: UITextField!
 
     @IBOutlet weak var map: BMKMapView!
     
@@ -67,14 +70,38 @@ class MapVC: UIViewController,BMKMapViewDelegate,BMKLocationServiceDelegate,BMKG
     var caddress = ""
     var cmap:CLLocationCoordinate2D?
     
+    func startMapService()
+    {
+        if mapStarted {return}
+        
+        if let res = mapManager?.start("uzMVl09tmkeDQfLzI6d2Y1XlaVX0CmVu", generalDelegate: nil)
+        {
+            if(!res)
+            {
+                print("百度地图加载失败")
+                mapStarted = false
+            }
+            else
+            {
+                mapStarted = true
+            }
+            
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        startMapService()
+        
         map.zoomLevel = 14
         map.showsUserLocation = true
         locService = BMKLocationService()
         locService?.delegate = self
         locService?.startUserLocationService()
         search.delegate = self
+        
+        searchTF.addEndButton()
         
     }
     
@@ -138,6 +165,34 @@ class MapVC: UIViewController,BMKMapViewDelegate,BMKLocationServiceDelegate,BMKG
         
     }
     
+    func onGetGeoCodeResult(_ searcher: BMKGeoCodeSearch!, result: BMKGeoCodeResult!, errorCode error: BMKSearchErrorCode) {
+        
+        if(error.rawValue == 0)
+        {
+            map.removeAnnotation(annotation)
+        
+            annotation = BMKPointAnnotation()
+            annotation?.coordinate = result.location
+            annotation?.title = "当前选择"
+            map.addAnnotation(annotation)
+            
+            map.setCenter(result.location, animated: true)
+            
+            cmap = result.location
+            caddress = result.address
+            clabel.text = caddress
+            
+        }
+        else
+        {
+            clabel.text = "检索失败,请检查输入地址"
+            caddress = ""
+            cmap = nil
+        }
+
+        
+    }
+    
     func didUpdate(_ userLocation: BMKUserLocation!) {
         map.updateLocationData(userLocation)
         map.setCenter(userLocation.location.coordinate, animated: true)
@@ -147,6 +202,39 @@ class MapVC: UIViewController,BMKMapViewDelegate,BMKLocationServiceDelegate,BMKG
     func didUpdateUserHeading(_ userLocation: BMKUserLocation!) {
         
     }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        
+            textField.endEdit()
+        
+        if let str = textField.text?.trim()
+        {
+            let option = BMKGeoCodeSearchOption()
+            option.city=""
+            option.address = str
+            
+            let res = search.geoCode(option)
+            
+            if(res)
+            {
+                clabel.text = "检索中..."
+            }
+            else
+            {
+                clabel.text = "检索失败,请检查输入地址"
+            }
+            
+            caddress = ""
+            cmap = nil
+            
+            
+        }
+        
+        
+        return true
+        
+    }
+    
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

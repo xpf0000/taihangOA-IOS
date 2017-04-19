@@ -1,0 +1,174 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <meta name="full-screen" content="yes"/>
+    <meta name="x5-fullscreen" content="true"/>
+    <link rel="stylesheet" type="text/css" href="../css/aui.css"/>
+    <style type="text/css">
+        .aui-content-padded {
+            padding: 0.75rem;
+            background-color: #ffffff;
+            margin-top: 0.75rem;
+        }
+    </style>
+
+    <script src="../js/require.js?v=1.0.1"></script>
+</head>
+
+<body>
+<header class="aui-bar aui-bar-nav aui-bar-light" id="aui-header">
+    <a class="aui-pull-left aui-btn back" href="index.html">
+        <span class="aui-iconfont aui-icon-left"></span>
+    </a>
+    <div class="aui-title">通讯录</div>
+</header>
+<section class="aui-content" style="margin-top:2.6rem;" id="phone_list">
+    <div class="aui-searchbar" id="search">
+        <div class="aui-searchbar-input aui-border-radius" tapmode onclick="doSearch()">
+            <i class="aui-iconfont aui-icon-search"></i>
+            <form action="javascript:search();">
+                <input type="search" placeholder="请输入搜索内容" id="search-input" style="text-align: left;">
+            </form>
+        </div>
+        <div class="aui-searchbar-cancel" tapmod>取消</div>
+    </div>
+
+    <div :name="index" :id="index" class="aui-card-list" v-cloak v-for="(item,index) in info">
+        <div class="aui-card-list-header" style="background: #f0f4f3;">
+            <div><span v-text="item.name"></span></div>
+        </div>
+        <div class="aui-card-list-content">
+            <ul class="aui-list aui-media-list">
+
+                <a class="aui-list-item aui-list-item-middle"
+                   :href="'phone_info.html?name='+user.name+'&avatar='+user.avatar+'&sex='+user.sex+'&dname='+item.name+'&mobile='+user.mobile"
+                    v-cloak  v-for="user in item.employees">
+                    <div class="aui-media-list-item-inner">
+                        <div class="aui-list-item-media" style="width: 3rem;">
+                            <span >
+                               <img :src="user.avatar ? user.avatar : '../images/home_head.png'" class="avatar aui-img-round">
+                            </span>
+                        </div>
+                        <div class="aui-list-item-inner" v-text="user.name">
+
+                        </div>
+                    </div>
+                </a>
+
+            </ul>
+        </div>
+    </div>
+
+
+    <div class="Letter_list">
+        <a :href="'#'+index" v-cloak v-for="(item,index) in info" v-text="item.name"></a>
+    </div>
+</section>
+
+
+<script type="text/javascript">
+
+    var dropload = null;
+    var baseinfo = [];
+    var vm = null;
+    var searchkey = '';
+    requirejs(['../js/main'], function (main) {
+        require(['vue', 'Service', 'app', 'api', 'dropload'], function (Vue, Service) {
+
+            apiready = function () {
+                api.parseTapmode();
+            }
+
+            vm = new Vue({
+                el: '#phone_list',
+                data: {
+                    info: [],
+                },
+
+            });
+
+
+            var searchBar = document.querySelector(".aui-searchbar-input");
+            if (searchBar) {
+                searchBar.onclick = function () {
+                    document.querySelector(".aui-searchbar-cancel").style.marginRight = '12px';
+                }
+            }
+            document.querySelector(".aui-searchbar-cancel").onclick = function () {
+                this.style.marginRight = "-" + 34 + "px";
+                document.getElementById("search-input").value = '';
+                document.getElementById("search-input").blur();
+                vm.info = baseinfo;
+
+            }
+
+            $("#search-input").on('input change propertychange',function() {
+                console.log("search !!!!!!!!!!!!!")
+                search();
+            });
+
+
+            Service.UserGetAddressBook(function (data) {
+
+                if (data.data.info) {
+                    vm.info = data.data.info;
+                    baseinfo = data.data.info;
+                }
+
+            });
+
+
+        });
+    });
+
+    function search()
+    {
+        var key = $('#search-input').val();
+
+        if(searchkey == key)
+        {
+            return;
+        }
+
+        searchkey = key;
+
+        console.log(key);
+        if(key.length > 0)
+        {
+            var arr = [];
+            $.each(baseinfo,function(i,item){
+
+                $.each(item.employees,function(i,user){
+
+                    if(user.name.indexOf(key) >= 0)
+                    {
+                        arr.push(user);
+                    }
+
+                });
+
+            });
+
+            vm.info = [{id:0,name:'搜索结果',employees:arr}];
+        }
+        else
+        {
+            vm.info = baseinfo;
+        }
+
+    }
+
+    function doSearch() {
+        var searchValue = document.getElementById("search-input").value;
+        if (searchValue) {
+            alert("您输入的内容是:" + searchValue);
+        }
+    }
+
+</script>
+</body>
+</html>

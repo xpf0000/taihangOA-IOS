@@ -306,6 +306,18 @@ class MineVC: UIViewController,WKNavigationDelegate,WKUIDelegate,WKScriptMessage
         print("HtmlVC deinit !!!!!!!!!!!!!!!!")
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.webView?.evaluateJavaScript("javascript:reshowHeader()", completionHandler: { (res, err) in
+            print(res ?? "")
+            print(err ?? "")
+        })
+        
+        
+    }
+
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
@@ -346,14 +358,14 @@ class MineVC: UIViewController,WKNavigationDelegate,WKUIDelegate,WKScriptMessage
         if(buttonIndex == 1)
         {
             imagePicker.sourceType=UIImagePickerControllerSourceType.photoLibrary
+            self.present(imagePicker, animated: true, completion: nil)
         }
         else if(buttonIndex == 2)
         {
             imagePicker.sourceType=UIImagePickerControllerSourceType.camera
+            self.present(imagePicker, animated: true, completion: nil)
         }
-        
-        self.present(imagePicker, animated: true, completion: nil)
-        
+
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {

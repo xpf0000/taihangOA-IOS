@@ -339,6 +339,17 @@ class HomeVC: UIViewController,WKNavigationDelegate,WKUIDelegate,WKScriptMessage
         print("HtmlVC deinit !!!!!!!!!!!!!!!!")
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.webView?.evaluateJavaScript("javascript:getAD()", completionHandler: { (res, err) in
+            print(res ?? "")
+            print(err ?? "")
+        })
+
+        
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         

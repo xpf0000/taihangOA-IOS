@@ -1,0 +1,336 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <meta name="full-screen" content="yes" />
+  <meta name="x5-fullscreen" content="true" />
+    <link rel="stylesheet" type="text/css" href="../css/aui.css" />
+	<style>
+
+		.b_btn { padding: 0.2rem;position:fixed; top: auto; bottom: 0px;width:100%;}
+
+        ::-moz-placeholder { color: #424242;}
+        ::-webkit-input-placeholder { color:#424242;}
+        :-ms-input-placeholder { color:#424242; }
+
+        select{ text-align: right;color:#424242;}
+
+        input{
+            color:#424242;
+        }
+
+        input[disabled]{
+            color:#424242;
+        }
+
+	</style>
+
+    <script src="../js/require.js?v=1.0.1"></script>
+
+</head>
+
+<body>
+    <header class="aui-bar aui-bar-nav aui-bar-light" id="aui-header">
+        <a class="aui-pull-left aui-btn back" href="aaa">
+            <span class="aui-iconfont aui-icon-left"></span>
+        </a>
+        <div class="aui-title">车辆申请</div>
+    </header>
+    <div id="car_apply">
+
+        <form id="myform">
+    <div class="aui-content aui-margin-b-15" style="margin-top:2.2rem;">
+        <ul class="aui-list aui-form-list">
+        <li class="aui-list-item aui-list-item-arrow">
+            <div class="aui-list-item-label ">
+                用车日期
+            </div>
+            <div class="aui-list-item-input" @click="dateChoose('stime')">
+                <input type="text" name="stime" v-model="stime" placeholder="请选择用车日期" disabled="true" readonly="true">
+            </div>
+        </li>
+
+            <li class="aui-list-item aui-list-item-arrow">
+                <div class="aui-list-item-label ">
+                    归还日期
+                </div>
+                <div class="aui-list-item-input" @click="dateChoose('etime')">
+                    <input type="text" name="etime" v-model="etime" placeholder="请选择归还日期" disabled="true" readonly="true">
+                </div>
+            </li>
+
+
+
+            <li class="aui-list-item aui-list-item-arrow">
+                <div class="aui-list-item-inner">
+                    <div class="aui-list-item-label">
+                        车辆选择
+                    </div>
+                    <div class="aui-list-item-input">
+                        <select v-model="carid" id="carselect">
+                           <option value="0">未选择</option>
+                            <option v-for="item in carlist" :value="item.id">{{item.name}}-{{item.platenum}}</option>
+                        </select>
+                    </div>
+                </div>
+            </li>
+            <li class="aui-list-item aui-list-item-arrow">
+                <div class="aui-list-item-inner">
+                    <div class="aui-list-item-label">
+                        司机
+                    </div>
+                    <div class="aui-list-item-input">
+                        <select v-model="driverid">
+                            <option value="0">未选择</option>
+                            <option v-for="item in driverlist" :value="item.id">{{item.name}}</option>
+                        </select>
+                    </div>
+                </div>
+            </li>
+             <li class="aui-list-item">
+                 <div class="aui-list-item-label ">
+                     出发地
+                 </div>
+                 <div class="aui-list-item-input" @click="mapChoose('saddress')">
+                     <input type="text" name="saddress" v-model="saddress" placeholder="请选择出发地" disabled="true" readonly="true">
+                 </div>
+            </li>
+             <li class="aui-list-item">
+                 <div class="aui-list-item-label ">
+                     目的地
+                 </div>
+                 <div class="aui-list-item-input" @click="mapChoose('eaddress')">
+                     <input type="text" name="eaddress" v-model="eaddress" placeholder="请选择目的地" disabled="true" readonly="true">
+                 </div>
+            </li>
+            <li class="aui-list-item">
+                <div class="aui-list-item-inner">
+                    <div class="aui-list-item-label">
+                        人数
+                    </div>
+                    <div class="aui-list-item-input">
+                        <input type="number" min="1" v-model="num" placeholder="请输入人数">
+                    </div>
+                </div>
+            </li>
+            <li class="aui-list-item aui-list-item-arrow">
+                <div class="aui-list-item-inner">
+                    <div class="aui-list-item-label">
+                        用途
+                    </div>
+                    <div class="aui-list-item-input">
+                        <select v-model="usewayid">
+                            <option value="0">未选择</option>
+                            <option v-for="item in purposelist" :value="item.id">{{item.name}}</option>
+                        </select>
+                    </div>
+                </div>
+            </li>
+            <li class="aui-list-item">
+                <div class="aui-list-item-inner">
+                    <div class="aui-list-item-label">
+                        备注
+                    </div>
+                    <div class="aui-list-item-input">
+                        <input type="text" v-model="mark" placeholder="请输入备注">
+                    </div>
+                </div>
+            </li>
+            <li class="aui-list-item">
+                <div class="aui-list-item-inner">
+                    <div class="aui-list-item-label">
+                        审批人
+                    </div>
+                    <div class="aui-list-item-input">
+                        <input type="text" placeholder="选择审批人" v-model="auditor.name" disabled="true" readonly="true">
+                    </div>
+                </div>
+            </li>
+        </ul>
+        </div>
+        <div class="b_btn"><a href="#" class="aui-btn aui-btn-info aui-btn-block" @click="dosubmit">提交申请</a></div>
+        </form>
+    </div>
+    <script type="text/javascript">
+
+        var vm = null;
+        requirejs(['../js/main'], function (main) {
+            require(['vue','Service','app'], function(Vue,Service) {
+
+                vm = new Vue({
+                    el: '#car_apply',
+                    data: {
+                        carlist:[],
+                        driverlist:[],
+                        purposelist:[],
+                        auditor:{},
+
+                        carid:'0',
+                        driverid:'0',
+                        usewayid:'0',
+
+                        stime:'',
+                        etime:'',
+
+                        saddress:'',
+                        eaddress:'',
+                        smap:'',
+                        emap:'',
+                        distance:'',
+
+                        num:1,
+                        mark:'',
+
+                        datetype:'',
+                    },
+
+                    methods:{
+
+                        dateChoose:function(type){
+                            vm.datetype = type;
+                            sendMsgToAPP({'type':3,msg:'时间日期选择'});
+                        },
+
+                        mapChoose:function(type){
+                            sendMsgToAPP({'type':4,msg:'地图选择',flag:type});
+                        },
+
+                        dosubmit:function()
+                        {
+                            var cansubmit = true;
+                            $.each(vm.$data,function(key,value){
+
+                                console.info(key);
+                                console.info(value);
+
+                                if(value.length == 0 && key != 'mark')
+                                {
+                                    cansubmit = false;
+                                    return false;
+                                }
+                            });
+
+                            if(!cansubmit)
+                            {
+                                toast.fail({
+                                    title:'请完善申请信息',
+                                    duration:2000
+                                });
+
+                                return;
+                            }
+
+
+
+                            var data = vm.$data;
+                            data.title = $("#carselect").find("option:selected").html();
+
+                            console.info(data);
+
+                            Service.TaskAddTaskCar(data,function(b){
+
+                                if(b)
+                                {
+                                    sendMsgToAPP({'type':5,msg:'车辆申请添加成功'});
+                                }
+
+                            });
+
+
+                        },
+
+                    },
+
+                });
+
+
+                Service.SystemGetDriverList(function(data){
+
+                    if(data.data.info)
+                    {
+                        vm.driverlist = data.data.info;
+                    }
+
+                });
+
+                Service.SystemGetCarList(function(data){
+
+                    if(data.data.info)
+                    {
+                        vm.carlist = data.data.info;
+                    }
+
+                });
+
+                Service.SystemGetPurposeList(function(data){
+
+                    if(data.data.info)
+                    {
+                        vm.purposelist = data.data.info;
+                    }
+
+                });
+
+                Service.TaskGetNowAuditor(null,function(data){
+
+                    if(data.data.info)
+                    {
+                        vm.auditor = data.data.info;
+                    }
+
+                });
+
+
+
+
+            });
+
+        });
+
+
+        function OnTimeSelect(date)
+        {
+
+            if(vm.datetype == 'stime')
+            {
+                vm.stime = date;
+            }
+            else
+            {
+                vm.etime = date;
+            }
+
+        }
+
+        function OnMapSelect(data)
+        {
+            console.log(data);
+            if(typeof data == "string" && data.constructor == String)
+            {
+                data = JSON.parse(data);
+            }
+
+            if(data.flag == 'saddress')
+            {
+                vm.saddress = data.caddress;
+                vm.smap = data.cmap;
+                vm.distance = data.distance;
+            }
+            else
+            {
+                vm.eaddress = data.caddress;
+                vm.emap = data.cmap;
+                vm.distance = data.distance;
+            }
+
+        }
+
+
+    </script>
+
+
+
+</body>
+</html>

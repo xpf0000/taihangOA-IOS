@@ -1,0 +1,235 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <meta name="full-screen" content="yes" />
+  <meta name="x5-fullscreen" content="true" />
+    <link rel="stylesheet" type="text/css" href="../css/aui.css" />
+
+    <script src="../js/require.js?v=1.0.1"></script>
+</head>
+
+<body>
+   <header class="aui-bar aui-bar-nav aui-bar-light" id="aui-header">
+        <a class="aui-pull-left aui-btn back" href="aaa">
+            <span class="aui-iconfont aui-icon-left"></span>
+        </a>
+        <div class="aui-title">督查督办详情</div>
+    </header>
+
+   <div id="duban_info">
+
+    <section class="aui-content" style="margin-top:2.25rem; padding-bottom: 0.6rem;" >
+    <div class="aui-timeline">
+    <div class="aui-card-list-content">
+                <ul class="aui-list aui-media-list">
+                    <li class="aui-list-item aui-list-item-middle" style="border-bottom: 0;">
+                        <div class="aui-media-list-item-inner">
+                            <div class="aui-list-item-media" style="width: 3rem;">
+                                <img :src="info.task.cheadpic ? info.task.cheadpic : '../images/home_head.png'" class="aui-img-round" >
+                            </div>
+                            <div class="aui-list-item-inner">
+                                <div class="aui-list-item-text">
+                                    <div class="aui-list-item-title aui-font-size-14 aui-text-info" v-text="info.task.creater"></div>
+                                </div>
+                                <div class="p_info_tit" v-text="info.task.title">
+
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+    <ul class="aui-list aui-form-list">
+<li class="aui-list-item">
+                <div class="aui-list-item-inner">
+                    <div class="aui-list-item-label">
+                        <em>待办人</em>
+                    </div>
+                    <div class="aui-list-item-input" v-text="info.task.douser">
+
+                    </div>
+                </div>
+            </li>
+			 <li class="aui-list-item">
+                <div class="aui-list-item-inner">
+                    <div class="aui-list-item-label">
+                        <em>发布时间</em>
+                    </div>
+                    <div class="aui-list-item-input" v-text="info.task.create_time">
+
+                    </div>
+                </div>
+            </li>
+             <li class="aui-list-item">
+                <div class="aui-list-item-inner">
+                    <div class="aui-list-item-label">
+                        <em>应完成时间</em>
+                    </div>
+                    <div class="aui-list-item-input" v-text="info.taskoverseer.end_time">
+
+                    </div>
+                </div>
+            </li>
+             <li class="aui-list-item">
+                <div class="aui-list-item-inner">
+                    <div class="aui-list-item-label">
+                        <em>实完成时间</em>
+                    </div>
+                    <div class="aui-list-item-input" v-text="info.taskoverseer.finish_time">
+
+                    </div>
+                </div>
+            </li>
+            </ul>
+            <div class="p_info_memo" v-text="info.taskoverseer.content"></div>
+
+        <div class="aui-timeline-item" style="min-height: 5rem;" v-for="(item,index) in info.taskstep" v-cloak>
+
+            <div class="aui-timeline-item-label sc-info-icon"></div>
+
+            <div class="aui-chat">
+                <div class="aui-timeline-item-inner">
+                    <div class="aui-chat-item aui-chat-left">
+                        <div class="aui-chat-inner">
+                            <div class="aui-chat-content">
+                                <div class="aui-chat-arrow"></div>
+                                <div class="aui-card-list-content">
+                                    <ul class="aui-list aui-media-list aui-list-noborder">
+                                        <li class="aui-list-item aui-list-item-middle" style="padding-left: 0.2rem;">
+                                            <div class="aui-media-list-item-inner">
+                                                <div class="aui-list-item-media" style="width: 2.6rem;">
+                                                    <img :src="item.avatar ? item.avatar : '../images/home_head.png'" class="aui-img-round" >
+                                                </div>
+                                                <div class="aui-list-item-inner">
+                                                    <div class="aui-list-item-text">
+                                                        <div class="aui-list-item-title aui-font-size-14" v-text="item.doername"></div>
+                                                        <div class="aui-list-item-right" v-text="item.action_time"></div>
+                                                    </div>
+                                                    <div class="aui-list-item-text" >
+                                                        {{action[item.doaction]}}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div></div>
+            </div>
+        </div>
+
+        <div v-cloak class="aui-timeline-item" style="min-height: 5rem;" v-if="info.task.state == '4' || info.task.state == '6'">
+            <div class="aui-timeline-item-label wait-info-icon"></div>
+            <div class="aui-chat">
+                <div class="aui-timeline-item-inner">
+                    <div class="aui-chat-item aui-chat-left">
+                        <div class="aui-chat-inner">
+                            <div class="aui-chat-content">
+                                <div class="aui-chat-arrow"></div>
+                                <div class="aui-card-list-content">
+                                    <ul class="aui-list aui-media-list aui-list-noborder">
+                                        <li class="aui-list-item aui-list-item-middle" style="padding-left: 0.2rem;">
+                                            <div class="aui-media-list-item-inner">
+                                                <div class="aui-list-item-media" style="width: 2.6rem;">
+                                                    <img :src="info.task.aheadpic ? info.task.aheadpic : '../images/home_head.png'" class="aui-img-round" >
+                                                </div>
+                                                <div class="aui-list-item-inner">
+                                                    <div class="aui-list-item-text">
+                                                        <div class="aui-list-item-title aui-font-size-14" v-text="info.task.douser"></div>
+
+                                                    </div>
+                                                    <div class="aui-list-item-text" v-text="state[info.task.state]">
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div></div>
+            </div>
+        </div>
+
+
+           </div>
+            </section>
+
+       <div v-cloak v-cloak class="b_btn" v-if="info.task.state == '4'">
+           <div class="page_b_btn02" v-if="info.task.state == '4' && uid == info.task.duid">
+               <a class="page_b_btn1" @click="doAction(1)"><span>接受</span></a>
+           </div>
+           <div class="page_b_btn02" v-if="info.task.state == '4' && uid == info.task.duid">
+               <a class="page_b_btn2" @click="doAction(2)"><span>拒绝</span></a>
+           </div>
+       </div>
+       <div v-cloak v-cloak class="b_btn" v-else-if="info.task.state == '6'">
+           <a class="page_b_btn3" @click="doAction(7)"><span>完成</span></a>
+       </div>
+</div>
+
+   <script>
+
+       requirejs(['../js/main'], function () {
+           require(['vue','Service','store','app'], function(Vue,Service,store) {
+
+               var id = getUrlParam("id");
+               var user = store.get("User");
+
+               var vm = new Vue({
+                   el: '#duban_info',
+                   data: {
+                       info:{},
+                       uid:user.id,
+                       state:TaskState,
+                       action:TaskOverseerAction,
+                   },
+
+                   methods:{
+
+                       doAction:function(action)
+                       {
+                           Service.TaskDoAction(vm.info.task.id,action,function(b){
+
+                               if(b)
+                               {
+                                   getInfo();
+                                   sendMsgToAPP({'type':8,msg:'督办任务操作成功'});
+                               }
+
+                           });
+                       }
+
+                   }
+
+               });
+
+
+               function getInfo()
+               {
+                   Service.TaskGetTaskOverseerInfo(id,function(data){
+
+                       if(data.data.info)
+                       {
+                           vm.info = data.data.info;
+                       }
+
+                   });
+               }
+
+               getInfo();
+
+
+           });
+
+       });
+
+   </script>
+
+</body>
+</html>
