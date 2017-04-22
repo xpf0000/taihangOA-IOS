@@ -125,13 +125,11 @@ class DaibanVC: UIViewController,WKNavigationDelegate,WKUIDelegate,WKScriptMessa
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         self.view.backgroundColor = UIColor.white
         
-        NotificationCenter.default.addObserver(self, selector:#selector(reload), name: NSNotification.Name(rawValue: "NewDaiban"), object: nil)
+        daibai = self
         
-//        NotificationCenter.default.addObserver(self, selector:#selector(countChange), name: NSNotification.Name(rawValue: "DaibanCount"), object: nil)
-
+        NotificationCenter.default.addObserver(self, selector:#selector(reload), name: NSNotification.Name(rawValue: "NewDaiban"), object: nil)
         
         handle?.onMsgChange { [weak self](msg) in
             
@@ -280,17 +278,31 @@ class DaibanVC: UIViewController,WKNavigationDelegate,WKUIDelegate,WKScriptMessa
     
     
     
-    deinit
+    func dodeinit()
     {
         NotificationCenter.default.removeObserver(self)
-        
         webView?.configuration.userContentController.removeScriptMessageHandler(forName: "JSHandle")
         webView?.uiDelegate=nil
         webView?.navigationDelegate=nil
         webView?.stopLoading()
         webView=nil
+        scriptHandle.removeAllUserScripts()
+        scriptHandle.removeScriptMessageHandler(forName: "JSHandle")
+    }
+    
+    deinit
+    {
+        dodeinit()
+        print("DaibanVC deinit !!!!!!!!!!!!!!!!")
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         
-        print("HtmlVC deinit !!!!!!!!!!!!!!!!")
+        if(!NetConnected)
+        {
+            XMessage.Share.show("未检测到网络连接,请检查网络")
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {

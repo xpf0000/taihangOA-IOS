@@ -244,6 +244,13 @@ class MapVC: UIViewController,BMKMapViewDelegate,BMKLocationServiceDelegate,BMKG
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         map.delegate = self
+        
+        if(!NetConnected)
+        {
+            XMessage.Share.show("未检测到网络连接,请检查网络")
+        }
+
+        
     }
     
     override func viewWillDisappear(_ animated: Bool) {

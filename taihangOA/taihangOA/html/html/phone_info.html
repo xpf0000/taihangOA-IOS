@@ -1,0 +1,117 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <meta name="full-screen" content="yes" />
+  <meta name="x5-fullscreen" content="true" />
+    <link rel="stylesheet" type="text/css" href="../css/aui.css" />
+     <style type="text/css">
+        .user-info {
+			background:#45cffd; 
+            padding: 2.5rem 0;
+			color:#fff;
+        }
+        img.avatar {
+            display: block;
+            margin: 0 auto;
+            width: 20%;
+        }
+        .aui-list .aui-list-header {
+            background-color: #ffffff;
+            line-height: 1.2rem;
+        }
+		 .phone_face {width:3rem;height: 3rem; text-align: center; line-height: 3rem; color: #fff; border:1px solid #fff; display: block; font-size: 1rem; margin: 0 auto; border-radius:50%;filter:alpha(opacity=80);
+-moz-opacity:8.50; opacity:0.80;}
+		 .phone_call_icon { display:block;width: 1rem; height: 1rem;background: url(../images/phone_icon.png) no-repeat;background-size: 1rem 2rem; position: absolute; right: 1rem; top: -0.5rem; background-position: 0 0rem;}
+    </style>
+
+    <script src="../js/require.js?v=1.0.1"></script>
+
+</head>
+
+<body>
+
+<div id="phone_info">
+
+ <section class="aui-content user-info aui-text-center aui-bar-nav" style="position: relative; padding: 1.6rem 0">
+       <a class="aui-pull-left aui-btn back" style="position: absolute; top: .2rem;" href="phone_list.html">
+            <span class="aui-iconfont aui-icon-left"></span>
+        </a>
+        <span>
+            <img :src="info.avatar" class="avatar aui-img-round">
+        </span>
+        <h2 class="aui-margin-t-15" v-text="info.name"></h2>
+        
+    </section>
+    <div class="aui-content">
+        <ul class="aui-list aui-list-in aui-list-noborder">
+<li class="aui-list-item">
+                <div class="aui-list-item-inner">
+                    <div class="aui-list-item-label">
+                        <em>性别</em>
+                    </div>
+                    <div class="aui-list-item-input" v-text="info.sex">
+
+                    </div>
+                </div>
+            </li>
+			 <li class="aui-list-item">
+                <div class="aui-list-item-inner">
+                    <div class="aui-list-item-label">
+                        <em>部门</em>
+                    </div>
+                    <div class="aui-list-item-input" v-text="info.dname">
+
+                    </div>
+                </div>
+            </li>
+
+             <a class="aui-list-item" :href="'tel:'+info.mobile">
+                <div class="aui-list-item-inner" style="position: relative;">
+                    <div class="aui-list-item-label">
+                        <em>手机</em>
+                    </div>
+                    <div class="aui-list-item-input" v-text="info.mobile">
+
+                    </div>
+                    <div class="aui-list-item-right"><span class="phone_call_icon"></span></div>
+                </div>
+            </a>
+            </ul>
+            </div>
+
+</div>
+
+ <script>
+
+     requirejs(['../js/main'], function () {
+         require(['vue','Service','app'], function(Vue,Service) {
+
+             var name = getUrlParam("name");
+             var avatar = getUrlParam("avatar");
+             var sex = getUrlParam("sex");
+             var dname = getUrlParam("dname");
+             var mobile = getUrlParam("mobile");
+
+             avatar = avatar == 'null' ? '../images/home_head.png' : avatar;
+             sex = APPSex[sex];
+
+             var vm = new Vue({
+                 el: '#phone_info',
+                 data: {
+                     info:{name:name,avatar:avatar,sex:sex,dname:dname,mobile:mobile}
+                 },
+
+             });
+
+
+         });
+
+     });
+
+ </script>
+
+</body>
+</html>

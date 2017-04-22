@@ -1,0 +1,50 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <meta name="full-screen" content="yes" />
+  <meta name="x5-fullscreen" content="true" />
+    <link rel="stylesheet" type="text/css" href="../css/aui.css" />
+	<style>
+.aui-list-item-right a {display: block; position: absolute; right: .5rem;width:5rem; text-align: right; top: -0.4rem; color: #027dc4; font-size:.7rem;}
+.reg_about { font-size:.6rem; text-align: center; height: 2.2rem; line-height: 2.2rem; color: #7d7d7d;}
+		select{color:#bdbdbd;}
+	</style>
+    <script src="../js/require.js?v=1.0.1"></script>
+</head>
+
+<body style="background: #fff;">
+ <header class="aui-bar aui-bar-nav aui-bar-light" id="aui-header">
+        <a class="aui-pull-left aui-btn back" data-back="login" href="reg2.html">
+            <span class="aui-iconfont aui-icon-left"></span>
+        </a>
+        <div class="aui-title">注册成功</div>
+    </header>
+<div class="aui-content" style="padding-top: 2rem;">
+<div class="reg_Success_box">
+	<span></span>	
+</div>
+<div class="reg_Success_info"><span>您的申请已经提交成功</span>
+<span>请等待管理员审核</span>
+<span>审核结果将以短信方式通知</span></div>
+</div>
+
+ <script>
+
+     requirejs(['../js/main'], function () {
+         require(['app'], function () {
+
+
+         })
+     })
+
+
+ </script>
+
+
+
+
+</body>
+</html>

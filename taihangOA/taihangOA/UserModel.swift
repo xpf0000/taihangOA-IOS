@@ -43,18 +43,19 @@ class UserModel: Reflect {
     
     func registNotice()
     {
+        CloudPushSDK.removeAlias(nil) { (res) in}
+        
         if id != ""
         {
             CloudPushSDK.addAlias(id, withCallback: { (res) in
                 
             })
-            
         }
     }
     
     func unRegistNotice()
     {
-        CloudPushSDK.removeAlias(id) { (res) in}
+        CloudPushSDK.removeAlias(nil) { (res) in }
     }
     
     

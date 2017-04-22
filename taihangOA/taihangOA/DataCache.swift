@@ -27,7 +27,16 @@ class DataCache: NSObject {
         
         if let model = UserModel.read(name: "User")
         {
-           User = model as! UserModel
+            User = model as! UserModel
+        }
+        else
+        {
+            CloudPushSDK.removeAlias(nil) { (res) in
+            
+                print(res.debugDescription)
+                print("清空阿里推送!!!!!!!")
+                
+            }
         }
         
                 

@@ -1,0 +1,179 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <meta name="full-screen" content="yes" />
+    <meta name="x5-fullscreen" content="true" />
+    <link rel="stylesheet" type="text/css" href="../css/aui.css" />
+    
+    <style type="text/css">
+        .bg-dark {
+            background: #333333 !important;
+        }
+        .aui-slide-node img {
+            width: auto;
+            height: 100%;
+        }
+        .aui-col-xs-4 a { color: #454545;}
+        .aui-bar-tab-item { color:#454545;}
+
+    .aui-bar ,.aui-bar-nav{
+        height:44px;
+        line-height:44px;
+        min-height:44px;
+    }
+    
+
+    </style>
+
+    <script src="../js/require.js?v=1.0.1"></script>
+
+</head>
+
+<body style="-webkit-backface-visibility: hidden;">
+<header class="aui-bar aui-bar-nav">太行管理系统</header>
+
+<div id="index">
+
+    <div style="height: 150px;">
+
+    </div>
+
+<section class="aui-grid aui-margin-b-15">
+    <div class="aui-row">
+        <div class="aui-col-xs-4">
+            <a href="car_list.html">
+                <i class="index_icon01 index_btn"><em></em></i>
+                <div class="aui-grid-label">车辆管理</div>
+            </a>
+        </div>
+        <div class="aui-col-xs-4">
+            <a href="office_list.html">
+                <i class="index_icon02 index_btn"><em></em></i>
+                <div class="aui-grid-label">物品领用</div>
+            </a>
+        </div>
+        <div class="aui-col-xs-4">
+            <a href="duban_list.html">
+                <i class="index_icon03 index_btn"><em></em></i>
+                <div class="aui-grid-label">督查督办</div>
+            </a>
+        </div>
+        <div class="aui-col-xs-4">
+            <a href="gg_list.html">
+                <!--<div class="aui-badge">3</div>-->
+                <i class="index_icon04 index_btn"><em></em></i>
+                <div class="aui-grid-label">通知公告</div>
+            </a>
+        </div>
+        <div class="aui-col-xs-4">
+            <a href="phone_list.html">
+                <i class="index_icon05 index_btn"><em></em></i>
+                <div class="aui-grid-label">通讯录</div>
+            </a>
+        </div>
+    </div>
+</section>
+</div>
+
+<script type="text/javascript">
+
+    var Store = null;
+    var Service = null;
+    var User = null;
+    var vm = null;
+
+    requirejs(['../js/main'], function (main) {
+
+        require(['vue','Service','store','app'], function(Vue,api,store) {
+
+            Service = api;
+            Store = store;
+
+            vm = new Vue({
+                el: '#index',
+                data: {
+                    slides:[],
+                    imagePrefix:ImagePrefix,
+                },
+            });
+
+            if(User)
+            {
+                Store.set("User",User);
+            }
+
+            InitIndexView();
+
+        });
+
+    });
+    
+    function InitIndexView(obj) {
+
+        var user = obj;
+
+        if(!obj)
+        {
+            user = Store.get("User");
+        }
+        else
+        {
+            user = JSON.parse(obj);
+            if(Store)
+            {
+                Store.set("User",user);
+            }
+            else
+            {
+                User = user;
+                return;
+            }
+
+        }
+
+        if(!user)
+        {
+            return;
+        }
+
+        Service.TaskGetTaskDaibanCount(function(data){
+
+            if(data.data.info)
+            {
+                sendMsgToAPP({'type':12,msg:'待办事项总数',info:data.data.info.count});
+            }
+
+        });
+
+        Service.UsergetUserInfo(user.id, user.account,function(data){
+
+            if(data.data.code == 0 && data.data.info)
+            {
+                user.info = data.data.info;
+                Store.set("User",data.data.info);
+            }
+            else if(data.data.code == 1 && data.data.msg)
+            {
+                Store.remove('User');
+                toast.fail({
+
+                    title:'当前账号已失效，请重新登录',
+                    duration:1500,
+
+                },function(){
+                    sendMsgToAPP({type:2,msg:'退出登录'});
+                });
+
+            }
+
+        });
+
+    }
+
+
+</script>
+</body>
+</html>

@@ -8,8 +8,7 @@
 
 import Foundation
 
-let TmpDirURL = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent("www").appendingPathComponent("html")
-
+let TmpDirURL = Bundle.main.resourceURL!.appendingPathComponent("html")
 let APPBlueColor = "059bf1".color()
-
 let datepicker = DatePicker.init(.dateAndTime)
+let ImagePrefix = "http://oonby7g6e.bkt.clouddn.com/"

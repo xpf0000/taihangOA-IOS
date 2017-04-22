@@ -140,6 +140,8 @@ class MineVC: UIViewController,WKNavigationDelegate,WKUIDelegate,WKScriptMessage
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        mine = self
+        
         NotificationCenter.default.addObserver(self, selector:#selector(UserUpdateMobile), name: NSNotification.Name(rawValue: "UserUpdateMobile"), object: nil)
         
         self.view.backgroundColor = UIColor.white
@@ -293,21 +295,31 @@ class MineVC: UIViewController,WKNavigationDelegate,WKUIDelegate,WKScriptMessage
         
     }
     
-    
-    
-    deinit
+    func dodeinit()
     {
+        NotificationCenter.default.removeObserver(self)
         webView?.configuration.userContentController.removeScriptMessageHandler(forName: "JSHandle")
         webView?.uiDelegate=nil
         webView?.navigationDelegate=nil
         webView?.stopLoading()
         webView=nil
-        
-        print("HtmlVC deinit !!!!!!!!!!!!!!!!")
+        scriptHandle.removeAllUserScripts()
+        scriptHandle.removeScriptMessageHandler(forName: "JSHandle")
+    }
+    
+    deinit
+    {
+        dodeinit()
+        print("MineVC deinit !!!!!!!!!!!!!!!!")
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        if(!NetConnected)
+        {
+            XMessage.Share.show("未检测到网络连接,请检查网络")
+        }
         
         self.webView?.evaluateJavaScript("javascript:reshowHeader()", completionHandler: { (res, err) in
             print(res ?? "")

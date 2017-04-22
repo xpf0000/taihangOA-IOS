@@ -16,7 +16,7 @@ import Hero
 class HandleJSMsg: NSObject {
 
     
-    static func handle(obj:JSON, vc:UIViewController)
+    static func handle(obj:JSON,  vc:UIViewController)
 {
     let type = obj["type"].intValue
     let msg = obj["msg"].stringValue
@@ -26,6 +26,8 @@ class HandleJSMsg: NSObject {
     if(type == 0)  //url 跳转
     {
     
+        datepicker.removeFromSuperview()
+        
         let url = obj["url"].stringValue
         let arr = url.split(".html")
         
@@ -46,14 +48,21 @@ class HandleJSMsg: NSObject {
     }
     else if(type == 1)  //返回
     {
-        
+        datepicker.removeFromSuperview()
         let back = obj["back"].stringValue
         if(back != "")
         {
+            UserDoLogout = true
             NotificationCenter.default.post(Notification.init(name: Notification.Name(rawValue: "logout")))
         }
         else
         {
+            
+            if(vc is HtmlVC)
+            {
+                    (vc as! HtmlVC).dodeinit()
+            }
+            
             Hero.shared.setDefaultAnimationForNextTransition(.pull(direction: .right))
             Hero.shared.setContainerColorForNextTransition(.lightGray)
             
@@ -71,6 +80,9 @@ class HandleJSMsg: NSObject {
             DataCache.Share.User = user
             DataCache.Share.User.save()
             DataCache.Share.User.registNotice()
+            
+            (vc as! LoginVC).dodeinit()
+            
             let tvc = "MainTabBar".VC(name: "Main") as! MainTabBar
             tvc.selectedIndex = 0
             
@@ -82,6 +94,7 @@ class HandleJSMsg: NSObject {
         {
             DataCache.Share.User.unRegistNotice()
             DataCache.Share.User.reset();
+            UserDoLogout = true
             NotificationCenter.default.post(Notification.init(name: Notification.Name(rawValue: "logout")))
         }
     

@@ -32,19 +32,18 @@ class BootVC: UIViewController {
         if(DataCache.Share.User.id == "")
         {
             let vc  = "LoginVC".VC(name: "Main")
-            
             self.hero_replaceViewController(with: vc)
-            
-            //self.present(vc, animated: true, completion: nil)
+            UIApplication.shared.keyWindow?.rootViewController = vc
+            UIApplication.shared.keyWindow?.makeKeyAndVisible()
+        
         }
         else
         {
             let vc  = "MainTabBar".VC(name: "Main") as! MainTabBar
             vc.selectedIndex = 0
-            
             self.hero_replaceViewController(with: vc)
-            
-            //self.present(vc, animated: true, completion: nil)
+            UIApplication.shared.keyWindow?.rootViewController = vc
+            UIApplication.shared.keyWindow?.makeKeyAndVisible()
         }
     }
     
@@ -99,8 +98,12 @@ class BootVC: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+        if(!NetConnected)
+        {
+            XMessage.Share.show("未检测到网络连接,请检查网络")
+        }
     }
+    
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
@@ -110,6 +113,12 @@ class BootVC: UIViewController {
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
     
+    }
+    
+    deinit {
+        
+        print("BootVC deinit !!!!!!!!!!!!!!!!!!!")
+        
     }
     
 }

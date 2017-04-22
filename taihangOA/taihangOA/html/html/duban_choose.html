@@ -1,0 +1,192 @@
+<!doctype html>
+<html xmlns:v-bind="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <meta name="full-screen" content="yes" />
+  <meta name="x5-fullscreen" content="true" />
+    <link rel="stylesheet" type="text/css" href="../css/aui.css" />
+<style type="text/css">
+.b_btn { padding: 0rem;position:fixed; top: auto; bottom: 0px;width:100%;}
+#left_tab{height: 100%; background: #fff; position: absolute;top:2.25rem;left:0rem;}
+#right_tab {height: 100%; position: absolute;top:2.25rem;right:0rem; overflow: auto;}
+#left_tab .aui-list .selected{
+	background: url(../images/class_icon.png) #f0f4f3 no-repeat ;background-size: .8rem 3.2rem;
+	 background-position: 10% -1.2rem;
+	cursor:pointer; border-right:1px solid #f0f4f3; color: #349cf3;}
+.hide{display:none;}
+.tab_box div{padding:10px;} 
+.office_li { min-height:2.2rem; line-height: 2.2rem; padding-left: 0.6rem;}
+</style>
+
+
+    <script src="../js/require.js?v=1.0.1"></script>
+
+</head>
+
+<body style="height: 100%;margin:0px; overflow: hidden; position: fixed;">
+    <header class="aui-bar aui-bar-nav aui-bar-light" id="aui-header">
+        <a class="aui-pull-left aui-btn back" href="Office_apply.html">
+            <span class="aui-iconfont aui-icon-left"></span>
+        </a>
+        <div class="aui-title">待办人选择</div>
+    </header>
+
+     <div style="margin-top:2.25rem; padding-bottom: 0.6rem; -webkit-overflow-scrolling: touch; word-break: break-all;" id="duban_choose">
+        <div class="aui-row">
+            <div class="aui-col-xs-6" id="left_tab">
+            <ul class="aui-list aui-list-noborder aui-margin-b-0" id="leftTab">
+                <li v-cloak v-for="(item,index) in list" :class="index == 0 ? 'aui-class-item selected' : 'aui-class-item'" v-text="item.name"></li>
+            </ul>
+            </div>
+             <div class="aui-col-xs-6 tab_box" id="right_tab">
+
+            <div v-cloak v-for="(item,index) in list" :class="index == 0 ? '':'hide'">
+			<ul>
+           <li v-cloak class="office_li" v-for="res in item.employees">
+               <span v-text="res.name"></span>
+               <input type="checkbox" name="chooseBox" :data-id="res.id" :data-did="res.departmentid" class="choose hide" />
+           </li>
+           </ul>
+             </div>
+
+
+             </div>
+             </div>
+             <div class="b_btn">
+
+                 <div class="office_count" style="display: -webkit-flex;display: flex;
+                 align-items: center; justify-content:flex-start; padding-left: 12px;">
+                     <div>待办人:</div>
+                     <div v-text="douser.name" style="margin-left: 8px;color:#FF0004; "></div>
+                 </div>
+
+           <a class="office_btn" href="#" @click="dosubmit">确认选择</a>
+           <div class="aui-clearfix"></div>
+            </div>
+             </div>
+
+
+    <script>
+
+        requirejs(['../js/main'], function () {
+            require(['vue','Service','store','api','app'], function(Vue,Service,store) {
+
+                apiready = function () {
+                    api.parseTapmode();
+                }
+
+                var vm = new Vue({
+                    el: '#duban_choose',
+                    data: {
+                        douser:{},
+                        list:[],
+                    },
+
+                    methods:{
+
+                        dosubmit:function(action)
+                        {
+                            if(!vm.douser.id)
+                            {
+                                toast.fail({title:"请选择一个待办人"});
+                                return;
+                            }
+
+                            sendMsgToAPP({'type':9,msg:'待办人选择完成',info:vm.douser});
+                        }
+
+                    }
+
+                });
+
+                var nowChoose = null;
+                var user = store.get("User");
+
+                Service.UserGetAddressBook(user.id,function(data){
+
+                    if(data.data.info)
+                    {
+                        vm.list = data.data.info;
+
+                        vm.$nextTick(function(){
+
+                            var $tab_li = $('#left_tab ul li');
+                            $tab_li.click(function(){
+                                $(this).addClass('selected').siblings().removeClass('selected');
+                                var index = $tab_li.index(this);
+                                $('div.tab_box > div').eq(index).show().siblings().hide();
+                            });
+
+
+
+                            var office_li = $('.office_li');
+                            office_li.click(function () {
+
+
+                                if(nowChoose)
+                                {
+                                    nowChoose.removeClass("office_li_checked").find("input[type='checkbox']").prop("checked",false)
+                                    if(nowChoose[0].isEqualNode( $(this)[0]))
+                                    {
+                                        nowChoose = null;
+                                        vm.douser = {};
+                                        return;
+                                    }
+
+                                }
+
+
+                                $(this).addClass("office_li_checked").find("input[type='checkbox']").prop("checked",true);
+                                nowChoose = $(this);
+
+
+                                var checkbox = $(this).find("input[type='checkbox']");
+                                if(checkbox.prop("checked"))
+                                {
+                                    var id = checkbox.data("id");
+                                    var did = checkbox.data("did");
+
+                                    $.each(vm.list,function(index,items) {
+
+                                        if(items.id != did){return true}
+                                        $.each(items.employees,function(index,u) {
+
+                                            if(u.id == id){
+                                                vm.douser = u;
+                                                return false;
+
+                                            }
+
+                                        });
+
+                                    });
+
+                                }
+                                else
+                                {
+                                    vm.douser = {};
+                                }
+
+
+                            });
+
+
+
+
+                        });
+
+                    }
+
+                });
+
+
+            });
+
+        });
+
+    </script>
+             
+</body>
+</html>

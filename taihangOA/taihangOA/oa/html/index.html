@@ -19,6 +19,12 @@
         }
         .aui-col-xs-4 a { color: #454545;}
         .aui-bar-tab-item { color:#454545;}
+
+        .swiper-container
+        {
+            height: 150px;
+        }
+
     </style>
 
     <script src="../js/require.js?v=1.0.1"></script>
@@ -132,18 +138,23 @@
 
                     if(banner)
                     {
-                        banner.destroy(true,true);
-                        banner = null;
+                        banner.updateSlidesSize();
+                        banner.updatePagination();
+                        banner.updateClasses();
+//                        banner.removeAllSlides();
+//                        banner.destroy(true,true);
+//                        banner = null;
                     }
-
-                    banner = new Swiper ('.swiper-container', {
-                        loop: true,
-                        pagination: '.swiper-pagination',
-                        autoplay: 3000,
-                        autoplayDisableOnInteraction:false,
-
-                    });
-
+                    else
+                    {
+                        banner = new Swiper ('.swiper-container', {
+                            loop: true,
+                            pagination: '.swiper-pagination',
+                            autoplay: 3000,
+                            autoplayDisableOnInteraction:false,
+                            height:150,
+                        });
+                    }
 
                 });
 

@@ -10,8 +10,13 @@ import UIKit
 import Cartography
 import SwiftyJSON
 import WebKit
+import Kingfisher
 
 class HomeVC: UIViewController,WKNavigationDelegate,WKUIDelegate,WKScriptMessageHandler {
+    
+    
+    @IBOutlet weak var banner: XBanner!
+    @IBOutlet weak var page: UIPageControl!
     
     var webView:WKWebView?
     var url:URL?
@@ -19,8 +24,15 @@ class HomeVC: UIViewController,WKNavigationDelegate,WKUIDelegate,WKScriptMessage
     var baseUrl:URL?
     var handle:JSHandle? = JSHandle()
     var isSub = false
-    
     var inBoot = false
+    
+    var bannerArr:[XBannerModel] = []
+    {
+        didSet
+        {
+            banner.bannerArr = bannerArr
+        }
+    }
     
     func msgChanged(_ json:String) {
         
@@ -80,24 +92,14 @@ class HomeVC: UIViewController,WKNavigationDelegate,WKUIDelegate,WKScriptMessage
     {
         //CleanWebCache()
         
-        if let currentURL = self.webView?.url {
-            let request = URLRequest(url: currentURL)
-            self.webView?.load(request)
-        }
-        else
-        {
-            if(self.url != nil)
-            {
-                let request = URLRequest(url: url!)
-                webView?.load(request)
-            }
-            else if(self.html != "")
-            {
-                webView?.loadHTMLString(self.html, baseURL: baseUrl)
-            }
-
-            
-        }
+        let p = TmpDirURL.appendingPathComponent("index.html")
+        
+        let u = "\(p)?f=\(Date().timeIntervalSince1970)"
+        
+        self.url = URL(string: u)
+        
+        self.show()
+        
     }
     
     override func pop() {
@@ -137,7 +139,8 @@ class HomeVC: UIViewController,WKNavigationDelegate,WKUIDelegate,WKScriptMessage
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.white
         
-        //NotificationCenter.default.addObserver(self, selector:#selector(onLogout), name: NSNotification.Name(rawValue: "logout"), object: nil)
+        home = self
+        banner.isHidden = true
         
         NotificationCenter.default.addObserver(self, selector:#selector(reload), name: NSNotification.Name(rawValue: "NewDaiban"), object: nil)
         
@@ -176,6 +179,7 @@ class HomeVC: UIViewController,WKNavigationDelegate,WKUIDelegate,WKScriptMessage
         webView?.scrollView.isScrollEnabled = false
         
         self.view.addSubview(webView!)
+        self.view.sendSubview(toBack: webView!)
         
         let sh = UIApplication.shared.statusBarFrame.height
         
@@ -201,9 +205,25 @@ class HomeVC: UIViewController,WKNavigationDelegate,WKUIDelegate,WKScriptMessage
         
         
         self.baseUrl = TmpDirURL
-        self.url = TmpDirURL.appendingPathComponent("index.html")
+        
+        let p = TmpDirURL.appendingPathComponent("index.html")
+        
+        let u = "\(p)?f=\(Date().timeIntervalSince1970)"
+        
+        self.url = URL(string: u)
         
         self.show()
+        banner.scrollInterval = 3.0
+        _ = banner.onIndexChange {[weak self] (index, model) in
+            self?.page.currentPage = index
+        }.onImageView({(url, imageview) in
+            let u = URL(string: url)
+            imageview.kf.setImage(with:u)
+        })
+        
+//        Api.SystemGetAPPSlide {[weak self] (arr) in
+//            self?.bannerArr = arr
+//        }
         
     }
     
@@ -271,6 +291,7 @@ class HomeVC: UIViewController,WKNavigationDelegate,WKUIDelegate,WKScriptMessage
             print(res ?? "")
             print(err ?? "")
         })
+        banner.isHidden = false
     }
     
     
@@ -314,40 +335,48 @@ class HomeVC: UIViewController,WKNavigationDelegate,WKUIDelegate,WKScriptMessage
         
     }
     
-    
-    func onLogout()
-    {
-        
-        let vc  = "LoginVC".VC(name: "Main")
-        self.hero_replaceViewController(with: vc)
-        
-//        dismiss(animated: true, completion: nil)
-//        dismiss(animated: true, completion: nil)
-    }
-    
-    deinit
+    func dodeinit()
     {
         
         NotificationCenter.default.removeObserver(self)
         
-        webView?.configuration.userContentController.removeScriptMessageHandler(forName: "JSHandle")
-        webView?.uiDelegate=nil
-        webView?.navigationDelegate=nil
-        webView?.stopLoading()
-        webView=nil
+    self.webView?.configuration.userContentController.removeScriptMessageHandler(forName: "JSHandle")
+        self.webView?.uiDelegate=nil
+        self.webView?.navigationDelegate=nil
+        self.webView?.stopLoading()
+        self.webView=nil
+        self.scriptHandle.removeAllUserScripts()
+        self.scriptHandle.removeScriptMessageHandler(forName: "JSHandle")
         
-        print("HtmlVC deinit !!!!!!!!!!!!!!!!")
+        CleanWebCache()
+
+   
+    }
+    
+    deinit
+    {
+        dodeinit()
+        print("HomeVC deinit !!!!!!!!!!!!!!!!")
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        self.webView?.evaluateJavaScript("javascript:getAD()", completionHandler: { (res, err) in
-            print(res ?? "")
-            print(err ?? "")
-        })
-
+        if(!NetConnected)
+        {
+            XMessage.Share.show("未检测到网络连接,请检查网络")
+        }
         
+        if(bannerArr.count == 0)
+        {
+            print("99999999 **********")
+            Api.SystemGetAPPSlide {[weak self] (arr) in
+                self?.bannerArr = arr
+            }
+        }
+        
+        //banner.start()
+
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -357,7 +386,7 @@ class HomeVC: UIViewController,WKNavigationDelegate,WKUIDelegate,WKScriptMessage
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        
+        //banner.cancel()
     }
     
     override func viewDidDisappear(_ animated: Bool) {

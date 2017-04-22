@@ -1,0 +1,184 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <meta name="full-screen" content="yes" />
+  <meta name="x5-fullscreen" content="true" />
+    <link rel="stylesheet" type="text/css" href="../css/aui.css" />
+    <style>
+#sp_num{ color:red; font-weight:bold;font-size:0.7rem; padding:0 5px;}
+</style>
+</head>
+
+<body>
+    <header class="aui-bar aui-bar-nav aui-bar-light" id="aui-header">
+        <a class="aui-pull-left aui-btn back" href="office_list.html">
+            <span class="aui-iconfont aui-icon-left"></span>
+        </a>
+        <div class="aui-title">物品申请</div>
+    </header>
+      <div class="aui-content" style="margin-top:2.6rem; padding-bottom: 2.3rem;">
+        <ul class="aui-list aui-form-list">
+        <li class="aui-list-item">
+                <div class="aui-list-item-inner">
+                    <div class="aui-list-item-label">
+                        标题
+                    </div>
+                    <div class="aui-list-item-input">
+                        <input type="text" placeholder="请输入物品用途">
+                    </div>
+                </div>
+            </li>
+        </ul>
+        <div class="aui-list">
+        <div class="aui-collapse-item">
+                <li class="aui-list-item aui-collapse-header" tapmode>
+                    <div class="aui-list-item-inner">
+                        <div class="aui-list-item-title">物品明细：共计<span id="sp_num">0</span>件物品</div>
+                        <div class="aui-list-item-right">
+                            <i class="aui-iconfont aui-icon-down aui-collapse-arrow"></i>
+                        </div>
+                    </div>
+                </li>
+                <div class="aui-collapse-content">
+                    <li class="aui-list-item">
+                        <div class="aui-list-item-inner">
+                            <div class="aui-list-item-title">U盘</div>
+                            <div class="aui-list-item-right">
+                            <ul class="office_count_box">
+                            <li class="reduce_icon"></li>
+                            <li class="count_input"><input type="text" class="lskdo" style="height: 1.2rem;width:3rem;border:1px solid #dfdfdf; text-align: center;margin-left: 0.5rem;margin-right: 0.5rem;" value="0"></li>
+                            <li class="add_icon"></li>
+                            <div class="aui-clearfix"></div>
+                            </ul>
+                        </div>
+                        </div>
+                    </li>
+                    <li class="aui-list-item">
+                        <div class="aui-list-item-inner">
+                            <div class="aui-list-item-title">鼠标</div>
+                            <div class="aui-list-item-right">
+                            <ul class="office_count_box">
+                            <li class="reduce_icon"></li>
+                            <li class="count_input"><input type="text" class="lskdo" style="height: 1.2rem;width:3rem;border:1px solid #dfdfdf; text-align: center;margin-left: 0.5rem;margin-right: 0.5rem;" value="0"></li>
+                            <li class="add_icon"></li>
+                            <div class="aui-clearfix"></div>
+                            </ul>
+                        </div>
+                        </div>
+                    </li>
+                    <li class="aui-list-item">
+                        <div class="aui-list-item-inner">
+                            <div class="aui-list-item-title">移动硬盘</div>
+                            <div class="aui-list-item-right">
+                            <ul class="office_count_box">
+                            <li class="reduce_icon"></li>
+                            <li class="count_input"><input type="text" class="lskdo" style="height: 1.2rem;width:3rem;border:1px solid #dfdfdf; text-align: center;margin-left: 0.5rem;margin-right: 0.5rem;" value="0"></li>
+                            <li class="add_icon"></li>
+                            <div class="aui-clearfix"></div>
+                            </ul>
+                        </div>
+                        </div>
+                    </li>
+                    <li class="aui-list-item">
+                        <div class="aui-list-item-inner">
+                            <div class="aui-list-item-title">录音笔</div>
+                            <div class="aui-list-item-right">
+                            <ul class="office_count_box">
+                            <li class="reduce_icon"></li>
+                            <li class="count_input"><input type="text" class="lskdo" style="height: 1.2rem;width:3rem;border:1px solid #dfdfdf; text-align: center;margin-left: 0.5rem;margin-right: 0.5rem;" value="0"></li>
+                            <li class="add_icon"></li>
+                            <div class="aui-clearfix"></div>
+                            </ul>
+                        </div>
+                        </div>
+                    </li>
+                </div>
+            </div>
+        </div>
+        <a class="add_office_line" href="Office_choose.html"><div class="add_office">添加物品</div></a>
+            <div class="aui-content aui-margin-b-15" style="margin-top:.1rem;">
+        <ul class="aui-list aui-form-list">
+        <li class="aui-list-item">
+                <div class="aui-list-item-inner">
+                    <div class="aui-list-item-input">
+                        <textarea placeholder="请输入备注" style="text-align: left;"></textarea>
+                    </div>
+                </div>
+            </li>
+        <li class="aui-list-item">
+                <div class="aui-list-item-inner">
+                    <div class="aui-list-item-label" >
+                        审批人
+                    </div>
+                    <div class="aui-list-item-input">
+                        <input type="text" placeholder="" value="楼阳生" readonly>
+                    </div>
+                </div>
+            </li>
+        </ul>
+        </div> 
+        <div class="b_btn"><a href="office_list.html" class="aui-btn aui-btn-info aui-btn-block">提交申请</a></div>
+        </div>
+         
+        
+       
+    
+    <script type="text/javascript" src="../js/jquery-1.9.1.min.js" ></script>
+    <script type="text/javascript" src="../js/api.js" ></script>
+<script type="text/javascript" src="../js/aui-collapse.js" ></script>
+<script type="text/javascript">
+    apiready = function () {
+        api.parseTapmode();
+    }
+    var collapse = new auiCollapse({
+        autoHide:false //是否自动隐藏已经展开的容器
+    });
+
+    collapse.show();
+
+</script>
+<script type="text/javascript">
+
+    $(".reduce_icon").click(function(){
+		var lskdpd=$(this).parent().parent().find(".choo");
+		var lsoek=$(this).parent().find(".lskdo");
+		//alert(lsoek.val()>1);
+		if(lsoek.val()>1){
+			//alert("ccc");
+			var lskoe=parseInt(lsoek.val());
+			var eiow=parseInt($("#sp_num").text());
+			//alert(eiow);
+			lsoek.val(lskoe-1);
+			$("#sp_num").text(eiow-1);
+			}else{}
+		})
+
+    $(".add_icon").click(function(iiii){
+		var lsoek=$(this).parent().find(".lskdo");
+		//alert(lsoek.val()>1);
+
+			var lskoe=parseInt(lsoek.val());
+			var eiow=parseInt($("#sp_num").text());
+			lsoek.val(lskoe+1);
+			$("#sp_num").text(eiow+1);
+
+		})
+
+$(".lskdo").on('input propertychange',function(){
+	          var deox=$(this).val();
+			  if(isNaN(deox)){
+				  alert("您好,请输入数字!");
+				  $(this).val(1);
+				  }
+	          var loel=0;
+			  for(i=0;i<$(".lskdo").length;i++){
+			  loel=parseInt(loel)+parseInt($(".lskdo").eq(i).val());
+			  }
+			  $("#sp_num").text(loel);
+			})
+</script>
+</body>
+</html>

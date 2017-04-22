@@ -7,9 +7,13 @@
 //
 
 import UIKit
+import Reachability
 
+let netcheck = Reachability()!
 var mapManager:BMKMapManager?
 var mapStarted = false
+
+var NetConnected = false
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate,UIAlertViewDelegate {
@@ -30,7 +34,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UIAlertViewDelegate {
             {
                 if str == "账号在其它设备已登录"
                 {
-                    if(DataCache.Share.User.token != "" && DataCache.Share.User.token != content)
+                    let arr = content.split("|")
+                    
+                    if(DataCache.Share.User.id == arr[0] && DataCache.Share.User.token != "" && DataCache.Share.User.token != arr[1])
                     {
                         let alert = UIAlertView(title: "提醒", message: "您的账户已在其他设备登录", delegate: self, cancelButtonTitle: "确定")
                         alert.show()
@@ -55,6 +61,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UIAlertViewDelegate {
         
         DataCache.Share.User.unRegistNotice()
         DataCache.Share.User.reset();
+        
+        UserDoLogout = true
         NotificationCenter.default.post(Notification.init(name: Notification.Name(rawValue: "logout")))
         
     }
@@ -95,10 +103,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UIAlertViewDelegate {
     }
 
     
-
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        initLocalHtml()
-        
+
         RegistPushNotice()
         
         NotificationCenter.default.addObserver(self, selector: #selector(onMessageReceived(_:)), name: NSNotification.Name(rawValue: "CCPDidReceiveMessageNotification"), object: nil)
@@ -120,8 +126,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UIAlertViewDelegate {
 
         }
         
-        //CloudPushSDK.handleLaunching(launchOptions)
         CloudPushSDK.sendNotificationAck(launchOptions)
+        
+
+        netcheck.whenReachable = { reachability in
+            DispatchQueue.main.async {
+                NetConnected = true
+            }
+        }
+        
+        netcheck.whenUnreachable = { reachability in
+            DispatchQueue.main.async {
+                NetConnected = false
+            }
+        }
+        
+        do {
+            try netcheck.startNotifier()
+        } catch {
+            print("Unable to start notifier")
+        }
+        
         return true
     }
     
@@ -134,6 +159,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UIAlertViewDelegate {
             {
                 if(r.success)
                 {
+                    if(DataCache.Share.User.id == "")
+                    {
+                        CloudPushSDK.removeAlias(nil) { (res) in
+                            
+                            print(res.debugDescription)
+                            print("清空阿里推送!!!!!!!")
+                            
+                        }
+
+                    }
+                    
+                    
                     print("阿里云注册成功 Token: \(deviceToken.description)")
                 }
                 else
@@ -197,6 +234,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UIAlertViewDelegate {
                 let alert = UIAlertView(title: "提醒", message: "您的账户已在其他设备登录", delegate: nil, cancelButtonTitle: "确定")
                 alert.show()
                 
+                UserDoLogout = true
                 NotificationCenter.default.post(Notification.init(name: Notification.Name(rawValue: "logout")))
                 
             }
@@ -209,56 +247,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UIAlertViewDelegate {
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
-    
-    
-    
-    func initLocalHtml()
-    {
-        print("-----------")
-        
-        let fm = Foundation.FileManager.default
-        let tmpDirURL = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent("www")
-        
-        if !fm.fileExists(atPath: tmpDirURL.path)
-        {
-            do
-            {
-                let _ = try? fm.createDirectory(at: tmpDirURL, withIntermediateDirectories: true, attributes: nil)
-                
-                let _ = try? SSZipArchive.unzipFileAtPath(path: "oa.zip".path(), toDestination: tmpDirURL.path, overwrite: true, password: nil, delegate: nil)
-                
-                print("解压缩成功 !!!!!!!!!")
-            }
-            catch
-            {
-                print("解压失败 !!!!!!!!!")
-                XAlertView.show("存储空间不足,请清理后再次使用")
-    
-            }
-            
-            
-        }
-        else{
-            do
-            {
-                let _ = try? SSZipArchive.unzipFileAtPath(path: "citytest.zip".path(), toDestination: tmpDirURL.path, overwrite: true, password: nil, delegate: nil)
-                
-                print("解压缩成功 !!!!!!!!!")
-            }
-            catch
-            {
-                print("解压失败 !!!!!!!!!")
-                XAlertView.show("存储空间不足,请清理后再次使用")
-            }
-            
-        }
-        
-        
-        
-        
-        
-    }
-
     
 
 

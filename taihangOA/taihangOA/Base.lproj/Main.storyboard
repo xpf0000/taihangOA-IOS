@@ -212,14 +212,38 @@
                     <view key="view" contentMode="scaleToFill" id="bEB-i8-9Ec">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Eaq-y2-wLU" customClass="XBanner" customModule="taihangOA" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="64" width="320" height="150"/>
+                                <color key="backgroundColor" red="0.94117647058823528" green="0.95686274509803915" blue="0.95294117647058818" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="150" id="dF6-76-Pvk"/>
+                                </constraints>
+                            </view>
+                            <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="A2y-ed-Yjw">
+                                <rect key="frame" x="0.0" y="175" width="320" height="37"/>
+                            </pageControl>
+                        </subviews>
                         <color key="backgroundColor" red="1" green="0.28235294119999998" blue="0.28235294119999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="Eaq-y2-wLU" firstAttribute="top" secondItem="bEB-i8-9Ec" secondAttribute="top" constant="64" id="FTS-bz-1Yy"/>
+                            <constraint firstItem="Eaq-y2-wLU" firstAttribute="leading" secondItem="bEB-i8-9Ec" secondAttribute="leading" id="KgL-qb-Yat"/>
+                            <constraint firstItem="A2y-ed-Yjw" firstAttribute="leading" secondItem="bEB-i8-9Ec" secondAttribute="leading" id="M6r-W7-9Ml"/>
+                            <constraint firstAttribute="trailing" secondItem="Eaq-y2-wLU" secondAttribute="trailing" id="Og2-B1-cJH"/>
+                            <constraint firstItem="A2y-ed-Yjw" firstAttribute="bottom" secondItem="Eaq-y2-wLU" secondAttribute="bottom" constant="-2" id="asV-ro-9LJ"/>
+                            <constraint firstAttribute="trailing" secondItem="A2y-ed-Yjw" secondAttribute="trailing" id="dZt-nP-Zmi"/>
+                        </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="首页" id="1gn-uh-kxI"/>
                     <navigationItem key="navigationItem" id="jZj-c3-JND"/>
+                    <connections>
+                        <outlet property="banner" destination="Eaq-y2-wLU" id="Bl5-Ob-sE5"/>
+                        <outlet property="page" destination="A2y-ed-Yjw" id="GXc-yG-xXF"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zYL-I0-GEr" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-921" y="1760"/>
+            <point key="canvasLocation" x="-922.5" y="1759.8591549295775"/>
         </scene>
         <!--待办-->
         <scene sceneID="wtg-qg-wC1">

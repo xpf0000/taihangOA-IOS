@@ -38,6 +38,34 @@ class Api: NSObject {
         }
     }
     
+    
+    class func SystemGetAPPSlide(block:@escaping ApiBlock<[XBannerModel]>)
+    {
+        let url = BaseUrl+"System.GetAPPSlide"
+        print(url)
+        Alamofire.request(url, method: .get).validate().responseJSON { response in
+            switch response.result {
+            case .success(let value):
+                
+                var arr:[XBannerModel] = []
+                
+                let json = JSON(value)
+                for item in json["data"]["info"].arrayValue
+                {
+                    let model = XBannerModel()
+                    model.image = ImagePrefix+item["slide_pic"].stringValue
+                    arr.append(model)
+                }
+                
+                block(arr)
+            
+            case .failure(let error):
+                print(error)
+            }
+        }
+    }
+    
+    
     class func UserHeadEdit(data:[String:Any],block:@escaping ApiBlock<String>)
     {
      

@@ -164,7 +164,23 @@ class LoginVC: UIViewController,WKNavigationDelegate,WKUIDelegate,WKScriptMessag
         
         self.baseUrl = TmpDirURL
         self.url = TmpDirURL.appendingPathComponent("login.html")
-    
+        
+        if let r = url?.path
+        {
+            print(r)
+            
+            if(FileManager.default.fileExists(atPath: r))
+            {
+                print("文件存在 !!!!!!!!!!!!!")
+            }
+            else
+            {
+                print("文件不存在 !!!!!!!!!!!!!")
+            }
+        }
+        
+        
+        
         self.show()
         
     }
@@ -257,15 +273,30 @@ class LoginVC: UIViewController,WKNavigationDelegate,WKUIDelegate,WKScriptMessag
     
     
     
-    deinit
+    func dodeinit()
     {
+        NotificationCenter.default.removeObserver(self)
         webView?.configuration.userContentController.removeScriptMessageHandler(forName: "JSHandle")
         webView?.uiDelegate=nil
         webView?.navigationDelegate=nil
         webView?.stopLoading()
         webView=nil
-        
-        print("HtmlVC deinit !!!!!!!!!!!!!!!!")
+        scriptHandle.removeAllUserScripts()
+        scriptHandle.removeScriptMessageHandler(forName: "JSHandle")
+    }
+    
+    deinit
+    {
+        dodeinit()
+        print("LoginVC deinit !!!!!!!!!!!!!!!!")
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if(!NetConnected)
+        {
+            XMessage.Share.show("未检测到网络连接,请检查网络")
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {

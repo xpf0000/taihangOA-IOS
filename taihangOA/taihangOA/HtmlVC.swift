@@ -129,7 +129,6 @@ class HtmlVC: UIViewController,WKNavigationDelegate,WKUIDelegate,WKScriptMessage
         
         NotificationCenter.default.addObserver(self, selector:#selector(onLogout), name: NSNotification.Name(rawValue: "logout"), object: nil)
 
-
         isHeroEnabled = true
     
         panGR = UIPanGestureRecognizer(target: self, action: #selector(pan))
@@ -382,29 +381,38 @@ class HtmlVC: UIViewController,WKNavigationDelegate,WKUIDelegate,WKScriptMessage
     
     func onLogout()
     {
-        //self.hero_unwindToRootViewController()
-        dismiss(animated: true, completion: nil)
-        dismiss(animated: true, completion: nil)
-        dismiss(animated: true, completion: nil)
-        dismiss(animated: true, completion: nil)
-        dismiss(animated: true, completion: nil)
-        dismiss(animated: true, completion: nil)
-        dismiss(animated: true, completion: nil)
-        
+        dodeinit()
+        self.hero_unwindToRootViewController()
     }
     
-    deinit
+    
+    func dodeinit()
     {
-        
         NotificationCenter.default.removeObserver(self)
-        
         webView?.configuration.userContentController.removeScriptMessageHandler(forName: "JSHandle")
         webView?.uiDelegate=nil
         webView?.navigationDelegate=nil
         webView?.stopLoading()
         webView=nil
+        scriptHandle.removeAllUserScripts()
+        scriptHandle.removeScriptMessageHandler(forName: "JSHandle")
         
+    }
+    
+    deinit
+    {
+        dodeinit()
         print("HtmlVC deinit !!!!!!!!!!!!!!!!")
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        if(!NetConnected)
+        {
+            XMessage.Share.show("未检测到网络连接,请检查网络")
+        }
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -449,6 +457,9 @@ class HtmlVC: UIViewController,WKNavigationDelegate,WKUIDelegate,WKScriptMessage
             let progress = (translateX + velocityX) / view.bounds.width
             if (progress < 0) == (state == .slidingLeft) && abs(progress) > 0.3 {
                 Hero.shared.end()
+                
+                dodeinit()
+                
             } else {
                 Hero.shared.cancel()
             }
